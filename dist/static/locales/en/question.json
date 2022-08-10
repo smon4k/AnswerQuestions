@@ -1,0 +1,20 @@
+{
+    "answerQuestions": "Answer Questions",
+    "startAnswering": "Start Answering",
+    "ranking": "Ranking",
+    "SingleChoice": "Single Choice",
+    "MultipleChoice": "Multiple Choice",
+    "judge": "Judge",
+    "nextQuestion": "Next Question",
+    "Submit": "Submit",
+    "setUp": "Set Up",
+    "walletAddress": "Wallet Address",
+    "nickname": "nickname",
+    "enterName": "Enter Name",
+    "addName": "Add Name",
+    "editName": "Edit Name",
+    "editNamePlease": "Please set 2-24 characters, excluding special characters",
+    "language": "Language",
+    "Save": "Save",
+    "Cancel": "Cancel"
+}
