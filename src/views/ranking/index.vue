@@ -28,6 +28,8 @@
                                                     <van-col span="4" style="display: flex;align-items: center;">
                                                         <span>{{ index + 1 }}</span>&nbsp;&nbsp;
                                                         <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
+                                                        &nbsp;&nbsp;
+                                                        <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
                                                     </van-col>
                                                     <van-col span="20" class="score" align="right">
                                                         <van-col span="24">{{ $t('question:Score') }}: {{ item.score }}</van-col>
