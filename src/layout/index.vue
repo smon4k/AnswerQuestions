@@ -5,16 +5,18 @@
         <div class="appmain-container">
             <AppMain/>
         </div>
+        <footerNav v-if="$route.meta.isBottomNav" />
     </div>
 </template>
 <script>
 import sidebar from './components/sidebar.vue'
 import headerNav from './components/headerNav.vue'
 import AppMain from './components/AppMain.vue'
+import footerNav from './components/footer'
 import { mapGetters, mapState } from 'vuex'
 export default {
     name:'Layout',
-    components:{sidebar , headerNav, AppMain},
+    components:{sidebar , headerNav, AppMain, footerNav},
     created(){
         this.$store.commit('copyDefaultState')
     },

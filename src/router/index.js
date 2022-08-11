@@ -14,26 +14,32 @@ export const constantRoutes = [
           path: 'home',
           name: 'home',
           component: () => import('@/views/home/index'),
-          meta: { title: 'home', keepAlive: true }
+          meta: { title: 'home', keepAlive: true, isBottomNav: true, }
         },
         //开始答题
         {
           path: 'answer',
           name: 'answer',
           component: () => import('@/views/answer/index'),
-          meta: { title: 'answer', keepAlive: false }
+          meta: { title: 'answer', keepAlive: false, isBottomNav: false, }
         },
         {
           path: 'score',
           name: 'score',
           component: () => import('@/views/answer/score'),
-          meta: { title: 'score', keepAlive: false }
+          meta: { title: 'score', keepAlive: false, isBottomNav: true, }
         },
         {
           path: 'user',
           name: 'user',
           component: () => import('@/views/user/index'),
-          meta: { title: 'score', keepAlive: false }
+          meta: { title: 'score', keepAlive: false, isBottomNav: true, }
+        },
+        {
+          path: 'ranking',
+          name: 'ranking',
+          component: () => import('@/views/ranking/index'),
+          meta: { title: 'score', keepAlive: false, isBottomNav: true, }
         },
         //充提
         // {

@@ -16,5 +16,9 @@
     "editNamePlease": "Please set 2-24 characters, excluding special characters",
     "language": "Language",
     "Save": "Save",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "noMore": "no More",
+    "TodayLeaderboard": "Today's leaderboard",
+    "Score": "Score",
+    "nothing": "nothing"
 }

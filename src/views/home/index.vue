@@ -10,7 +10,7 @@
                 <div class="nickname">{{ userInfo.nickname }}</div>
                 <!-- <br> -->
                 <div style="margin-top:10px"><el-button type="primary" @click="startAnswer()">{{ $t('question:startAnswering') }}</el-button></div>
-                <div><el-link type="primary" style="color:#FFD879;margin-top:5px;text-decoration:underline;">{{ $t('question:ranking') }}</el-link></div>
+                <!-- <div><el-link type="primary" style="color:#FFD879;margin-top:5px;text-decoration:underline;">{{ $t('question:ranking') }}</el-link></div> -->
             </div>
         </div>
     </div>

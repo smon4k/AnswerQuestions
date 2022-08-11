@@ -16,5 +16,9 @@
     "editNamePlease": "请设置2-24个字符，不包括特殊字符",
     "language": "语言",
     "Save": "保存",
-    "Cancel": "取消"
+    "Cancel": "取消",
+    "noMore": "没有更多了",
+    "TodayLeaderboard": "今日排行榜",
+    "Score": "分数",
+    "nothing": "什么也没有"
 }
