@@ -134,12 +134,12 @@ export default {
                                     this.tableData.push(json.data.lists);
                                 }
                             }
+                            if(ServerWhere.page >= json.data.allpage) {
+                                this.finished = true;
+                            }
+                            this.total = json.data.count;
+                            this.iinvitePage += 1;
                         }
-                        if(ServerWhere.page >= json.data.allpage) {
-                            this.finished = true;
-                        }
-                        this.total = json.data.count;
-                        this.iinvitePage += 1;
                         // console.log(this.invitemeList);
                     } else {
                         this.$notify({ type: 'warning', message: '加载数据失败' });

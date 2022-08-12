@@ -53,9 +53,10 @@ export default {
     .app-container {
         /deep/ {
             .van-tabbar {
-                background-color: transparent;
+                background-color: #00000040;
             }
             .van-tabbar-item {
+                color: #fff;
                 .van-tabbar-item__text {
                     font-size: 18px;
                 }
