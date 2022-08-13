@@ -27,7 +27,7 @@
                         <template #title>
                                 <div class="custom-title">{{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT</div>
                                 <div class="custom-title">{{$t('question:annualized')}}：{{ toFixed(item.annualized, 2) }} %</div>
-                                <div class="custom-title">{{$t('question:realTimePaybackCycle')}}：{{ cealPaybackPeriod(item) }} 天</div>
+                                <!-- <div class="custom-title">{{$t('question:realTimePaybackCycle')}}：{{ cealPaybackPeriod(item) }} 天</div> -->
                                 <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div>
                             </template>
                         </van-cell>
