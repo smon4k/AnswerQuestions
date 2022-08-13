@@ -9,7 +9,7 @@
                 <img src="@/assets/add.png" alt="" width="30">
             </van-tabbar-item> -->
             <!-- <van-tabbar-item replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">W2E</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">P2E</van-tabbar-item>
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/news">消息</van-tabbar-item> -->
             <van-tabbar-item style="cursor: pointer;" replace to="/user">我</van-tabbar-item>
         </van-tabbar>
