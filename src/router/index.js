@@ -103,12 +103,18 @@ export const constantRoutes = [
         },
       },
       //充提
-      // {
-      //   path: 'depositWithdrawal',
-      //   name: 'depositWithdrawal',
-      //   component: () => import('@/views/depositWithdrawal/index'),
-      //   meta: { title: 'depositWithdrawal', keepAlive: false }
-      // },
+      {
+        path: 'usdt',
+        name: 'usdt',
+        component: () => import('@/views/depositWithdrawal/usdt'),
+        meta: { title: 'usdt', keepAlive: false }
+      },
+      {
+        path: 'h2o',
+        name: 'h2o',
+        component: () => import('@/views/depositWithdrawal/h2o'),
+        meta: { title: 'h2o', keepAlive: false }
+      },
     ]
   },
 ]

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="main" :style="{backgroundSize:isMobel ? '100% 100%' : ''}">
             <div class="score-page">
-                <p class="line1">您答对了{{score / 10}}题</p>
+                <p class="line1">您答对了{{score / 20}}题</p>
                 <p class="line2">得到{{score}}分！</p>
                 <p class="line3">用时{{times}}秒</p>
             </div>

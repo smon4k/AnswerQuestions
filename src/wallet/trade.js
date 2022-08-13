@@ -79,14 +79,16 @@ export const approve =  function (tokenAddress  , otherAddress ,  amount , decim
  * 游戏系统-充提清算系统-充值
  * @param {*} gTokenAmt 充值的数量
  * @param {*} buyToken 提的Token地址
+ * @param {*} tokenAddress 合约地址
  * @param {*} decimals 长度
  * @param {*} fillingRecordParams 记录数据库参数
+ * @param {*} currency 币种名称
  * @returns 
  */
-export const gamesBuyTokenTogToken = function (gTokenAmt=0, buyToken='', decimals=18, fillingRecordParams={}) {
+export const gamesBuyTokenTogToken = function (gTokenAmt=0, buyToken='', tokenAddress='', decimals=18, fillingRecordParams={}, currency='usdt') {
   // const tokenAddress = __ownInstance__.$store.state.base.tokenAddress
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = __ownInstance__.$store.state.base.gamesFillingAddress;
+  const contractAddress = tokenAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
   const contract = new web3.eth.Contract(gameFillingABI, contractAddress);
   const depositAmount = toWei(gTokenAmt, decimals);
   let encodedABI = contract.methods.BuyTokenTogToken(depositAmount, buyToken).encodeABI();
@@ -149,14 +151,16 @@ export const gamesBuyTokenTogToken = function (gTokenAmt=0, buyToken='', decimal
  * 游戏系统-充提清算系统-提取
  * @param {*} gTokenAmt 提的数量
  * @param {*} buyToken 提的Token地址
+ * @param {*} tokenAddress 合约地址
  * @param {*} decimals 长度
  * @param {*} fillingRecordParams 记录数据库参数
+ * @param {*} currency 币种名称
  * @returns 
  */
-export const gamesGTokenToBuyToken = function (gTokenAmt=0, buyToken='', decimals=18, fillingRecordParams) {
+export const gamesGTokenToBuyToken = function (gTokenAmt=0, buyToken='', tokenAddress='', decimals=18, fillingRecordParams={}, currency='usdt') {
   // const tokenAddress = __ownInstance__.$store.state.base.tokenAddress
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = __ownInstance__.$store.state.base.gamesFillingAddress;
+  const contractAddress = tokenAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
   const contract = new web3.eth.Contract(gameFillingABI, contractAddress);
   const withdrawAmount = toWei(gTokenAmt, decimals);
   let encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken).encodeABI();

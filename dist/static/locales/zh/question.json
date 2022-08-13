@@ -20,5 +20,22 @@
     "noMore": "没有更多了",
     "TodayLeaderboard": "今日排行榜",
     "Score": "分数",
-    "nothing": "什么也没有"
+    "nothing": "什么也没有",
+    "tickets": "门票",
+    "award": "奖励",
+    "myTicket": "我的门票",
+    "sellingPrice": "售价",
+    "annualized": "年化",
+    "realTimePaybackCycle": "实时回本周期",
+    "rewardCap": "奖励封顶",
+    "buy": "购买",
+    "bought": "已购买",
+    "redeemed": "已赎回",
+    "redemption": "赎回",
+    "userNumber": "参与人数",
+    "noTicket": "还没有门票，点击购买",
+    "ticketBuy": "门票购买",
+    "startTicket": "开启门票",
+    "using": "使用中",
+    "viewRewards": "查看奖励"
 }

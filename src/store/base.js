@@ -43,7 +43,8 @@ export default {
         // Env: window.location.host === 'localhost:8001' || window.location.host === '192.168.1.6:8001' ? 'dev' : 'prod',
         Env: 'dev',
         // gamesFillingAddress: '0xdA9A81cf2000fc4df10362bA58EF4607d82E57BE', //游戏系统-充提清算系统-合约地址
-        gamesFillingAddress: '0x079bDC8845D0C6878716A3f5219f1D0DcdF15308', //游戏系统-充提清算系统-合约地址
+        usdtFillingAddress: '0x079bDC8845D0C6878716A3f5219f1D0DcdF15308', //游戏系统-USDT-充提清算系统-合约地址
+        h2oFillingAddress: '0xdA9A81cf2000fc4df10362bA58EF4607d82E57BE', //游戏系统-H2O-充提清算系统-合约地址
     },
     mutations: {
         isConnected(state , val ){

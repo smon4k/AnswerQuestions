@@ -132,9 +132,9 @@ export const isApproved = async function (tokenAddress, decimals, amount , other
 }
 
 //获取游戏-充提系统-充提余额
-export async function getGameFillingBalance(decimals=18) {
+export async function getGameFillingBalance(decimals=18, gamesFillingAddress='') {
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = __ownInstance__.$store.state.base.gamesFillingAddress;
+  const contractAddress = gamesFillingAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
   const contract = new web3.eth.Contract(gameFillingABI, contractAddress);
   let num = 0;
   await contract.methods.userInfo(address).call((error, result) => {
@@ -152,17 +152,17 @@ export async function getGameFillingBalance(decimals=18) {
 }
 
 //获取游戏-充提系统-修改充提状态
-export const saveNotifyStatus = async function(status, type=true){
+export const saveNotifyStatus = async function(status, type=true, currency='usdt'){
   const apiUrl = __ownInstance__.$store.state.base.apiUrl;
   const address = __ownInstance__.$store.state.base.address;
-  await $get(apiUrl + '/Api/Depositwithdrawal/saveNotifyStatus?address='+address+'&status='+status+'&type='+type);
+  await $get(apiUrl + '/Api/Depositwithdrawal/saveNotifyStatus?address='+address+'&status='+status+'&type='+type+'&currency='+currency);
 }
 
 //获取游戏-充提系统-修改充提记录日志状态
-export const setDepWithdrawStatus = async function(deWithId, status, type=true){
+export const setDepWithdrawStatus = async function(deWithId, status, type=true, currency='usdt'){
   const apiUrl = __ownInstance__.$store.state.base.apiUrl;
   const address = __ownInstance__.$store.state.base.address;
-  await $get(apiUrl + '/Api/Depositwithdrawal/setDepWithdrawStatus?address='+address+'&deWithId='+deWithId+'&status='+status+'&type='+type);
+  await $get(apiUrl + '/Api/Depositwithdrawal/setDepWithdrawStatus?address='+address+'&deWithId='+deWithId+'&status='+status+'&type='+type+'&currency='+currency);
 }
 
 //获取游戏-充提系统-监听充提状态是否执行完成

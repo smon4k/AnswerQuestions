@@ -20,5 +20,21 @@
     "noMore": "no More",
     "TodayLeaderboard": "Today's leaderboard",
     "Score": "Score",
-    "nothing": "nothing"
+    "nothing": "nothing",
+    "tickets": "tickets",
+    "award": "award",
+    "myTicket": "My Ticket",
+    "sellingPrice": "selling price",
+    "annualized": "annualized",
+    "realTimePaybackCycle": "Real-time payback cycle",
+    "rewardCap": "Reward cap",
+    "buy": "Buy",
+    "bought": "bought",
+    "redeemed": "redeemed",
+    "redemption": "redemption",
+    "userNumber": "The number of participants",
+    "noTicket": "No tickets yet, click to buy",
+    "ticketBuy": "Ticket purchase",
+    "startTicket": "open tickets",
+    "using": "Using"
 }
