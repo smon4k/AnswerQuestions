@@ -2,7 +2,7 @@
     <div class="container">
         <div class="bg" :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            title="W2E"
+            title="P2E"
             left-text=""
             left-arrow
             right-text=""
