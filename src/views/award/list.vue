@@ -173,7 +173,7 @@ export default {
             }).then((json) => {
                 console.log(json);
                 if (json.code == 10000) {
-                    if (json.data.lists) {
+                    if (json.data && json.data.lists) {
                         let list = (json.data && json.data.lists) || [];
                         if (this.page <= 1) {
                             // console.log('首次加载');
@@ -195,7 +195,9 @@ export default {
                         }
                         this.total = json.data.count;
                         this.page += 1;
-                    } 
+                    } else {
+                        this.finished = false;
+                    }
                     // console.log(this.list);
                 } else {
                     this.$message.error("加载数据失败");
