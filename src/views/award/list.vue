@@ -196,7 +196,8 @@ export default {
                         this.total = json.data.count;
                         this.page += 1;
                     } else {
-                        this.finished = false;
+                        this.list = [];
+                        this.finished = true;
                     }
                     // console.log(this.list);
                 } else {
