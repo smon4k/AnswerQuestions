@@ -37,6 +37,7 @@ export default {
         },
         domainHostAddress:'https://bscscan.com/tx/',
         apiUrl: window.location.host === 'localhost:8008' ? '' : 'https://www.swanlake.club',
+        // apiUrl: window.location.host === 'localhost:8008' ? '' : 'http://8.219.55.168:82',
         // apiUrl: '',
         nftUrl: window.location.host === 'localhost:8008' || window.location.host === '192.168.1.3:8008' ? 'http://www.api.com' : 'https://api.h2o.live',
         // swanlakeUrl: window.location.host === 'localhost:8008' || window.location.host === '192.168.1.5:8008' ? 'http://www.swan.com' : 'https://www.swanlake.club',
