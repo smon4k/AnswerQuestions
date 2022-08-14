@@ -2,7 +2,7 @@
     <div class="container">
         <div class="bg" :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            title="W2E"
+            title="P2E"
             left-text=""
             right-text=""
             @click-left="onClickLeft"
@@ -24,7 +24,7 @@
                                         <div>
                                             <span>{{index}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <span>{{$t('question:userNumber')}}：{{item.number_user}}</span> &nbsp;&nbsp;
-                                            <span>{{$t('question:award')}}：{{toFixed(item.count_award, 2)}} H2O</span> 
+                                            <span>{{$t('question:award')}}：{{toFixed(item.count_amount, 2)}} H2O</span> 
                                         </div>
                                     </template>
                                     <div class="attent-list">
