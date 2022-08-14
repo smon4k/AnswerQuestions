@@ -70,7 +70,7 @@
                                         <van-radio :name="7" />
                                     </template>
                                 </van-cell>
-                                <!-- <van-cell title="10% 可享受100%保本赎回门票的权益" clickable @click="insurance_amount = 10">
+                                <van-cell title="10% 可享受100%保本赎回门票的权益" clickable @click="insurance_amount = 10">
                                     <template #title>
                                         <span>保费{{ cealBenefits(10) }} U(10%票价)</span><br>
                                         <span>即可享受100%票价的赎回权益</span>
@@ -78,7 +78,7 @@
                                     <template #right-icon>
                                         <van-radio :name="10" />
                                     </template>
-                                </van-cell> -->
+                                </van-cell>
                             </van-cell-group>
                         </van-radio-group>
                         <div v-else style="height:30px">
