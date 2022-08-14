@@ -289,10 +289,10 @@ export default {
             this.$i18n.i18next.changeLanguage(item.label);
         },
         getUsdtDepositWithdraw() {
-            this.$router.push("/usdt");
+            // this.$router.push("/usdt");
         },
         getH2ODepositWithdraw() {
-            this.$router.push("/h2o");
+            // this.$router.push("/h2o");
         }
     },
 }
