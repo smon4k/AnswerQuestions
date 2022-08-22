@@ -36,11 +36,17 @@
                         <van-divider />
                         <div v-if="type == 1">
                             <van-row>
-                                <van-col span="12">售价</van-col>
+                                <van-col span="12">
+                                    <span v-if="ticketDetail.is_discount && ticketDetail.discount_status == 2">折扣价</span>
+                                    <span v-else>售价</span>
+                                </van-col>
                                 <van-col span="12">USDT 余额</van-col>
                             </van-row>
                             <van-row>
-                                <van-col span="12">{{ toFixed(ticketDetail.price, 2) }} USDT</van-col>
+                                <van-col span="12">
+                                    <div v-if="ticketDetail.is_discount &&  ticketDetail.discount_status == 2">{{ toFixed(ticketDetail.discount_price, 2) }} USDT</div>
+                                    <div v-else>{{ toFixed(ticketDetail.price, 2) }} USDT</div>
+                                </van-col>
                                 <van-col span="12">{{ toFixed(swanlakeBalance, 2) }} USDT</van-col>
                             </van-row>
                         </div>
@@ -50,7 +56,9 @@
                                 <van-col span="12">购买时间</van-col>
                             </van-row>
                             <van-row>
-                                <van-col span="12">{{ toFixed(ticketDetail.price, 2) }} USDT</van-col>
+                                <van-col span="12">
+                                    <div>{{ toFixed(ticketDetail.price, 2) }} USDT</div>
+                                </van-col>
                                 <van-col span="12">{{ ticketDetail.time }}</van-col>
                             </van-row>
                         </div>

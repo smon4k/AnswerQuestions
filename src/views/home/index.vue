@@ -61,12 +61,14 @@ export default {
         this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {address: this.address,}, (json) => {
           if (json.code == 10000) {
             if (json.data) {
-                if (json.data == 1) {
+                if (json.data == 1 || json.data == 2) {
                     this.$router.push("/answer");
-                } else if (json.data == 2) {
-                    this.$message.warning("请先购买门票");
-                    return false;
-                } else if (json.data == 3) {
+                } 
+                // else if (json.data == 2) {
+                //     this.$message.warning("请先购买门票");
+                //     return false;
+                // } 
+                else if (json.data == 3) {
                     this.$message.warning("今日已作答");
                     return false;
                 }

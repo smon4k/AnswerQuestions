@@ -21,11 +21,23 @@
                             <template #title>
                                 <span class="custom-title">{{ item.name }}</span>
                                 <!-- <van-tag type="danger">标签</van-tag> -->
+                                <div class="tag" v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">限时折扣</div>
                             </template>
                         </van-cell>
                         <van-cell>
                         <template #title>
-                                <div class="custom-title">{{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT</div>
+                                <div class="custom-title">
+                                    <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
+                                        {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
+                                        <br>
+                                        {{$t('question:DiscountPrice')}}：{{ toFixed(item.discount_price, 2) }} USDT
+                                    </div>
+                                    <div v-else>
+                                        {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
+                                    </div>
+                                </div>
+                                <div class="custom-title">{{$t('question:DiscountStartTime')}}：{{item.start_time}}</div>
+                                <div class="custom-title">{{$t('question:DiscountEndTime')}}：{{item.end_time}}</div>
                                 <div class="custom-title">{{$t('question:annualized')}}：{{ toFixed(item.annualized, 2) }} %</div>
                                 <!-- <div class="custom-title">{{$t('question:realTimePaybackCycle')}}：{{ cealPaybackPeriod(item) }} 天</div> -->
                                 <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div>
@@ -33,7 +45,9 @@
                         </van-cell>
                         <van-cell>
                             <template #title>
-                                <van-button class="buy-button" type="primary" @click="startBuy(item)">{{$t('question:buy')}}</van-button>
+                                <div>
+                                    <van-button class="buy-button" type="primary" @click="startBuy(item)">{{$t('question:buy')}}</van-button>
+                                </div>
                             </template>
                         </van-cell>
                     </van-cell-group>
@@ -227,6 +241,18 @@ export default {
                         }
                     }
                 }
+            }
+            .tag{
+                position: absolute;
+                right: 0;
+                top: 0;
+                border-radius: 0px 5px 0px 10px;
+                color: #fff;
+                padding: 2px 6px;
+                font-size: 10px;
+                line-height: 16px;
+                background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), transparent) var(--bg, #EA3447);
+                background-blend-mode: soft-light;
             }
         }
     }
