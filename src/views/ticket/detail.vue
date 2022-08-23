@@ -95,7 +95,7 @@
                             <span v-if="ticketDetail.insurance_amount === 10 || ticketDetail.insurance_amount === 0">保本赎回</span>
                         </div>
                         <van-button class="buy-button" v-if="type == 1" :loading="loading" :disabled="loading" type="primary" @click="startBuyClick()">立即购买</van-button>
-                        <van-button class="buy-button" v-else :loading="loading" :disabled="loading" type="info" @click="startRedemptionClick()">立即赎回</van-button>
+                        <van-button class="buy-button" v-else :loading="loading" :disabled="ticketDetail.insurance_amount <= 0 || loading" type="info" @click="startRedemptionClick()">立即赎回</van-button>
                     </template>
                 </van-cell>
             </van-cell-group>
@@ -250,10 +250,10 @@ export default {
                 this.$notify({ type: 'warning', message: '获取门票信息失败' });
                 return false;
             }
-            if(this.insurance_amount <= 0) {
-                this.$notify({ type: 'warning', message: '请选择保险' });
-                return false;
-            }
+            // if(this.insurance_amount <= 0) {
+            //     this.$notify({ type: 'warning', message: '请选择保险' });
+            //     return false;
+            // }
             this.loading = true;
             setTimeout(() => {
                 post(this.apiUrl + '/Answer/Ticket/startBuyTicket', { 

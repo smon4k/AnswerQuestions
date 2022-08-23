@@ -49,7 +49,7 @@
                                                 <div>
                                                     <van-row>
                                                         <van-col span="12">
-                                                            <van-button v-if="item.is_ransom == 1" class="ticket-button" round type="info" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
+                                                            <van-button v-if="item.is_ransom == 1" class="ticket-button" round type="info" :disabled="item.insurance_amount <= 0" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
                                                             <van-button v-else class="ticket-button" disabled round type="info">{{ $t('question:redeemed') }}</van-button>
                                                         </van-col>
                                                         <van-col span="12">
