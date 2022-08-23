@@ -57,7 +57,7 @@
                             </van-row>
                             <van-row>
                                 <van-col span="12">
-                                    <div>{{ toFixed(ticketDetail.price, 2) }} USDT</div>
+                                    <div>{{ toFixed(ticketDetail.buy_price, 2) }} USDT</div>
                                 </van-col>
                                 <van-col span="12">{{ ticketDetail.time }}</van-col>
                             </van-row>
@@ -92,7 +92,7 @@
                         <div v-else style="height:30px">
                             赎回价格：
                             <span v-if="ticketDetail.insurance_amount === 7">70%回购</span>
-                            <span v-if="ticketDetail.insurance_amount === 10">保本赎回</span>
+                            <span v-if="ticketDetail.insurance_amount === 10 || ticketDetail.insurance_amount === 0">保本赎回</span>
                         </div>
                         <van-button class="buy-button" v-if="type == 1" :loading="loading" :disabled="loading" type="primary" @click="startBuyClick()">立即购买</van-button>
                         <van-button class="buy-button" v-else :loading="loading" :disabled="loading" type="info" @click="startRedemptionClick()">立即赎回</van-button>
@@ -248,6 +248,10 @@ export default {
             }
             if(this.ticketId <= 0) {
                 this.$notify({ type: 'warning', message: '获取门票信息失败' });
+                return false;
+            }
+            if(this.insurance_amount <= 0) {
+                this.$notify({ type: 'warning', message: '请选择保险' });
                 return false;
             }
             this.loading = true;

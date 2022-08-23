@@ -25,7 +25,7 @@
                                             <div>{{ item.name }}</div>
                                         </template>
                                         <template #right-icon>
-                                            <van-button v-if="item.is_start == 0 && item.is_ransom == 1" class="ticket-button" round type="primary" @click="startTicket(item)">{{ $t('question:bought') }}</van-button>
+                                            <van-button v-if="item.is_start == 0 && item.is_ransom == 1" class="ticket-button" round type="primary" @click="startTicket(item)">{{ $t('question:startTicket') }}</van-button>
                                             <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
                                             <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag>
                                             <!-- <van-switch v-model="ticketStatus" size="24" /> -->
@@ -83,7 +83,7 @@
                                                         <van-col span="8">{{$t('question:sellingPrice')}}</van-col>
                                                     </van-row>
                                                     <van-row>
-                                                        <van-col span="8">{{ item.payback_period }}</van-col>
+                                                        <van-col span="8">{{ item.annualized }}</van-col>
                                                         <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col>
                                                         <van-col span="8">{{ toFixed(item.price, 2)}} USDT</van-col>
                                                     </van-row>

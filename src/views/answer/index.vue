@@ -72,6 +72,7 @@ export default {
       userAnswerList: [],
       questionNum: 5,
       loading: true,
+      is_relive: 0, //是否复活重答
     };
   },
   computed: {
@@ -124,6 +125,8 @@ export default {
     this.timer = setInterval(() => {
       this.userTime += 1;
     }, 1000);
+    let params = this.$route.params;
+    this.is_relive = params.is_relive;
   },
   watch: {
     changeData: {
@@ -213,6 +216,7 @@ export default {
                 answers: this.userAnswerList,
                 times: this.userTime,
                 language: this.$i18n.i18next.language,
+                is_relive: this.is_relive
             }, (json) => {
                 if (json && json.code == 10000) {
                     if(json.data) {
@@ -223,7 +227,9 @@ export default {
                                 params: {
                                     correct_num: json.data.correct_num,
                                     score: json.data.score,
-                                    times: json.data.times
+                                    times: json.data.times,
+                                    is_possible_resurrection: json.data.is_possible_resurrection,
+                                    consumeNumber: json.data.consumeNumber
                                 }
                             });
                         }, 2000);

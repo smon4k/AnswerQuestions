@@ -6,11 +6,17 @@
                 <p class="line2">得到{{score}}分！</p>
                 <p class="line3">用时{{times}}秒</p>
             </div>
+            <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
+                <div>{{consumeNumber}}H2O 购买进行复活</div>
+                <div class="buy-button"><el-button type="primary" round @click="buyResurrection()">购买</el-button></div>
+            </div>
         </div>
     </div>
 </template>
 <script>
 import { mapState } from "vuex";
+import { Dialog } from 'vant';
+import { get, post } from "@/common/axios.js";
 export default {
     name: 'home',
     data() {
@@ -18,6 +24,8 @@ export default {
             correct_num: '',
             score: 0,
             times: 0,
+            is_possible_resurrection: 0,
+            consumeNumber: 0,
         }
     },
     computed: {
@@ -44,6 +52,8 @@ export default {
         this.correct_num = params.correct_num;
         this.score = params.score;
         this.times = params.times;
+        this.is_possible_resurrection = params.is_possible_resurrection;
+        this.consumeNumber = params.consumeNumber;
     },
     watch: {
         address: {
@@ -60,6 +70,41 @@ export default {
     methods: {
         startAnswer() { //跳转我的订单也
             this.$router.push('/answer');
+        },
+        buyResurrection() {
+            Dialog.confirm({
+                title: '提示',
+                message: '消耗 '+this.consumeNumber+'H2O 购买 1 次复活机会。',
+            })
+            .then(() => {
+                const loading = this.$loading({
+                    lock: true,
+                    text: '支付中...',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
+                get(this.apiUrl + "/Answer/question/buyResurrection", {
+                    address: this.address,
+                }, (json) => {
+                    if (json.code == 10000) {
+                        console.log(json);
+                        setTimeout(() => {
+                            loading.close();
+                            this.$router.push({
+                                name: 'answer',
+                                params: {
+                                    is_relive: 1,
+                                }
+                            });
+                        }, 2000);
+                    } else {
+                        this.$message.error("加载数据失败");
+                    }
+                });
+            })
+            .catch(() => {
+                // on cancel
+            });
         }
     },
     mounted() {
@@ -101,7 +146,22 @@ export default {
                         text-shadow: 1px 1px 0 #005ece;
                     }
                     .line1 {
-                        margin-top: 180px;
+                        margin-top: 100px;
+                    }
+                }
+                .resurrection {
+                    text-align: center;
+                    margin: 0 auto;
+                    color: #fff;
+                    font-size: 18px;
+                    width: 80%;
+                    .buy-button {
+                        margin-top: 10px;
+                        button {
+                            width: 100px;
+                            height: 30px;
+                            line-height: 5px;
+                        }
                     }
                 }
             }
