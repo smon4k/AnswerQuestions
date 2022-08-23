@@ -7,7 +7,7 @@
                 <p class="line3">用时{{times}}秒</p>
             </div>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
-                <div>{{consumeNumber}}H2O 购买进行复活</div>
+                <div>{{consumeNumber}} H2O 购买进行复活</div>
                 <div class="buy-button"><el-button type="primary" round @click="buyResurrection()">购买</el-button></div>
             </div>
         </div>
@@ -74,7 +74,7 @@ export default {
         buyResurrection() {
             Dialog.confirm({
                 title: '提示',
-                message: '消耗 '+this.consumeNumber+'H2O 购买 1 次复活机会。',
+                message: '消耗 '+this.consumeNumber+' H2O 购买 1 次复活机会。',
             })
             .then(() => {
                 const loading = this.$loading({
