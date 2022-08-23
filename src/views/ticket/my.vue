@@ -37,7 +37,7 @@
                                                     <van-row>
                                                         <van-col span="8">{{$t('question:annualized')}}</van-col>
                                                         <van-col span="8">{{$t('question:rewardCap')}}</van-col>
-                                                        <van-col span="8">{{$t('question:rewardCap')}}</van-col>
+                                                        <van-col span="8">{{$t('question:sellingPrice')}}</van-col>
                                                     </van-row>
                                                     <van-row>
                                                         <van-col span="8">{{ toFixed(item.annualized, 2) }}</van-col>
