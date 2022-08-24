@@ -31,6 +31,8 @@
                                         {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                         <br>
                                         {{$t('question:DiscountPrice')}}：{{ toFixed(item.discount_price, 2) }} USDT
+                                        <br>
+                                        {{$t('question:Discount')}}：{{ toFixed(item.discount, 2) }} 折
                                     </div>
                                     <div v-else>
                                         {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT

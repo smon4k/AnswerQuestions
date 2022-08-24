@@ -26,6 +26,7 @@
     "myTicket": "My Ticket",
     "sellingPrice": "selling price",
     "DiscountPrice": "discount price",
+    "Discount": "discount",
     "DiscountStartTime": "Discount start time",
     "DiscountEndTime": "Discount end time",
     "annualized": "annualized",
