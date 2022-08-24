@@ -15,7 +15,7 @@
                 </van-col>
             </van-row> -->
             <van-tabs v-model="cardActive">
-                <van-tab :title="$t('question:tickets')">
+                <van-tab :title="$t('question:buyTickets')">
                     <van-cell-group inset v-for="(item,index) in tableData" :key="index">
                         <van-cell>
                             <template #title>
@@ -38,11 +38,13 @@
                                         {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                     </div>
                                 </div>
-                                <div class="custom-title">{{$t('question:DiscountStartTime')}}：{{item.start_time}}</div>
-                                <div class="custom-title">{{$t('question:DiscountEndTime')}}：{{item.end_time}}</div>
-                                <div class="custom-title">{{$t('question:annualized')}}：{{ toFixed(item.annualized, 2) }} %</div>
-                                <!-- <div class="custom-title">{{$t('question:realTimePaybackCycle')}}：{{ cealPaybackPeriod(item) }} 天</div> -->
-                                <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div>
+                                <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
+                                    <div class="custom-title">{{$t('question:DiscountStartTime')}}：{{item.start_time}}</div>
+                                    <div class="custom-title">{{$t('question:DiscountEndTime')}}：{{item.end_time}}</div>
+                                </div>
+                                <div class="custom-title">{{$t('question:nominalInterestRate')}}：{{ toFixed(item.annualized, 2) }} %</div>
+                                <div class="custom-title">{{$t('question:realInterestRate')}}：{{ getRealInterestRate(item) }}</div>
+                                <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div> -->
                             </template>
                         </van-cell>
                         <van-cell>
@@ -54,7 +56,7 @@
                         </van-cell>
                     </van-cell-group>
                 </van-tab>
-                <van-tab :title="$t('question:award')" to="/award/list"></van-tab>
+                <!-- <van-tab :title="$t('question:award')" to="/award/list"></van-tab> -->
                 <van-tab :title="$t('question:myTicket')" to="/ticket/my/list"></van-tab>
             </van-tabs>
         </div>
@@ -166,6 +168,16 @@ export default {
         cealPaybackPeriod(row) { //实时计算回本周期
             let num = Number(row.price) / (row.capped * this.H2OPrice);
             return this.keepDecimalNotRounding(num, 1, true);
+        },
+        getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
+            console.log(row);
+            let num = 0;
+            let price = row.price;
+            if(row.is_discount && (row.discount_status == 2 || row.discount_status == 1)) {
+                price = row.discount_price;
+            }
+            num = (Number(row.capped) * this.H2OPrice * 365) / Number(price);
+            return this.toFixed(num, 2) + "%";
         }
     },
     mounted() {

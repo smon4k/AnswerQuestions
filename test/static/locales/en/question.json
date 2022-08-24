@@ -1,4 +1,5 @@
 {
+    "oneStopName": "One Stop",
     "answerQuestions": "Answer Questions",
     "startAnswering": "Start Answering",
     "ranking": "Ranking",
@@ -22,9 +23,11 @@
     "Score": "Score",
     "nothing": "nothing",
     "tickets": "tickets",
+    "buyTickets": "buy Tickets",
     "award": "award",
     "myTicket": "My Ticket",
     "sellingPrice": "selling price",
+    "denomination": "denomination",
     "DiscountPrice": "discount price",
     "Discount": "discount",
     "DiscountStartTime": "Discount start time",
@@ -40,5 +43,7 @@
     "noTicket": "No tickets yet, click to buy",
     "ticketBuy": "Ticket purchase",
     "startTicket": "open tickets",
-    "using": "Using"
+    "using": "Using",
+    "nominalInterestRate": "Nominal Interest Rate",
+    "realInterestRate": "Real Interest Rate"
 }

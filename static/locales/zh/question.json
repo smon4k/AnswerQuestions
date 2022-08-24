@@ -1,4 +1,5 @@
 {
+    "oneStopName": "一站到底",
     "answerQuestions": "答题闯关",
     "startAnswering": "开始作答",
     "ranking": "排行版",
@@ -22,9 +23,11 @@
     "Score": "分数",
     "nothing": "什么也没有",
     "tickets": "门票",
+    "buyTickets": "购票",
     "award": "奖励",
     "myTicket": "我的门票",
     "sellingPrice": "售价",
+    "denomination": "面额",
     "DiscountPrice": "折扣价",
     "Discount": "折扣",
     "DiscountStartTime": "折扣开始时间",
@@ -41,5 +44,7 @@
     "ticketBuy": "门票购买",
     "startTicket": "开启门票",
     "using": "使用中",
-    "viewRewards": "查看奖励"
+    "viewRewards": "查看奖励",
+    "nominalInterestRate": "名义利率",
+    "realInterestRate": "实际利率"
 }

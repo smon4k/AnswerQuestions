@@ -2,7 +2,7 @@
   <div class="container">
     <div class="main" :style="{ backgroundSize: isMobel ? '100% 100%' : '' }">
       <div class="content">
-        <div class="title01">XXXX</div>
+        <div class="title01">{{ $t("question:oneStopName") }}</div>
         <div class="title02">{{ $t("question:answerQuestions") }}</div>
         <div @click="getUserClick()">
           <el-avatar :size="100" :src="userInfo.avatar"></el-avatar>
@@ -25,7 +25,9 @@ import { get, post } from "@/common/axios.js";
 export default {
   name: "home",
   data() {
-    return {};
+    return {
+        languag: this.$i18n.i18next.language
+    };
   },
   computed: {
     ...mapState({
@@ -43,7 +45,8 @@ export default {
       };
     },
   },
-  created() {},
+  created() {
+  },
   watch: {
     address: {
       immediate: true,
@@ -69,7 +72,7 @@ export default {
                 //     return false;
                 // } 
                 else if (json.data == 3) {
-                    this.$message.warning("今日已作答");
+                    this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
                     return false;
                 }
             } else {

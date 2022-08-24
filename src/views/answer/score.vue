@@ -6,9 +6,20 @@
                 <p class="line2">得到{{score}}分！</p>
                 <p class="line3">用时{{times}}秒</p>
             </div>
+            <div class="score-income">
+                <span>本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}H2O</span>
+            </div>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
-                <div>{{consumeNumber}} H2O 购买进行复活</div>
-                <div class="buy-button"><el-button type="primary" round @click="buyResurrection()">购买</el-button></div>
+                <div>{{ toFixed(consumeNumber, 2) }} H2O 购买进行复活</div>
+                <!-- <el-row>
+                    <el-col :span="12"></el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
+                </el-row> -->
+                <div class="buy-button">
+                    <el-button type="primary" round @click="buyResurrection()">购买</el-button>
+                    <el-button type="info" round @click="giveUpResurrection()">放弃</el-button>
+                </div>
+                <!-- <div class="buy-button"></div> -->
             </div>
         </div>
     </div>
@@ -26,6 +37,9 @@ export default {
             times: 0,
             is_possible_resurrection: 0,
             consumeNumber: 0,
+            capped_num: 0, //总收益
+            award_num: 0, //分配奖励数量
+            award_rate: 0, //分配奖励比例
         }
     },
     computed: {
@@ -54,6 +68,9 @@ export default {
         this.times = params.times;
         this.is_possible_resurrection = params.is_possible_resurrection;
         this.consumeNumber = params.consumeNumber;
+        this.capped_num = params.capped_num;
+        this.award_num = params.award_num;
+        this.award_rate = params.award_rate;
     },
     watch: {
         address: {
@@ -105,6 +122,9 @@ export default {
             .catch(() => {
                 // on cancel
             });
+        },
+        giveUpResurrection() {
+            this.$router.push('/');
         }
     },
     mounted() {
@@ -127,7 +147,7 @@ export default {
                 z-index: -10;
                 position: fixed;
                 .score-page {
-                    line-height: 20px;
+                    line-height: 18px;
                     // width: 100%;
                     // height: 100%;
                     // overflow: hidden;
@@ -147,6 +167,16 @@ export default {
                     }
                     .line1 {
                         margin-top: 100px;
+                    }
+                }
+                .score-income {
+                    line-height: 20px;
+                    text-align: center;
+                    width: 80%;
+                    margin: 0 auto;
+                    span {
+                        color: #fff;
+                        font-size: 15px;
                     }
                 }
                 .resurrection {

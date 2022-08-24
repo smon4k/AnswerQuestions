@@ -25,9 +25,14 @@
                                             <div>{{ item.name }}</div>
                                         </template>
                                         <template #right-icon>
-                                            <van-button v-if="item.is_start == 0 && item.is_ransom == 1" class="ticket-button" round type="primary" @click="startTicket(item)">{{ $t('question:startTicket') }}</van-button>
+                                            <van-button v-if="item.is_start == 0 && item.is_ransom == 1" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button>
                                             <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
                                             <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag>
+                                            &nbsp;
+                                            <van-tag plain color="#969799" text-color="#969799" style="height:20px">
+                                                <span v-if="item.is_answer == 1">未作答</span>
+                                                <span v-if="item.is_answer == 3">已作答</span>
+                                            </van-tag>
                                             <!-- <van-switch v-model="ticketStatus" size="24" /> -->
                                         </template>
                                     </van-cell>
@@ -35,13 +40,15 @@
                                         <template #title>
                                                 <div>
                                                     <van-row>
-                                                        <van-col span="8">{{$t('question:annualized')}}</van-col>
-                                                        <van-col span="8">{{$t('question:rewardCap')}}</van-col>
-                                                        <van-col span="8">{{$t('question:sellingPrice')}}</van-col>
+                                                        <van-col span="8">{{$t('question:nominalInterestRate')}}</van-col>
+                                                        <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
+                                                        <van-col span="8">{{$t('question:realInterestRate')}}</van-col>
+                                                        <van-col span="8">{{$t('question:denomination')}}</van-col>
                                                     </van-row>
                                                     <van-row>
-                                                        <van-col span="8">{{ toFixed(item.annualized, 2) }}</van-col>
-                                                        <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col>
+                                                        <van-col span="8">{{ toFixed(item.annualized, 2) }}%</van-col>
+                                                        <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col> -->
+                                                        <van-col span="8">{{ getRealInterestRate(item) }}</van-col>
                                                         <van-col span="8">{{ toFixed(item.price, 2)}} USDT</van-col>
                                                     </van-row>
                                                 </div>
@@ -78,14 +85,14 @@
                                         <template #title>
                                                 <div>
                                                     <van-row>
-                                                        <van-col span="8">{{$t('question:annualized')}}</van-col>
-                                                        <van-col span="8">{{$t('question:rewardCap')}}</van-col>
-                                                        <van-col span="8">{{$t('question:sellingPrice')}}</van-col>
+                                                        <!-- <van-col span="8">{{$t('question:annualized')}}</van-col> -->
+                                                        <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
+                                                        <van-col span="24">{{$t('question:denomination')}}</van-col>
                                                     </van-row>
                                                     <van-row>
-                                                        <van-col span="8">{{ item.annualized }}</van-col>
-                                                        <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col>
-                                                        <van-col span="8">{{ toFixed(item.price, 2)}} USDT</van-col>
+                                                        <!-- <van-col span="8">{{ item.annualized }}</van-col> -->
+                                                        <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col> -->
+                                                        <van-col span="24">{{ toFixed(item.price, 2)}} USDT</van-col>
                                                     </van-row>
                                                 </div>
                                                 <van-divider />
@@ -295,6 +302,12 @@ export default {
         cealPaybackPeriod(row) { //实时计算回本周期
             let num = 10 / (row.capped * this.H2OPrice);
             return this.keepDecimalNotRounding(num, 1, true);
+        },
+        getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
+            // console.log(row);
+            let num = 0;
+            num = (Number(row.capped) * this.H2OPrice * 365) / Number(row.buy_price);
+            return this.toFixed(num, 2) + "%";
         }
     },
     mounted() {
@@ -347,7 +360,7 @@ export default {
                     width: 80px;
                     height: 30px;
                     font-size: 10px;
-                    border-radius: 20px;
+                    // border-radius: 20px;
                 }
                 .buy-button {
                     width: 100px;

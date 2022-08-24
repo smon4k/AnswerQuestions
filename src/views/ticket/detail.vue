@@ -25,12 +25,14 @@
                    <template #title>
                         <div>
                             <van-row>
-                                <van-col span="12">年化</van-col>
-                                <van-col span="12">奖励封顶</van-col>
+                                <van-col span="12">名义利率</van-col>
+                                <!-- <van-col span="12">奖励封顶</van-col> -->
+                                <van-col span="12">实际利率</van-col>
                             </van-row>
                             <van-row>
                                 <van-col span="12">{{ toFixed(ticketDetail.annualized, 2) }}%</van-col>
-                                <van-col span="12">{{ toFixed(ticketDetail.capped, 2)}} H2O</van-col>
+                                <!-- <van-col span="12">{{ toFixed(ticketDetail.capped, 2)}} H2O</van-col> -->
+                                <van-col span="12">{{ getRealInterestRate(ticketDetail)}}</van-col>
                             </van-row>
                         </div>
                         <van-divider />
@@ -38,7 +40,7 @@
                             <van-row>
                                 <van-col span="12">
                                     <span v-if="ticketDetail.is_discount && ticketDetail.discount_status == 2">折扣价</span>
-                                    <span v-else>售价</span>
+                                    <span v-else>面额</span>
                                 </van-col>
                                 <van-col span="12">USDT 余额</van-col>
                             </van-row>
@@ -87,6 +89,14 @@
                                         <van-radio :name="10" />
                                     </template>
                                 </van-cell>
+                                <van-cell title="7% 可享受70%价值的官方回购" clickable @click="insurance_amount = 0" :border="false">
+                                    <template #title>
+                                        <span>我已了解风险，不需要保险</span>
+                                    </template>
+                                    <template #right-icon>
+                                        <van-radio :name="0" />
+                                    </template>
+                                </van-cell>
                             </van-cell-group>
                         </van-radio-group>
                         <div v-else style="height:30px">
@@ -106,7 +116,7 @@
 // import axios from 'axios'
 import { post } from "@/common/axios.js";
 import { mapState } from "vuex";
-import {getBalance, getGameFillingBalance} from "@/wallet/serve";
+import {getBalance, getGameFillingBalance, getSwapPoolsAmountsOut} from "@/wallet/serve";
 import Address from '@/wallet/address.json'
 import { Dialog } from 'vant';
 export default {
@@ -126,6 +136,7 @@ export default {
             usdtBalance: 0, //usdt 钱包余额
             swanlakeBalance: 0, //usdt可用余额 天鹅湖 平台余额 + 本地余额
             userTicketId: 0,
+            H2OPrice: 0,
         }
     },
     created() {
@@ -142,6 +153,7 @@ export default {
             if(userTicketId) {
                 this.userTicketId = userTicketId;
             }
+            this.getH2OPrice();
         } catch (err) {}
     },
     async mounted() {
@@ -178,6 +190,18 @@ export default {
 
     },
     methods: {
+        async getH2OPrice() {
+            const Gwei1 = 1000000000;
+            let H2OPrice = await getSwapPoolsAmountsOut(
+                Address.routerContractAddress,
+                Address.H2O,
+                Address.BUSDT
+            );
+            // console.log(H2OPrice);
+            this.H2OPrice = this.keepDecimalNotRounding(H2OPrice, 4);
+            console.log("H2OPrice", this.H2OPrice);
+            // this.H2OPrice = 1;
+        },
         getTicketDetail() {
             let url = this.apiUrl + "/Answer/Ticket/getTicketDetail";
             if(this.type == 1) {
@@ -309,6 +333,12 @@ export default {
         cealBenefits(insurance_amount) {
             let num = Number(this.ticketDetail.price) * (Number(insurance_amount) / 100);
             return this.toFixed(num, 2);
+        },
+        getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
+            // console.log(row);
+            let num = 0;
+            num = (Number(row.capped) * this.H2OPrice * 365) / Number(row.new_price);
+            return this.toFixed(num, 2) + "%";
         }
     },
     mounted() {

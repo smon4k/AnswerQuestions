@@ -189,6 +189,9 @@ export default {
             case 3:
               formatAnswerList.push("D");
               break;
+            case 4:
+              formatAnswerList.push("E");
+              break;
             default:
               formatAnswerList = null;
           }
@@ -229,7 +232,10 @@ export default {
                                     score: json.data.score,
                                     times: json.data.times,
                                     is_possible_resurrection: json.data.is_possible_resurrection,
-                                    consumeNumber: json.data.consumeNumber
+                                    consumeNumber: json.data.consumeNumber,
+                                    capped_num: json.data.capped_num,
+                                    award_num: json.data.award_num,
+                                    award_rate: json.data.award_rate,
                                 }
                             });
                         }, 2000);
