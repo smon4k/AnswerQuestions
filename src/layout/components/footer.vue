@@ -1,17 +1,17 @@
 <template>
     <div class="app-container">
         <van-tabbar v-model="active" route @change="getRouterClick">
-            <van-tabbar-item style="cursor: pointer;" replace to="/home">首页</van-tabbar-item>
-            <van-tabbar-item style="cursor: pointer;" replace to="/ranking">绩效</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/home">{{ $t('nav:home') }}</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ranking">{{ $t('nav:performance') }}</van-tabbar-item>
             <!-- <van-tabbar-item replace to="/home/follow">关注</van-tabbar-item> -->
             <!-- <van-tabbar-item style="cursor: pointer;" replace>关注</van-tabbar-item> -->
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/release">
                 <img src="@/assets/add.png" alt="" width="30">
             </van-tabbar-item> -->
             <!-- <van-tabbar-item replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">购票</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">{{ $t('nav:buyTickets') }}</van-tabbar-item>
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/user">我</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/user">{{ $t('nav:my') }}</van-tabbar-item>
         </van-tabbar>
     </div>
 </template>

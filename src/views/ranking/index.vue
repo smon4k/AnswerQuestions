@@ -8,10 +8,53 @@
             right-text=""
             @click-left="onClickLeft"
         />
+        <div class="generalStatistics">
+            <div class="box">
+                <van-row>
+                    <van-col span="12" align="center">
+                        <span>TVL</span><br>
+                        <span>{{ count_sell_number }}</span>
+                    </van-col>
+                    <van-col span="12" align="center">
+                        <span>APR</span><br>
+                        <span>{{ annualized_avg }}</span>
+                    </van-col>
+                </van-row>
+                <van-divider />
+                <van-row>
+                    <van-col span="8" align="center">
+                        <span>参与答题用户数</span><br>
+                        <span>{{ answer_count_user }}</span>
+                    </van-col>
+                    <van-col span="8" align="center">
+                        <span>共完成答题总数</span><br>
+                        <span>{{ answer_count }}</span>
+                    </van-col>
+                    <van-col span="8" align="center">
+                        <span>共答对总数</span><br>
+                        <span>{{ answer_correct_count }}</span>
+                    </van-col>
+                </van-row>
+            </div>
+        </div>
         <div class="attContainer">
             <div class="title">{{ $t('question:ranking') }}</div>
             <!-- <van-tabs @click="selectPage" v-model="tabIndex">
                 <van-tab title="我的邀请"> -->
+                    <van-row class="sort">
+                        <van-col span="6" align="center">
+                            <span @click="getActiveTime('d')" :class="[{'active':activeTime === 'd'}]">今日</span>
+                        </van-col>
+                        <van-col span="6" align="center">
+                            <span @click="getActiveTime('w')" :class="[{'active':activeTime === 'w'}]">本周</span>
+                        </van-col>
+                        <van-col span="6" align="center">
+                            <span @click="getActiveTime('m')" :class="[{'active':activeTime === 'm'}]">本月</span>
+                        </van-col>
+                        <van-col span="6" align="center">
+                            <span @click="getActiveTime('1')" :class="[{'active':activeTime === '1'}]">总榜</span>
+                        </van-col>
+                    </van-row>
                     <van-pull-refresh class="refresh" v-model="loading" @refresh="onRefresh">
                         <van-list
                             v-model="loading"
@@ -32,7 +75,11 @@
                                                         <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
                                                     </van-col>
                                                     <van-col span="20" class="score" align="right">
-                                                        <van-col span="24">{{ $t('question:Score') }}: {{ item.score }}</van-col>
+                                                        <van-col span="24">
+                                                            <div>{{ $t('question:NumberOfAnswers') }}: {{ item.number_answers }}</div>
+                                                            <div>{{ $t('question:Score') }}: {{ item.score }} 分</div>
+                                                            <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} H2O</div>
+                                                        </van-col>
                                                     </van-col>
                                                 </van-row>
                                             </div>
@@ -63,10 +110,16 @@ export default {
             loading: false,
             finished: false,
             limit: 20,
-            invitemePage: 0,
-            iinvitePage: 0,
+            invitemePage: 1,
+            iinvitePage: 1,
             total: 0,
             tabIndex: 0,
+            activeTime: 'd',
+            count_sell_number: 0,
+            annualized_avg: 0,
+            answer_count_user: 0,
+            answer_count: 0,
+            answer_correct_count: 0
         }
     },
     created() {
@@ -97,6 +150,7 @@ export default {
                 console.log(val);
                 if(val.address) {
                     this.getDataList();
+                    this.getCountRankingData();
                 }
             }
         },
@@ -105,7 +159,37 @@ export default {
         
     },
     methods: {
+        getActiveTime(name) { //按照本周本月排序
+            this.activeTime = name;
+            this.iinvitePage = 1;
+            let ServerWhere = {
+                limit: this.limit,
+                page: this.iinvitePage,
+                address: this.address,
+                times: name,
+            };
+            this.getDataList(ServerWhere);
+        },
+        getCountRankingData() {
+            axios.get(this.apiUrl + "/Answer/question/getCountRankingData", {
+                params: {
+                    address: this.address,
+                }
+            }).then((json) => {
+                console.log(json);
+                if (json.code == 10000) {
+                    this.count_sell_number = json.data.count_sell_number;
+                    this.annualized_avg = json.data.annualized_avg;
+                    this.answer_count_user = json.data.answer_count_user;
+                    this.answer_count = json.data.answer_count_user;
+                    this.answer_correct_count = json.data.answer_correct_count;
+                }
+            }).catch((error) => {
+                this.$notify({ type: 'warning', message: error });
+            });
+        },
         async getDataList(ServerWhere) { //获取我邀请的数据
+            this.finished = true;
             if (this.finished) { //下拉刷新状态
                 this.tableData = [];
                 this.finished = false;
@@ -113,29 +197,33 @@ export default {
             if (!ServerWhere || ServerWhere == undefined || ServerWhere.length <= 0) {
                 ServerWhere = {
                     limit: this.limit,
-                    page: this.iinvitePage + 1,
+                    page: this.iinvitePage,
                     address: this.address,
+                    times: this.activeTime,
                 };
             }
             if(this.address) {
                 axios.get(this.apiUrl + "/Answer/question/getUserTodayLeaderboardList", {
                     params: ServerWhere
                 }).then((json) => {
-                    this.loading = false;
                     console.log(json);
                     // console.log(this.address);
                     if (json.code == 10000) {
-                        if(json.data && json.data.lists && json.data.lists.length > 0) {
+                        if (json.data.lists) {
+                            let list = (json.data && json.data.lists) || [];
                             if(this.iinvitePage <= 1) {
-                                this.tableData = json.data.lists;
+                                this.tableData = list;
                             } else {
                                 if(ServerWhere.page <= json.data.allpage) {
                                     // console.log(ServerWhere.page, json.data.allpage);
-                                    this.tableData.push(json.data.lists);
+                                    // this.tableData = [...this.tableData, ...list];
+                                    this.tableData.push(list);
                                 }
                             }
                             if(ServerWhere.page >= json.data.allpage) {
                                 this.finished = true;
+                            } else {
+                                this.finished = false;
                             }
                             this.total = json.data.count;
                             this.iinvitePage += 1;
@@ -144,6 +232,7 @@ export default {
                     } else {
                         this.$notify({ type: 'warning', message: '加载数据失败' });
                     }
+                    this.loading = false;
                 }).catch((error) => {
                     this.$notify({ type: 'warning', message: error });
                 });
@@ -158,7 +247,7 @@ export default {
             this.finished = false;
             // 重新加载数据
             // 将 loading 设置为 true，表示处于加载状态
-            this.invitemePage = 0;
+            this.iinvitePage = 1;
             this.loading = true;
             setTimeout(() => {
                 this.getDataList();
@@ -230,17 +319,32 @@ export default {
             width: 100%;
             // position: absolute;
             // overflow: hidden;
+            .generalStatistics {
+                width: 90%;
+                // height: 80vh;
+                margin: 0 auto;
+                background-color: #fff;
+                margin-top: 80px;
+                border-radius: 10px;
+                font-size: 14px;
+                .box {
+                    padding: 10px;
+                    .van-divider {
+                        margin: 10px 0;;
+                    }
+                }
+            }
             .attContainer {
                 // width: 100%;
                 // min-height: 100vh;
                 // background-color: #ebedf0;
                 // padding-top: 10px;
                 width: 90%;
-                height: 80vh;
+                height: 65vh;
                 margin: 0 auto;
                 background-color: #fff;
-                margin-top: 80px;
-                // border-radius: 30px;
+                margin-top: 10px;
+                border-radius: 10px;
                 overflow: auto;
                 // padding-bottom: 50px;
                 .refresh {
@@ -302,6 +406,17 @@ export default {
                             line-height: 15px;
                             margin: 5px 0;
                         }
+                    }
+                }
+                .sort {
+                    padding-top: 10px;
+                    span {
+                        padding: 10px;
+                        color: #646566;
+                    }
+                    .active {
+                        color: #323233;
+                        font-weight:500;
                     }
                 }
             }

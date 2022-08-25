@@ -9,6 +9,10 @@
     <div :class="['woman', animateShow ? 'an-woman' : 'an-woman2']"></div>
     <el-row class="content">
       <el-col :span="24" align="center">
+        <!-- {{ timerCount }} 秒 -->
+        <el-progress :width="50" :stroke-width="10" type="circle" :percentage="timerPercentage" :format="timerFormat"></el-progress>
+      </el-col>
+      <el-col :span="24" align="center">
         <div class="list-content" v-if="getQAlist.length">
           <p class="title" v-if="$i18n.i18next.language === 'zh'">第{{ listIndex + 1 }}/{{questionNum}}题</p>
           <p class="title" v-else>Question {{ listIndex + 1 }}/{{questionNum}}</p>
@@ -73,6 +77,9 @@ export default {
       questionNum: 5,
       loading: true,
       is_relive: 0, //是否复活重答
+      monitorUser: "", //倒计时状态
+      timerCount: 10, //10秒倒计时
+      timerPercentage: 100,
     };
   },
   computed: {
@@ -137,6 +144,22 @@ export default {
         }
       },
     },
+    timerCount: {
+        handler(value) {
+            if (value > 0) {
+                this.monitorUser = setTimeout(() => {
+                    this.timerCount--;
+                    this.timerPercentage = this.timerPercentage - 10;
+                }, 1000);
+            } else {
+              setTimeout(async() => {
+                this.calcQuestionAnswer();
+                console.log('时间到。。。');
+              }, 100)
+            }
+        },
+        immediate: true // This ensures the watcher is triggered upon creation
+    }
   },
   components: {},
   methods: {
@@ -207,60 +230,67 @@ export default {
         }
         // console.log(this.userAnswerList);
         if (this.listIndex === this.questionNum - 1) {
-            const loading = this.$loading({
-                lock: true,
-                text: '答案计算中...',
-                spinner: 'el-icon-loading',
-                background: 'rgba(0, 0, 0, 0.7)'
-            });
-          setTimeout(() => {
-            post(this.apiUrl + "/Answer/question/calcQuestionAnswer", {
-                address: this.address,
-                answers: this.userAnswerList,
-                times: this.userTime,
-                language: this.$i18n.i18next.language,
-                is_relive: this.is_relive
-            }, (json) => {
-                if (json && json.code == 10000) {
-                    if(json.data) {
-                        setTimeout(() => {
-                            loading.close();
-                            this.$router.push({ 
-                                name: "score", 
-                                params: {
-                                    correct_num: json.data.correct_num,
-                                    score: json.data.score,
-                                    times: json.data.times,
-                                    is_possible_resurrection: json.data.is_possible_resurrection,
-                                    consumeNumber: json.data.consumeNumber,
-                                    capped_num: json.data.capped_num,
-                                    award_num: json.data.award_num,
-                                    award_rate: json.data.award_rate,
-                                }
-                            });
-                        }, 2000);
-                    }
-                } else {
-                  this.$message.error(json.msg);
-                  loading.close();
-                }
-              }
-            );
-          }, 1000);
-        //   this.$router.replace({ path: "/score" });
-          return;
+            setTimeout(async() => {
+              await this.calcQuestionAnswer();
+            }, 100)
         }
 
         this.animateShow = !this.animateShow;
         this.screenBg += screenw;
         this.listIndex += 1;
         if (this.listIndex == this.questionNum - 1) {
-          this.subMitBtnShow = true;
+            this.subMitBtnShow = true;
         }
 
         this.userClickList = []; //清空每道题用户选择答案选项
         isWrong = false;
+        clearTimeout(this.monitorUser);
+        this.timerCount = 10;
+        this.timerPercentage = 100;
       }
+    },
+    async calcQuestionAnswer() { //开始提交作答题目
+      const loading = this.$loading({
+            lock: true,
+            text: '答案计算中...',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+        });
+        return false;
+      setTimeout(() => {
+        post(this.apiUrl + "/Answer/question/calcQuestionAnswer", {
+            address: this.address,
+            answers: this.userAnswerList,
+            times: this.userTime,
+            language: this.$i18n.i18next.language,
+            is_relive: this.is_relive
+        }, (json) => {
+            if (json && json.code == 10000) {
+                if(json.data) {
+                    setTimeout(() => {
+                        loading.close();
+                        this.$router.push({ 
+                            name: "score", 
+                            params: {
+                                correct_num: json.data.correct_num,
+                                score: json.data.score,
+                                times: json.data.times,
+                                is_possible_resurrection: json.data.is_possible_resurrection,
+                                consumeNumber: json.data.consumeNumber,
+                                capped_num: json.data.capped_num,
+                                award_num: json.data.award_num,
+                                award_rate: json.data.award_rate,
+                            }
+                        });
+                    }, 2000);
+                }
+            } else {
+              this.$message.error(json.msg);
+              loading.close();
+            }
+          }
+        );
+      }, 1000);
     },
     handleUserClick(index) {
       if (this.getQAlist[this.listIndex].type == 2) {
@@ -280,6 +310,10 @@ export default {
         this.userClickList = [index];
       }
     },
+    timerFormat(percentage) { //倒计时 进度条文字内容。
+      // console.log(percentage);
+      return percentage / 10;
+    }
   },
   mounted() {},
   destroyed() {
