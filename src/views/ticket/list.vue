@@ -28,14 +28,14 @@
                         <template #title>
                                 <div class="custom-title">
                                     <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
-                                        {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
+                                        {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                         <br>
                                         {{$t('question:DiscountPrice')}}：{{ toFixed(item.discount_price, 2) }} USDT
                                         <br>
                                         {{$t('question:Discount')}}：{{ toFixed(item.discount, 2) }} 折
                                     </div>
                                     <div v-else>
-                                        {{$t('question:sellingPrice')}}：{{ toFixed(item.price, 2) }} USDT
+                                        {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                     </div>
                                 </div>
                                 <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
