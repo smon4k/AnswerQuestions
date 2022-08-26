@@ -148,7 +148,7 @@ export default {
             immediate: true,
             handler(val){
                 console.log(val);
-                if(val.address || val.userId) {
+                if(val.userId) {
                     this.getDataList();
                     this.getCountRankingData();
                 }
@@ -410,6 +410,7 @@ export default {
                 }
                 .sort {
                     padding-top: 10px;
+                    font-size: 15px;
                     span {
                         padding: 10px;
                         color: #646566;
