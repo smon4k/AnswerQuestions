@@ -238,8 +238,11 @@ export default {
             }).then(async (json) => {
                 console.log(json);
                 if (json.code == 10000) {
-                    let walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
-                    console.log('链上USDT余额：', walletBalance);
+                    let walletBalance = 0;
+                    if(this.address) {
+                        walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
+                        console.log('链上USDT余额：', walletBalance);
+                    }
                     this.swanlakeBalance = Number(json.data.local_balance) + Number(walletBalance);
                     console.log('平台USDT可用余额：', this.swanlakeBalance);
                     // this.usdtBalance = await getBalance(Address.BUSDT, 18); //获取USDT余额
