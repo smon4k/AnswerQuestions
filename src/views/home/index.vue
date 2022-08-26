@@ -108,7 +108,7 @@ export default {
               }
             );
         } else {
-            this.$message.error("请先登录");
+            this.$message.warning("请先登录");
             return false;
         }
     },

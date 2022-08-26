@@ -165,7 +165,7 @@ export default {
             let ServerWhere = {
                 limit: this.limit,
                 page: this.iinvitePage,
-                address: this.address,
+                userId: this.userId,
                 times: name,
             };
             this.getDataList(ServerWhere);
@@ -220,7 +220,7 @@ export default {
                                     this.tableData.push(list);
                                 }
                             }
-                            if(ServerWhere.page >= json.data.allpage) {
+                            if(ServerWhere.page <= json.data.allpage) {
                                 this.finished = true;
                             } else {
                                 this.finished = false;
