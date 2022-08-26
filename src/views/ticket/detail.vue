@@ -258,7 +258,7 @@ export default {
                     message: 'USDT余额不足，请先充值！',
                 })
                 .then(() => {
-                    this.$router.push('/reward/usdt');
+                    this.$router.push('/usdt');
                 })
                 .catch(() => {
                     return false;
