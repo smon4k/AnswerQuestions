@@ -176,13 +176,13 @@ export default {
     },
     async connectWalletClick() {
       //连接钱包
-      if (window.ethereum == undefined) {
-        this.$notify({
-          type: "warning",
-          message: "You do not have metamask installed",
-        });
-        return false;
-      }
+      // if (window.ethereum == undefined) {
+      //   this.$notify({
+      //     type: "warning",
+      //     message: "You do not have metamask installed",
+      //   });
+      //   return false;
+      // }
       if (!this.address || this.address == undefined || this.address == "") {
         await fetchAccountData(0, true);
         this.$forceUpdate();

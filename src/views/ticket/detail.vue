@@ -68,30 +68,30 @@
                 </van-cell>
                 <van-cell :border="false">
                     <template #title>
-                        <span>保险金</span>
+                        <span>{{ $t('question:Insurance') }}</span>
                         <van-radio-group v-if="type == 1" v-model="insurance_amount">
                             <van-cell-group class="insurance_cell_group">
-                                <van-cell title="7% 可享受70%价值的官方回购" clickable @click="insurance_amount = 7" :border="false">
+                                <van-cell title="" clickable @click="insurance_amount = 7" :border="false">
                                     <template #title>
-                                        <span>保费{{ cealBenefits(7) }} U(7%票价)</span><br>
-                                        <span>即可享受70%票价的赎回权益</span>
+                                        <span>{{ $t('question:Insurance-Premium') }}{{ cealBenefits(7) }} U(7% {{$t('question:Insurance-fare')}} )</span><br>
+                                        <span>{{ $t('question:Insurance-02-70') }}</span>
                                     </template>
                                     <template #right-icon>
                                         <van-radio :name="7" />
                                     </template>
                                 </van-cell>
-                                <van-cell title="10% 可享受100%保本赎回门票的权益" clickable @click="insurance_amount = 10">
+                                <van-cell title="" clickable @click="insurance_amount = 10">
                                     <template #title>
-                                        <span>保费{{ cealBenefits(10) }} U(10%票价)</span><br>
-                                        <span>即可享受100%票价的赎回权益</span>
+                                        <span>{{ $t('question:Insurance-Premium') }}{{ cealBenefits(10) }} U(10%{{$t('question:Insurance-fare')}})</span><br>
+                                        <span>{{ $t('question:Insurance-02-100') }}</span>
                                     </template>
                                     <template #right-icon>
                                         <van-radio :name="10" />
                                     </template>
                                 </van-cell>
-                                <van-cell title="7% 可享受70%价值的官方回购" clickable @click="insurance_amount = 0" :border="false">
+                                <van-cell title="" clickable @click="insurance_amount = 0" :border="false">
                                     <template #title>
-                                        <span>我已了解风险，不需要保险</span>
+                                        <span>{{ $t('question:Insurance-03') }}</span>
                                     </template>
                                     <template #right-icon>
                                         <van-radio :name="0" />
@@ -100,12 +100,12 @@
                             </van-cell-group>
                         </van-radio-group>
                         <div v-else style="height:30px">
-                            赎回价格：
-                            <span v-if="ticketDetail.insurance_amount === 7">70%回购</span>
-                            <span v-if="ticketDetail.insurance_amount === 10 || ticketDetail.insurance_amount === 0">保本赎回</span>
+                            {{$t('question:redemptionPrice')}}：
+                            <span v-if="ticketDetail.insurance_amount === 7">70% {{$t('question:repo')}}</span>
+                            <span v-if="ticketDetail.insurance_amount === 10 || ticketDetail.insurance_amount === 0">{{$t('question:guaranteedRedemption')}}</span>
                         </div>
-                        <van-button class="buy-button" v-if="type == 1" :loading="loading" :disabled="loading" type="primary" @click="startBuyClick()">立即购买</van-button>
-                        <van-button class="buy-button" v-else :loading="loading" :disabled="ticketDetail.insurance_amount <= 0 || loading" type="info" @click="startRedemptionClick()">立即赎回</van-button>
+                        <van-button class="buy-button" v-if="type == 1" :loading="loading" :disabled="loading" type="primary" @click="startBuyClick()">{{$t('question:buyNow')}}</van-button>
+                        <van-button class="buy-button" v-else :loading="loading" :disabled="ticketDetail.insurance_amount <= 0 || loading" type="info" @click="startRedemptionClick()">{{$t('question:redeemNow')}}</van-button>
                     </template>
                 </van-cell>
             </van-cell-group>

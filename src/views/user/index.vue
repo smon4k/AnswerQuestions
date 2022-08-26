@@ -27,25 +27,25 @@
                 <div class="item-index">
                     <van-cell is-link :title="$t('question:walletAddress')" @click="connectWalletClick()">
                         <div v-if="window.ethereum">{{ addressStr() }}</div>
-                        <div v-else-if="!window.ethereum && !userId" @click="loginEvent()">登录/注册</div>
+                        <div v-else-if="!window.ethereum && !userId" @click="loginEvent()">{{ $t('question:logInRegister') }}</div>
                         <div v-else>{{address ? subAddress(address) : 'Connect Wallet'}}</div>
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="'用户名'">
+                    <van-cell is-link :title="$t('question:logInRegister')">
                         <div>{{username ? username : 'Unnamed'}}</div>
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="'账号绑定'" @click="setUpInfo()"></van-cell>
+                    <van-cell is-link :title="$t('question:accountBinding')" @click="setUpInfo()"></van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link title="USDT余额" @click="getUsdtDepositWithdraw()">
+                    <van-cell is-link :title="'USDT' + $t('question:Balance')" @click="getUsdtDepositWithdraw()">
                         <div>{{ toFixed(usdt_balance, 4) }} USDT</div>
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link title="H2O余额" @click="getH2ODepositWithdraw()">
+                    <van-cell is-link :title="'H2O' + $t('question:Balance')" @click="getH2ODepositWithdraw()">
                         <div>{{ toFixed(h2o_balance, 4) }} H2O</div>
                     </van-cell>
                 </div>

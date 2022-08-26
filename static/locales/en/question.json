@@ -30,6 +30,7 @@
     "myTicket": "My Ticket",
     "sellingPrice": "selling price",
     "buyPrice": "Buy Price",
+    "redemptionPrice": "redemption Price",
     "denomination": "denomination",
     "DiscountPrice": "discount price",
     "Discount": "discount",
@@ -57,5 +58,18 @@
     "week": "Week",
     "moon": "Moon",
     "OverallList": "total",
-    "Balance": "Balance"
+    "Balance": "Balance",
+    "Insurance": "Insurance",
+    "Insurance-Premium": "Premium",
+    "Insurance-fare": "fare",
+    "Insurance-02-70": "Enjoy 70% of the ticket redemption rights",
+    "Insurance-02-100": "Enjoy 100% of the ticket redemption rights",
+    "Insurance-03": "I understand the risks and do not need insurance",
+    "repo": "repo",
+    "guaranteedRedemption": "Guaranteed Redemption",
+    "buyNow": "Buy Now",
+    "redeemNow": "Redeem Now",
+    "logInRegister": "log In Register",
+    "username": "username",
+    "accountBinding": "account binding"
 }
