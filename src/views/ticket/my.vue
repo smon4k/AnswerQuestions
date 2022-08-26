@@ -370,10 +370,10 @@ export default {
             .main {
                 padding-bottom: 60px;
                 .ticket-button {
-                    width: 80px;
+                    width: 140px;
                     height: 30px;
                     font-size: 10px;
-                    // border-radius: 20px;
+                    border-radius: 20px;
                 }
                 .buy-button {
                     width: 100px;

@@ -23,15 +23,15 @@
                 <van-divider />
                 <van-row>
                     <van-col span="8" align="center">
-                        <span>参与答题用户数</span><br>
+                        <span>{{ $t('question:NumberOfParticipants') }}</span><br>
                         <span>{{ answer_count_user }}</span>
                     </van-col>
                     <van-col span="8" align="center">
-                        <span>共完成答题总数</span><br>
+                        <span>{{ $t('question:CompletedAnswers') }}</span><br>
                         <span>{{ answer_count }}</span>
                     </van-col>
                     <van-col span="8" align="center">
-                        <span>共答对总数</span><br>
+                        <span>{{ $t('question:CorrectAnswer') }}</span><br>
                         <span>{{ answer_correct_count }}</span>
                     </van-col>
                 </van-row>
@@ -43,16 +43,16 @@
                 <van-tab title="我的邀请"> -->
                     <van-row class="sort">
                         <van-col span="6" align="center">
-                            <span @click="getActiveTime('d')" :class="[{'active':activeTime === 'd'}]">今日</span>
+                            <span @click="getActiveTime('d')" :class="[{'active':activeTime === 'd'}]">{{ $t('question:day') }}</span>
                         </van-col>
                         <van-col span="6" align="center">
-                            <span @click="getActiveTime('w')" :class="[{'active':activeTime === 'w'}]">本周</span>
+                            <span @click="getActiveTime('w')" :class="[{'active':activeTime === 'w'}]">{{ $t('question:week') }}</span>
                         </van-col>
                         <van-col span="6" align="center">
-                            <span @click="getActiveTime('m')" :class="[{'active':activeTime === 'm'}]">本月</span>
+                            <span @click="getActiveTime('m')" :class="[{'active':activeTime === 'm'}]">{{ $t('question:moon') }}</span>
                         </van-col>
                         <van-col span="6" align="center">
-                            <span @click="getActiveTime('1')" :class="[{'active':activeTime === '1'}]">总榜</span>
+                            <span @click="getActiveTime('1')" :class="[{'active':activeTime === '1'}]">{{ $t('question:OverallList') }}</span>
                         </van-col>
                     </van-row>
                     <van-pull-refresh class="refresh" v-model="loading" @refresh="onRefresh">
@@ -176,7 +176,7 @@ export default {
                     userId: this.userId,
                 }
             }).then((json) => {
-                console.log(json);
+                // console.log(json);
                 if (json.code == 10000) {
                     this.count_sell_number = json.data.count_sell_number;
                     this.annualized_avg = json.data.annualized_avg;

@@ -45,8 +45,17 @@
     "userNumber": "The number of participants",
     "noTicket": "No tickets yet, click to buy",
     "ticketBuy": "Ticket purchase",
+    "ticketRedemption": "Ticket redemption",
     "startTicket": "open tickets",
     "using": "Using",
     "nominalInterestRate": "Nominal Interest Rate",
-    "realInterestRate": "Real Interest Rate"
+    "realInterestRate": "Real Interest Rate",
+    "NumberOfParticipants": "Number Of Participants",
+    "CompletedAnswers": "Completed Answers",
+    "CorrectAnswer": "Correct Answer Number",
+    "day": "Day",
+    "week": "Week",
+    "moon": "Moon",
+    "OverallList": "total",
+    "Balance": "Balance"
 }

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="bg" :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            :title="type == 1 ? '购买门票' : '赎回门票'"
+            :title="type == 1 ? $t('question:ticketBuy') : $t('question:ticketRedemption')"
             left-text=""
             left-arrow
             right-text=""
@@ -25,9 +25,9 @@
                    <template #title>
                         <div>
                             <van-row>
-                                <van-col span="12">名义利率</van-col>
+                                <van-col span="12">{{ $t('question:nominalInterestRate') }}</van-col>
                                 <!-- <van-col span="12">奖励封顶</van-col> -->
-                                <van-col span="12">实际利率</van-col>
+                                <van-col span="12">{{ $t('question:realInterestRate') }}</van-col>
                             </van-row>
                             <van-row>
                                 <van-col span="12">{{ toFixed(ticketDetail.annualized, 2) }}%</van-col>
@@ -39,10 +39,10 @@
                         <div v-if="type == 1">
                             <van-row>
                                 <van-col span="12">
-                                    <span v-if="ticketDetail.is_discount && ticketDetail.discount_status == 2">折扣价</span>
-                                    <span v-else>面额</span>
+                                    <span v-if="ticketDetail.is_discount && ticketDetail.discount_status == 2">{{ $t('question:DiscountPrice') }}</span>
+                                    <span v-else>{{ $t('question:denomination') }}</span>
                                 </van-col>
-                                <van-col span="12">USDT 余额</van-col>
+                                <van-col span="12">USDT {{ $t('question:Balance') }}</van-col>
                             </van-row>
                             <van-row>
                                 <van-col span="12">
@@ -54,8 +54,8 @@
                         </div>
                         <div v-else>
                             <van-row>
-                                <van-col span="12">购买价格</van-col>
-                                <van-col span="12">面额</van-col>
+                                <van-col span="12">{{ $t('question:buyPrice') }}</van-col>
+                                <van-col span="12">{{ $t('question:denomination') }}</van-col>
                             </van-row>
                             <van-row>
                                 <van-col span="12">
