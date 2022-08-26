@@ -17,7 +17,7 @@
                     </van-col>
                     <van-col span="12" align="center">
                         <span>APR</span><br>
-                        <span>{{ annualized_avg * 100 }}%</span>
+                        <span>{{ toFixed(annualized_avg * 100, 4) }}%</span>
                     </van-col>
                 </van-row>
                 <van-divider />

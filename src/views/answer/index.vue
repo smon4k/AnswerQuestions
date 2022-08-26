@@ -113,10 +113,10 @@ export default {
       let text =  "【" + this.$t('question:SingleChoice') + "】";
       console.log(this.getQAlist);
       console.log(this.getQAlist[this.listIndex]);
-      if (this.getQAlist[this.listIndex].type == 2) {
+      if (this.getQAlist[this.listIndex].type && this.getQAlist[this.listIndex].type == 2) {
         text = "【" + this.$t('question:MultipleChoice') + "】";
       }
-      if (this.getQAlist[this.listIndex].type == 3) {
+      if (this.getQAlist[this.listIndex].type && this.getQAlist[this.listIndex].type == 3) {
         text = "【" + this.$t('question:judge') + "】";
       }
       return text;
@@ -232,23 +232,25 @@ export default {
         }
         // console.log(this.userAnswerList);
         if (this.listIndex === this.questionNum - 1) {
+            clearTimeout(this.monitorUser);
             setTimeout(async() => {
               await this.calcQuestionAnswer();
             }, 100)
+        } else {
+          this.animateShow = !this.animateShow;
+          this.screenBg += screenw;
+          this.listIndex += 1;
+          if (this.listIndex == this.questionNum - 1) {
+              this.subMitBtnShow = true;
+          }
+  
+          this.userClickList = []; //清空每道题用户选择答案选项
+          isWrong = false;
+          clearTimeout(this.monitorUser);
+          this.timerCount = 10;
+          this.timerPercentage = 100;
         }
 
-        this.animateShow = !this.animateShow;
-        this.screenBg += screenw;
-        this.listIndex += 1;
-        if (this.listIndex == this.questionNum - 1) {
-            this.subMitBtnShow = true;
-        }
-
-        this.userClickList = []; //清空每道题用户选择答案选项
-        isWrong = false;
-        clearTimeout(this.monitorUser);
-        this.timerCount = 10;
-        this.timerPercentage = 100;
       }
     },
     async calcQuestionAnswer() { //开始提交作答题目
