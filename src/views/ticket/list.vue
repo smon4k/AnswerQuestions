@@ -28,6 +28,8 @@
                         <template #title>
                                 <div class="custom-title">
                                     <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
+                                        {{$t('question:denomination')}}：{{ toFixed(item.denomination, 2) }} USDT
+                                        <br>
                                         {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                         <br>
                                         {{$t('question:DiscountPrice')}}：{{ toFixed(item.discount_price, 2) }} USDT
@@ -35,6 +37,8 @@
                                         {{$t('question:Discount')}}：{{ toFixed(item.discount, 2) }} 折
                                     </div>
                                     <div v-else>
+                                        {{$t('question:denomination')}}：{{ toFixed(item.denomination, 2) }} USDT
+                                        <br>
                                         {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
                                     </div>
                                 </div>
@@ -42,7 +46,7 @@
                                     <div class="custom-title">{{$t('question:DiscountStartTime')}}：{{item.start_time}}</div>
                                     <div class="custom-title">{{$t('question:DiscountEndTime')}}：{{item.end_time}}</div>
                                 </div>
-                                <div class="custom-title">{{$t('question:nominalInterestRate')}}：{{ toFixed(item.annualized, 2) }} %</div>
+                                <div class="custom-title">{{$t('question:nominalInterestRate')}}：{{ toFixed(item.annualized * 100, 2) }} %</div>
                                 <div class="custom-title">{{$t('question:realInterestRate')}}：{{ getRealInterestRate(item) }}</div>
                                 <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div> -->
                             </template>
@@ -176,7 +180,7 @@ export default {
             if(row.is_discount && (row.discount_status == 2 || row.discount_status == 1)) {
                 price = row.discount_price;
             }
-            num = (Number(row.capped) * this.H2OPrice * 365) / Number(price);
+            num = ((Number(row.capped) * this.H2OPrice * 365) / Number(price)) * 100;
             return this.toFixed(num, 2) + "%";
         }
     },

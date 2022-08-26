@@ -92,9 +92,9 @@ export default {
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {address, apiUrl, userTicketId} = this
+            const {userId, apiUrl, userTicketId} = this
             return {
-                address, apiUrl, userTicketId
+                userId, apiUrl, userTicketId
             };
         },
     },
@@ -103,7 +103,7 @@ export default {
             immediate: true,
             handler(val){
                 console.log(val);
-                if(val.address && val.userTicketId > 0) {
+                if(val.userId && val.userTicketId > 0) {
                     this.getAwardList();
                 }
             }
@@ -122,11 +122,11 @@ export default {
                 ServerWhere = {
                     limit: this.limit,
                     page: this.page,
-                    address: this.address,
+                    userId: this.userId,
                     user_ticket_id: this.userTicketId,
                 };
             }
-            if(this.address) {
+            if(this.userId) {
                 axios.get(this.apiUrl + "/Answer/Ticket/getUserTicketTodayAward", {
                     params: ServerWhere
                 }).then((json) => {

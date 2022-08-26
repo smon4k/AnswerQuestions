@@ -13,11 +13,11 @@
                 <van-row>
                     <van-col span="12" align="center">
                         <span>TVL</span><br>
-                        <span>{{ count_sell_number }}</span>
+                        <span>{{ count_sell_number }} USDT</span>
                     </van-col>
                     <van-col span="12" align="center">
                         <span>APR</span><br>
-                        <span>{{ annualized_avg }}</span>
+                        <span>{{ annualized_avg * 100 }}%</span>
                     </van-col>
                 </van-row>
                 <van-divider />
@@ -134,9 +134,9 @@ export default {
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {address, apiUrl} = this
+            const {address, userId, apiUrl} = this
             return {
-                address, apiUrl
+                address, userId, apiUrl
             };
         },
         reAddress(){
@@ -148,7 +148,7 @@ export default {
             immediate: true,
             handler(val){
                 console.log(val);
-                if(val.address) {
+                if(val.address || val.userId) {
                     this.getDataList();
                     this.getCountRankingData();
                 }
@@ -173,7 +173,7 @@ export default {
         getCountRankingData() {
             axios.get(this.apiUrl + "/Answer/question/getCountRankingData", {
                 params: {
-                    address: this.address,
+                    userId: this.userId,
                 }
             }).then((json) => {
                 console.log(json);
@@ -181,7 +181,7 @@ export default {
                     this.count_sell_number = json.data.count_sell_number;
                     this.annualized_avg = json.data.annualized_avg;
                     this.answer_count_user = json.data.answer_count_user;
-                    this.answer_count = json.data.answer_count_user;
+                    this.answer_count = json.data.answer_count;
                     this.answer_correct_count = json.data.answer_correct_count;
                 }
             }).catch((error) => {
@@ -198,11 +198,11 @@ export default {
                 ServerWhere = {
                     limit: this.limit,
                     page: this.iinvitePage,
-                    address: this.address,
+                    userId: this.userId,
                     times: this.activeTime,
                 };
             }
-            if(this.address) {
+            if(this.userId) {
                 axios.get(this.apiUrl + "/Answer/question/getUserTodayLeaderboardList", {
                     params: ServerWhere
                 }).then((json) => {

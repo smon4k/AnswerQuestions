@@ -113,9 +113,9 @@ export default {
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {apiUrl} = this
+            const {apiUrl, userId} = this
             return {
-                apiUrl
+                apiUrl, userId
             };
         },
     },

@@ -17,12 +17,13 @@ const WalletConnectProvider = window.WalletConnectProvider.default;
 let web3Modal;
 
 let provider;
+let networkId = 56;
 
 export const fetchAccountData = async () => {
-  if (!isInstalled()) {
-    alert('您未安装metamask')
-    return
-  };
+  // if (!isInstalled()) {
+  //   alert('您未安装metamask')
+  //   return
+  // };
   // console.log('selectedAddress', ethereum.selectedAddress, localStorage.getItem('connectorId'));
   if(window.ethereum) {
     if (ethereum && ethereum.selectedAddress && ethereum.selectedAddress !== null && localStorage.getItem('connectorId')) {
@@ -33,6 +34,9 @@ export const fetchAccountData = async () => {
 
       // Get connected chain id from Ethereum node
       const chainId = await web3.eth.getChainId();
+      if(chainId !== networkId) {
+        await networkSetup();
+      }
 
       // Get list of accounts of the connected wallet
       const accounts = await web3.eth.getAccounts();
@@ -51,6 +55,8 @@ export const fetchAccountData = async () => {
       await connect();
       return
     }
+  } else {
+    await getAccountInfo();
   }
 };
 
@@ -190,6 +196,29 @@ export const disconnectWallet = async () => {
   __ownInstance__.$store.dispatch("disconnectMetaMask");
   localStorage.removeItem('connectorId');
   localStorage.removeItem('WEB3_CONNECT_CACHED_PROVIDER');
+  localStorage.removeItem('userInfo');
+  localStorage.removeItem('token');
+  localStorage.removeItem('address');
+  __ownInstance__.$store.commit("removeAddress");
+};
+
+export const networkSetup = async () => { //切换网络
+  return new Promise((resolve, reject) => {
+      const provider = window.ethereum
+      const web3 = new Web3(window.ethereum);
+      if (provider) {
+          provider.request({
+              method: 'wallet_switchEthereumChain',
+              params: [
+                  { 
+                    chainId: web3.utils.numberToHex(networkId)
+                  }
+              ], 
+          }).then(resolve(true)).catch(reject(false))
+      } else {
+          reject(new Error(`window.ethereum is '${typeof provider}'`))
+      }
+  })
 };
 
 
@@ -202,6 +231,16 @@ export const connectWallet = () => {
   }
 }
 
+//获取用户是否登录
+async function getAccountInfo() {
+  let userInfoJson = localStorage.getItem('userInfo');
+  console.log(userInfoJson);
+  if(userInfoJson && userInfoJson !== undefined && userInfoJson !== null) {
+    const userInfo = JSON.parse(userInfoJson);
+     __ownInstance__.$store.commit("setUserInfo", userInfo);
+  } 
+ }
+
 
 async function getBaseData(chainId, accounts, address) {
   if (chainId && accounts && address) {
@@ -210,6 +249,7 @@ async function getBaseData(chainId, accounts, address) {
     __ownInstance__.$store.commit("getAccounts", accounts);
     __ownInstance__.$store.commit("getAddress", address);
     localStorage.setItem('connectorId', 'injected');
+    return true;
   }
   __ownInstance__.$store.commit("isConnected", true);
 }

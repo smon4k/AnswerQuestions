@@ -26,8 +26,18 @@
             <div class="item">
                 <div class="item-index">
                     <van-cell is-link :title="$t('question:walletAddress')" @click="connectWalletClick()">
-                        <div>{{ addressStr() }}</div>
+                        <div v-if="window.ethereum">{{ addressStr() }}</div>
+                        <div v-else-if="!window.ethereum && !userId" @click="loginEvent()">登录/注册</div>
+                        <div v-else>{{address ? subAddress(address) : 'Connect Wallet'}}</div>
                     </van-cell>
+                </div>
+                <div class="item-index">
+                    <van-cell is-link :title="'用户名'">
+                        <div>{{username ? username : 'Unnamed'}}</div>
+                    </van-cell>
+                </div>
+                <div class="item-index">
+                    <van-cell is-link :title="'账号绑定'" @click="setUpInfo()"></van-cell>
                 </div>
                 <div class="item-index">
                     <van-cell is-link title="USDT余额" @click="getUsdtDepositWithdraw()">
@@ -85,6 +95,7 @@ export default {
     name: '',
     data() {
         return {
+            window: window,
             active: 2,
             avatarFileObj: "", //压缩后的头像文件对象
             isNameShow: false, //名字 弹框
@@ -108,6 +119,7 @@ export default {
             currentDate: new Date(2022, 0, 1),
             avatar: '',
             nickname: '',
+            username: '',
             showBirthdayPicker: false,
             LanguageActions: [{ name: '中文', label: 'zh' }, { name: 'English', label: 'en' }],
             isconfirm: true,
@@ -127,14 +139,15 @@ export default {
     computed: {
         ...mapState({
             address:state=>state.base.address,
+            userId:state=>state.base.userId,
             isConnected:state=>state.base.isConnected,
             apiUrl:state=>state.base.apiUrl,
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {address,apiUrl} = this
+            const {address,apiUrl, userId} = this
             return {
-                address, apiUrl
+                address, apiUrl, userId
             };
         },
     },
@@ -142,7 +155,7 @@ export default {
         changeData: {
             immediate: true,
             handler(val){
-                if(val.address) {
+                if(val.address || val.userId > 0) {
                     // this.getCommentList(true);
                     this.getUserInfo();
                 }
@@ -157,11 +170,13 @@ export default {
         async getUserInfo() { //获取用户信息
             await axios.get(this.apiUrl + '/Api/User/getUserInfo', {
                 params: {
-                    address: this.address
+                    address: this.address,
+                    userId: this.userId
                 }
             }).then(async (json) => {
                 if (json && json.code == 10000) {
                     console.log(json.data);
+                    this.username = json.data.username;
                     this.nickname = json.data.nickname;
                     this.avatar = json.data.avatar;
                     this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
@@ -188,7 +203,7 @@ export default {
                     let uploadData = new FormData();
                     uploadData.append('file', newFile);
                     uploadData.append('images_key', "avatar");
-                    uploadData.append('address', this.address);
+                    uploadData.append('userId', this.userId);
                     await axios.post(this.apiUrl + '/Api/User/saveUserInfo', uploadData).then(async (json) => {
                         if (json && json.code == 10000) {
                             file.status = 'done';
@@ -239,7 +254,7 @@ export default {
             //     return false;
             // }
             const params = {
-                address: this.address,
+                userId: this.userId,
                 [name]: value,
             };
             await axios.post(this.apiUrl + '/Api/User/saveUserInfo', params).then(async (json) => {
@@ -268,6 +283,9 @@ export default {
                 return this.address.substring(0, 4) + "***" + this.address.substring(this.address.length - 3)
             }
         },
+        subAddress(address) {
+            return address.substring(0, 4) + "***" + address.substring(address.length - 3)
+        },
         async connectWalletClick() { //连接钱包
             if(window.ethereum == undefined) {
                 this.$message({ type: 'warning', message: 'You do not have metamask installed' });
@@ -293,7 +311,19 @@ export default {
         },
         getH2ODepositWithdraw() {
             // this.$router.push("/h2o");
-        }
+        },
+        loginEvent() { //登录注册
+            this.$router.push('/login');
+        },
+        setUpInfo() { //设置
+            console.log(this.userId);
+            if(!this.userId || this.userId <= 0) {
+                this.$message({ type: 'warning', message: 'Error' });
+                return false;
+            } else {
+                this.$router.push('/user/setup');
+            }
+        },
     },
 }
 </script>

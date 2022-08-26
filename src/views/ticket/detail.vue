@@ -55,13 +55,13 @@
                         <div v-else>
                             <van-row>
                                 <van-col span="12">购买价格</van-col>
-                                <van-col span="12">购买时间</van-col>
+                                <van-col span="12">面额</van-col>
                             </van-row>
                             <van-row>
                                 <van-col span="12">
                                     <div>{{ toFixed(ticketDetail.buy_price, 2) }} USDT</div>
                                 </van-col>
-                                <van-col span="12">{{ ticketDetail.time }}</van-col>
+                                <van-col span="12">{{ toFixed(ticketDetail.denomination, 2) }} USDT</van-col>
                             </van-row>
                         </div>
                     </template>
@@ -163,7 +163,7 @@ export default {
             immediate: true,
             handler(val){
                 console.log(val);
-                if(val.address !== '' && val.ticketId > 0) {
+                if(val.userId && val.ticketId > 0) {
                     this.getTicketDetail();
                     this.getUserInfo();
                 }
@@ -180,9 +180,9 @@ export default {
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {address, ticketId} = this
+            const {address, userId, ticketId} = this
             return {
-                address, ticketId
+                address, userId, ticketId
             };
         },
     },
@@ -211,7 +211,7 @@ export default {
             }
             axios.get(url, {
                 params: {
-                    address: this.address,
+                    userId: this.userId,
                     ticketId: this.ticketId,
                     userTicketId: this.userTicketId,
                 }
@@ -233,7 +233,7 @@ export default {
         async getUserInfo() { //获取用户信息
             axios.get(this.apiUrl + "/Api/Depositwithdrawal/getFillingRecordUserInfo", {
                 params: {
-                    address: this.address,
+                    userId: this.userId,
                 }
             }).then(async (json) => {
                 console.log(json);
@@ -266,7 +266,7 @@ export default {
                 // this.$notify({ type: 'warning', message: 'USDT 余额不足' });
                 return false;
             }
-            if(this.address == '') {
+            if(this.userId <= 0) {
                 this.$notify({ type: 'warning', message: '获取用户信息失败' });
                 return false;
             }
@@ -281,7 +281,7 @@ export default {
             this.loading = true;
             setTimeout(() => {
                 post(this.apiUrl + '/Answer/Ticket/startBuyTicket', { 
-                        address: this.address, 
+                        userId: this.userId,
                         ticket_id: this.ticketId, 
                         insurance_amount: this.insurance_amount,
                         type: this.type
@@ -312,7 +312,7 @@ export default {
             this.loading = true;
             setTimeout(() => {
                 post(this.apiUrl + '/Answer/Ticket/startRedemptionTicket', { 
-                        address: this.address, 
+                        userId: this.userId,
                         ticket_id: this.ticketId, 
                         user_ticket_id: this.userTicketId,
                 }, (json) => {

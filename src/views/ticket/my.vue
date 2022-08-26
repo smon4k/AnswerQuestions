@@ -40,16 +40,29 @@
                                         <template #title>
                                                 <div>
                                                     <van-row>
-                                                        <van-col span="8">{{$t('question:nominalInterestRate')}}</van-col>
+                                                        <van-col span="12">
+                                                            <span>{{$t('question:nominalInterestRate')}}</span> 
+                                                            <br>
+                                                            <span>{{ toFixed(item.annualized, 2) }}%</span>
+                                                        </van-col>
                                                         <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
-                                                        <van-col span="8">{{$t('question:realInterestRate')}}</van-col>
-                                                        <van-col span="8">{{$t('question:denomination')}}</van-col>
-                                                    </van-row>
-                                                    <van-row>
-                                                        <van-col span="8">{{ toFixed(item.annualized, 2) }}%</van-col>
-                                                        <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col> -->
-                                                        <van-col span="8">{{ getRealInterestRate(item) }}</van-col>
-                                                        <van-col span="8">{{ toFixed(item.price, 2)}} USDT</van-col>
+                                                        <van-col span="12">
+                                                            <span>{{$t('question:realInterestRate')}}</span>
+                                                            <br>
+                                                            <span>{{ getRealInterestRate(item) }}</span>
+                                                        </van-col>
+                                                        <van-col span="12">
+                                                            <br>
+                                                            <span>{{$t('question:denomination')}}</span>
+                                                            <br>
+                                                            <span>{{ toFixed(item.denomination, 2)}} USDT</span>
+                                                        </van-col>
+                                                        <van-col span="12">
+                                                            <br>
+                                                            <span>{{$t('question:buyPrice')}}</span>
+                                                            <br>
+                                                            <span>{{ toFixed(item.price, 2)}} USDT</span>
+                                                        </van-col>
                                                     </van-row>
                                                 </div>
                                                 <van-divider />
@@ -135,7 +148,7 @@ export default {
             loading: false,
             finished: false,
             limit: 20,
-            page: 0,
+            page: 1,
             total: 0,
             radio: 0,
             ticketStatus: false,
@@ -151,7 +164,7 @@ export default {
             immediate: true,
             handler(val){
                 console.log(val);
-                if(val.address) {
+                if(val.userId) {
                     this.getMyTicketList();
                 }
             }
@@ -166,9 +179,9 @@ export default {
             isMobel:state=>state.comps.isMobel,
         }),
         changeData() {
-            const {address} = this
+            const {address, userId} = this
             return {
-                address
+                address, userId
             };
         },
     },
@@ -205,10 +218,10 @@ export default {
                 ServerWhere = {
                     limit: this.limit,
                     page: this.page,
-                    address: this.address,
+                    userId: this.userId,
                 };
             }
-            if(this.address) {
+            if(this.userId) {
                 axios.get(this.apiUrl + "/Answer/Ticket/getMyTicketList", {
                     params: ServerWhere
                 }).then((json) => {
@@ -252,7 +265,7 @@ export default {
             .then(() => {
                 axios.get(this.apiUrl + "/Answer/Ticket/startTicket", {
                     params: {
-                        address: this.address,
+                        userId: this.userId,
                         ticket_id: row.ticket_id,
                         user_ticket_id: row.id
                     }

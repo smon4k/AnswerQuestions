@@ -5,9 +5,9 @@
         <div class="title01">{{ $t("question:oneStopName") }}</div>
         <div class="title02">{{ $t("question:answerQuestions") }}</div>
         <div @click="getUserClick()">
-          <el-avatar :size="100" :src="userInfo.avatar"></el-avatar>
+          <el-avatar :size="100" :src="avatar"></el-avatar>
         </div>
-        <div class="nickname">{{ userInfo.nickname }}</div>
+        <div class="nickname">{{ nickname }}</div>
         <!-- <br> -->
         <div style="margin-top: 10px">
           <el-button type="primary" @click="startAnswer()">{{
@@ -26,12 +26,16 @@ export default {
   name: "home",
   data() {
     return {
-        languag: this.$i18n.i18next.language
+        languag: this.$i18n.i18next.language,
+        avatar: '',
+        nickname: '',
+        username: '',
     };
   },
   computed: {
     ...mapState({
       address: (state) => state.base.address,
+      userId:state=>state.base.userId,
       isConnected: (state) => state.base.isConnected,
       isMobel: (state) => state.comps.isMobel,
       mainTheme: (state) => state.comps.mainTheme,
@@ -39,48 +43,74 @@ export default {
       userInfo: (state) => state.base.userInfo,
     }),
     changeData() {
-      const { address } = this;
+      const { address, userId } = this;
       return {
-        address,
+        address,userId
       };
     },
   },
   created() {
   },
   watch: {
-    address: {
+    changeData: {
       immediate: true,
       async handler(val) {
-        if (val) {
+        if(val.address || val.userId > 0) {
+            // this.getCommentList(true);
+            this.getUserInfo();
         }
       },
     },
   },
   components: {},
   methods: {
-    startAnswer() {
-      //跳转我的订单也
-      get(
-        this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {address: this.address,}, (json) => {
-          if (json.code == 10000) {
-            if (json.data) {
-                if (json.data == 1 || json.data == 2) {
-                    this.$router.push("/answer");
-                } 
-                // else if (json.data == 2) {
-                //     this.$message.warning("请先购买门票");
-                //     return false;
-                // } 
-                else if (json.data == 3) {
-                    this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
-                    return false;
-                }
-            } else {
-              this.$message.error("获取数据失败");
+    async getUserInfo() { //获取用户信息
+        await axios.get(this.apiUrl + '/Api/User/getUserInfo', {
+            params: {
+                address: this.address,
+                userId: this.userId
             }
-          }
+        }).then(async (json) => {
+            if (json && json.code == 10000) {
+                console.log(json.data);
+                this.username = json.data.username;
+                this.nickname = json.data.nickname;
+                this.avatar = json.data.avatar;
+            } else {
+                this.$message({ type: 'warning', message: 'Error' });
+            }
+            return;
+        }).catch((error) => {
+            this.$message({ type: 'warning', message: error });
+        });
+    },
+    startAnswer() { //跳转我的订单也
+        if(this.userId) {
+            get(
+              this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
+                if (json.code == 10000) {
+                  if (json.data) {
+                      if (json.data == 1 || json.data == 2) {
+                          this.$router.push("/answer");
+                      } 
+                      // else if (json.data == 2) {
+                      //     this.$message.warning("请先购买门票");
+                      //     return false;
+                      // } 
+                      else if (json.data == 3) {
+                          this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
+                          return false;
+                      }
+                  } else {
+                    this.$message.error("获取数据失败");
+                  }
+                }
+              }
+            );
+        } else {
+            this.$message.error("请先登录");
+            return false;
         }
-      );
     },
     getUserClick() {
       this.$router.push("/user");

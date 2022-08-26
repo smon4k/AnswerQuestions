@@ -9,7 +9,7 @@
                 <img src="@/assets/add.png" alt="" width="30">
             </van-tabbar-item> -->
             <!-- <van-tabbar-item replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">{{ $t('nav:buyTickets') }}</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">{{ $t('nav:tickets') }}</van-tabbar-item>
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/news">消息</van-tabbar-item> -->
             <van-tabbar-item style="cursor: pointer;" replace to="/user">{{ $t('nav:my') }}</van-tabbar-item>
         </van-tabbar>

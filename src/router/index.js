@@ -36,6 +36,24 @@ export const constantRoutes = [
         meta: { title: 'score', keepAlive: false, isBottomNav: true, }
       },
       {
+        name: 'userSetup',
+        path: "/user/setup",
+        component: () => import('@/views/user/setup'),
+        meta: { title: 'score', keepAlive: false, isBottomNav: true, }
+      },
+      {
+        path: 'login',
+        name: 'login',
+        component: () => import('@/views/user/login'),
+        meta: { title: 'login', keepAlive: false, isBottomNav: true, }
+      },
+      {
+        path: 'regist',
+        name: 'regist',
+        component: () => import('@/views/user/regist'),
+        meta: { title: 'regist', keepAlive: false, isBottomNav: true, }
+      },
+      {
         path: 'ranking',
         name: 'ranking',
         component: () => import('@/views/ranking/index'),

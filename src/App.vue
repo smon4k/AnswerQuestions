@@ -21,8 +21,8 @@ export default {
   //   }
   // },
   mounted(){
-    setTimeout(()=>{
-      fetchAccountData()
+    setTimeout(async()=>{
+      await fetchAccountData()
       // connectInfo()
     }, 300)
   },

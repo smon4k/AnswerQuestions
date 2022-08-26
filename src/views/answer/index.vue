@@ -85,6 +85,7 @@ export default {
   computed: {
     ...mapState({
       address: (state) => state.base.address,
+      userId:state=>state.base.userId,
       isConnected: (state) => state.base.isConnected,
       isMobel: (state) => state.comps.isMobel,
       mainTheme: (state) => state.comps.mainTheme,
@@ -121,10 +122,11 @@ export default {
       return text;
     },
     changeData() {
-      const { apiUrl, address } = this;
+      const { apiUrl, address, userId } = this;
       return {
         apiUrl,
         address,
+        userId,
       };
     },
   },
@@ -139,7 +141,7 @@ export default {
     changeData: {
       immediate: true,
       handler(val) {
-        if (val.address) {
+        if (val.userId) {
           this.getQuestionList();
         }
       },
@@ -165,7 +167,7 @@ export default {
   methods: {
     getQuestionList() {
       get(this.apiUrl + "/Answer/question/getUserQuestionList", {
-          address: this.address,
+          userId: this.userId,
           language: this.$i18n.i18next.language,
         }, (json) => {
           if (json.code == 10000) {
@@ -259,7 +261,7 @@ export default {
         // return false;
       setTimeout(() => {
         post(this.apiUrl + "/Answer/question/calcQuestionAnswer", {
-            address: this.address,
+            userId: this.userId,
             answers: this.userAnswerList,
             times: this.userTime,
             language: this.$i18n.i18next.language,
