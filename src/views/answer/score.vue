@@ -2,22 +2,24 @@
     <div class="container">
         <div class="main" :style="{backgroundSize:isMobel ? '100% 100%' : ''}">
             <div class="score-page">
-                <p class="line1">您答对了{{score / 20}}题</p>
-                <p class="line2">得到{{score}}分！</p>
-                <p class="line3">用时{{times}}秒</p>
+                <!-- <p class="line1">您答对了{{score / 20}}题</p> -->
+                <p class="line1">{{ $t('question:answerResult-01', {num: score / 20}) }}</p>
+                <p class="line2">{{ $t('question:answerResult-02', {num: score }) }}</p>
+                <p class="line3">{{ $t('question:answerResult-03', {num: times }) }}</p>
             </div>
             <div class="score-income">
-                <span>本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}H2O</span>
+                <!-- <span>本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}H2O</span> -->
+                <span>{{ $t('question:answerResult-04', {capped_num: capped_num, award_rate: award_rate, award_num: toFixed(award_num, 2)}) }}</span>
             </div>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
-                <div>{{ toFixed(consumeNumber, 2) }} H2O 购买进行复活</div>
+                <div>{{ toFixed(consumeNumber, 2) }} H2O {{ $t('question:buyToRevive') }}</div>
                 <!-- <el-row>
                     <el-col :span="12"></el-col>
                     <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
                 </el-row> -->
                 <div class="buy-button">
-                    <el-button type="primary" round @click="buyResurrection()">购买</el-button>
-                    <el-button type="info" round @click="giveUpResurrection()">放弃</el-button>
+                    <el-button type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</el-button>
+                    <el-button type="info" round @click="giveUpResurrection()">{{ $t('question:abandon') }}</el-button>
                 </div>
                 <!-- <div class="buy-button"></div> -->
             </div>
@@ -45,6 +47,7 @@ export default {
     computed: {
         ...mapState({
             address:state=>state.base.address,
+            userId:state=>state.base.userId,
             isConnected:state=>state.base.isConnected,
             isMobel:state=>state.comps.isMobel,
             mainTheme:state=>state.comps.mainTheme,
@@ -101,7 +104,7 @@ export default {
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
                 get(this.apiUrl + "/Answer/question/buyResurrection", {
-                    address: this.address,
+                    userId: this.userId,
                 }, (json) => {
                     if (json.code == 10000) {
                         console.log(json);

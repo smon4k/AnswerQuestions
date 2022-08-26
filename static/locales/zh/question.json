@@ -40,6 +40,7 @@
     "realTimePaybackCycle": "实时回本周期",
     "rewardCap": "奖励封顶",
     "buy": "购买",
+    "abandon": "放弃",
     "bought": "已购买",
     "redeemed": "已赎回",
     "redemption": "赎回",
@@ -72,5 +73,10 @@
     "redeemNow": "立即赎回",
     "logInRegister": "登录/注册",
     "username": "用户名",
-    "accountBinding": "账号绑定"
+    "accountBinding": "账号绑定",
+    "answerResult-01": "您答对了{{num}}题",
+    "answerResult-02": "得到了{{num}}分",
+    "answerResult-03": "用时{{num}}秒",
+    "answerResult-04": "本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ award_num }}H2O",
+    "buyToRevive": "购买进行复活"
 }

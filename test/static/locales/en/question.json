@@ -40,6 +40,7 @@
     "realTimePaybackCycle": "Real-time payback cycle",
     "rewardCap": "Reward cap",
     "buy": "Buy",
+    "abandon": "Abandon",
     "bought": "bought",
     "redeemed": "redeemed",
     "redemption": "redemption",
@@ -71,5 +72,10 @@
     "redeemNow": "Redeem Now",
     "logInRegister": "log In Register",
     "username": "username",
-    "accountBinding": "account binding"
+    "accountBinding": "account binding",
+    "answerResult-01": "You got {{num}} questions right",
+    "answerResult-02": "Got {{num}} points",
+    "answerResult-03": "elapsed {{num}} seconds",
+    "answerResult-04": "The total income of this answer is {{ capped_num }} H2O, you get {{ award_rate }}% of the income{{ award_num }} H2O",
+    "buyToRevive": "buy To Revive"
 }
