@@ -340,7 +340,7 @@ export default {
         getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
             // console.log(row);
             let num = 0;
-            num = (Number(row.capped) * this.H2OPrice * 365) / Number(row.new_price);
+            num = ((Number(row.capped) * this.H2OPrice * 365) / Number(row.buy_price)) * 100;
             return this.toFixed(num, 2) + "%";
         }
     },
