@@ -1,21 +1,25 @@
 <template>
   <div class="container">
     <div class="main" :style="{ backgroundSize: isMobel ? '100% 100%' : '' }">
-      <div class="content">
-        <div class="title01">{{ $t("question:oneStopName") }}</div>
-        <div class="title02">{{ $t("question:answerQuestions") }}</div>
-        <div @click="getUserClick()">
-          <el-avatar :size="100" :src="avatar"></el-avatar>
+        <div class="user">
+            <img src="@/assets/answer/user-top.png" class="image">
+            <div class="avatar">
+                <div @click="getUserClick()">
+                    <el-avatar :size="80" :src="avatar"></el-avatar>
+                </div>
+                <div class="nickname">{{ nickname }}</div>
+            </div>
         </div>
-        <div class="nickname">{{ nickname }}</div>
-        <!-- <br> -->
-        <div style="margin-top: 10px">
-          <el-button type="primary" @click="startAnswer()">{{
-            $t("question:startAnswering")
-          }}</el-button>
+        <div class="content">
+            <div class="title01">{{ $t("question:oneStopName") }}</div>
+            <div class="title02">{{ $t("question:answerQuestions") }}</div>
+            <div style="margin-top: 10px">
+            <el-button type="primary" @click="startAnswer()">{{
+                $t("question:startAnswering")
+            }}</el-button>
+            </div>
+            <!-- <div><el-link type="primary" style="color:#FFD879;margin-top:5px;text-decoration:underline;">{{ $t('question:ranking') }}</el-link></div> -->
         </div>
-        <!-- <div><el-link type="primary" style="color:#FFD879;margin-top:5px;text-decoration:underline;">{{ $t('question:ranking') }}</el-link></div> -->
-      </div>
     </div>
   </div>
 </template>
@@ -152,11 +156,6 @@ export default {
           // letter-spacing: 20px;
           // text-indent: 20px;
         }
-        .nickname {
-          color: #fff;
-          font-size: 15px;
-          font-weight: 500;
-        }
       }
       // zoom:1;
       // background: url(../../assets/answer/1.jpg) no-repeat center center/auto 100%;
@@ -172,6 +171,30 @@ export default {
           width: 100%;
         }
       }
+    }
+    .user {
+        position: relative;
+        width: 90%;
+        top: 50px;
+        margin: 0 auto;
+        .image {
+            // padding: 0 3%;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .avatar {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            .nickname {
+                color: #fff;
+                font-size: 15px;
+                font-weight: 500;
+                text-align: center;
+            }
+        }
     }
   }
 }

@@ -1,8 +1,7 @@
 <template>
   <div :class="['main', isMobel ? 'main' : 'main-pc']">
     <div class="bg-pic">
-      <!-- <img src="@/assets/answer/2.jpg" alt="" :style="animateBg" /> -->
-      <img src="@/assets/answer/2.jpg" alt="" />
+      <img src="@/assets/answer/2.jpg" alt="" :style="animateBg" />
     </div>
     <!-- <div class="car"></div>
     <div class="pen"></div>
@@ -11,51 +10,41 @@
     <el-row class="content">
       <el-col :span="24" align="center">
         <!-- {{ timerCount }} 秒 -->
-        <!-- <el-progress :width="70" color="#D7B078"  type="circle" :percentage="timerPercentage" :format="timerFormat"></el-progress> -->
-        <van-circle
-          style="width:70px"
-          color="#D7B078"
-          stroke-linecap="butt"
-          v-model="timerPercentage"
-          :rate="100"
-          :clockwise="false"
-          :text="(timerPercentage / 10).toString()"
-          :stroke-width="150"
-        />
+        <el-progress :width="70" :stroke-width="10" type="circle" :percentage="timerPercentage" :format="timerFormat"></el-progress>
       </el-col>
       <el-col :span="24" align="center">
-        <transition name="el-zoom-in-center">
-          <div class="list-content" v-if="getQAlist.length" :key="listIndex">
-              <!-- <div > -->
-                <!-- <p class="title" v-if="$i18n.i18next.language === 'zh'">第{{ listIndex + 1 }}/{{questionNum}}题</p> -->
-                <!-- <p class="title" v-else>Question {{ listIndex + 1 }}/{{questionNum}}</p> -->
-                <!-- <transition> -->
-                  <div class="question" :key="listIndex">
-                    <!-- {{ listTypeText + getQAlist[listIndex].title }} -->
-                    {{ getQAlist[listIndex].title }}
-                  </div>
-                <!-- </transition> -->
-                <ul class="answer">
-                      <li v-for="(item, index) in getQAlist[listIndex].option" :key="index" @click="handleUserClick(index)" :class="['answer-li', userClickList.includes(index) ? 'active' : '',]">
-                            <div class="answer-box">
-                              <!-- <div :class="['circle', userClickList.includes(index) ? 'active' : '',]" @click="handleUserClick(index)">
-                                <b></b>
-                              </div> -->
-                              <div class="text">{{ item }}</div>
-                            </div>
-                      </li>
-                </ul>
-                <!-- </div> -->
+        <div class="list-content" v-if="getQAlist.length">
+          <p class="title" v-if="$i18n.i18next.language === 'zh'">第{{ listIndex + 1 }}/{{questionNum}}题</p>
+          <p class="title" v-else>Question {{ listIndex + 1 }}/{{questionNum}}</p>
+          <div class="question">
+            {{ listTypeText + getQAlist[listIndex].title }}
           </div>
-        </transition>
+          <ul class="answer">
+            <li
+              v-for="(item, index) in getQAlist[listIndex].option"
+              :key="index"
+            >
+              <div
+                :class="[
+                  'circle',
+                  userClickList.includes(index) ? 'active' : '',
+                ]"
+                @click="handleUserClick(index)"
+              >
+                <b></b>
+              </div>
+              <div class="text">{{ item }}</div>
+            </li>
+          </ul>
+        </div>
 
-        <!-- <div
+        <div
           class="next-btn"
           @click="handleNextClick()"
           v-show="!subMitBtnShow"
         >
             <el-button type="primary">{{ $t('question:nextQuestion') }}</el-button>
-        </div> -->
+        </div>
         <div
           class="submit-btn"
           v-show="subMitBtnShow"
@@ -89,13 +78,9 @@ export default {
       loading: true,
       is_relive: 0, //是否复活重答
       monitorUser: "", //倒计时状态
-      timerStates: false, //倒计时状态
-      timerCount: 0, //10秒倒计时
+      timerCount: 10, //10秒倒计时
       timerPercentage: 100,
-      languag: this.$i18n.i18next.language,
     };
-  },
-  activated() { //页面进来
   },
   computed: {
     ...mapState({
@@ -146,7 +131,6 @@ export default {
     },
   },
   created() {
-    this.getUserTodayIsAnswer();
     this.timer = setInterval(() => {
       this.userTime += 1;
     }, 1000);
@@ -162,34 +146,22 @@ export default {
         }
       },
     },
-    timerStates: {
-      immediate: true,
-      handler(val) {
-        if(val) {
-          this.timerCount = 10;
-        }
-      }
-    },
-    timerCount: {
-        handler(value) {
-            if (value > 0) {
-                this.monitorUser = setTimeout(() => {
-                  if(this.timerStates) {
-                    this.timerCount--;
-                    this.timerPercentage = this.timerPercentage - 10;
-                  }
-                }, 1000);
-            } else {
-              if(this.timerStates) {
-                setTimeout(async() => {
-                  this.calcQuestionAnswer();
-                  console.log('时间到。。。');
-                }, 100)
-              }
-            }
-        },
-        immediate: true // This ensures the watcher is triggered upon creation
-    },
+    // timerCount: {
+    //     handler(value) {
+    //         if (value > 0) {
+    //             this.monitorUser = setTimeout(() => {
+    //                 this.timerCount--;
+    //                 this.timerPercentage = this.timerPercentage - 10;
+    //             }, 1000);
+    //         } else {
+    //           setTimeout(async() => {
+    //             this.calcQuestionAnswer();
+    //             console.log('时间到。。。');
+    //           }, 100)
+    //         }
+    //     },
+    //     immediate: true // This ensures the watcher is triggered upon creation
+    // }
   },
   components: {},
   methods: {
@@ -200,7 +172,6 @@ export default {
         }, (json) => {
           if (json.code == 10000) {
             this.getQAlist = json.data;
-            this.timerStates = true;
           } else {
             this.$message.error("加载数据失败");
           }
@@ -264,23 +235,13 @@ export default {
             clearTimeout(this.monitorUser);
             setTimeout(async() => {
               await this.calcQuestionAnswer();
-              loading.close();
-              // this.$router.push({ 
-              //     name: "score", 
-              //     params: {
-              //         correct_num: 5,
-              //         score: 100,
-              //         times: 10,
-              //         is_possible_resurrection: 2
-              //     }
-              // });
             }, 100)
         } else {
           this.animateShow = !this.animateShow;
           this.screenBg += screenw;
           this.listIndex += 1;
           if (this.listIndex == this.questionNum - 1) {
-              // this.subMitBtnShow = true;
+              this.subMitBtnShow = true;
           }
   
           this.userClickList = []; //清空每道题用户选择答案选项
@@ -291,25 +252,6 @@ export default {
         }
 
       }
-    },
-    async getUserTodayIsAnswer() {
-        if(this.userId) {
-            get(this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
-                if (json.code == 10000) {
-                  if (json.data) {
-                      if (json.data == 3) {
-                          this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
-                          this.$router.push('/home');
-                      }
-                  } else {
-                    this.$message.error("获取数据失败");
-                  }
-                }
-              }
-            );
-        } else {
-            this.$router.push('/');
-        }
     },
     async calcQuestionAnswer() { //开始提交作答题目
       const loading = this.$loading({
@@ -371,18 +313,13 @@ export default {
       } else {
         this.userClickList = [index];
       }
-      setTimeout(async() => {
-        this.handleNextClick();
-      }, 500)
     },
     timerFormat(percentage) { //倒计时 进度条文字内容。
       // console.log(percentage);
-      return (percentage / 10).toString();
+      return percentage / 10;
     }
   },
-  mounted() {
-    this.getUserTodayIsAnswer();
-  },
+  mounted() {},
   destroyed() {
     clearInterval(this.timer);
   },
@@ -391,8 +328,6 @@ export default {
 <style lang="scss" scoped>
 .main {
   /deep/ {
-   .fade-enter,.fade-leave-to{opacity:0;}
-.fade-enter-active,.fade-leave-active{transition:opacity .5s;}
     // width: 100%;
     height: 100%;
     overflow: hidden;
@@ -490,16 +425,15 @@ export default {
       position: fixed;
       left: 0;
       right: 0;
-      top: 30px;
+      top: 50px;
       margin: 0 auto;
-      padding: 20px;
       //   border: 1px solid red;
       .list-content {
-        width: 90%;
+        width: 80%;
         //   width: 6.1rem;
-        // background: rgba(255, 255, 255, 0.8);
-        // border-radius: 18px;
-        // padding: 20px;
+        background: rgba(255, 255, 255, 0.8);
+        border-radius: 18px;
+        padding: 20px;
         //   position: absolute;
         //   top: 1.02rem;
         //   left: 50%;
@@ -507,79 +441,53 @@ export default {
         //   transform: translateX(-50%);
         //   z-index: 1;
         //   overflow: hidden;
-        color: #fff;
         .title {
-          color: #fff;
+          color: #005ece;
           font-size: 18px;
           font-weight: bold;
           text-align: center;
           margin: 0;
         }
         .question {
-          color: #fff;
+          color: #000;
           font-size: 18px;
           padding: 0 20px;
           text-align: justify;
           line-height: 25px;
           margin-bottom: 20px;
-          height: 60px;
         }
         .answer {
-          color: #fff;
+          color: #000;
           font-size: 18px;
           padding: 0 20px;
-          .answer-li {
+          li {
             margin: 10px 0;
-            align-items: center;
             text-align: left;
             display: flex;
-            background-color: #fff;
-            height: 70px;
-            width: 80%;
-            color: #4B5397;
-            font-weight: 700;
-            border-radius: 50px;
-            .answer-box {
-              margin: 0 auto;
-              display: flex;
-              padding: 20px;
-              .text {
-                line-height: 35px;
-                font-size: 20px;
-              }
-              .circle {
-                width: 30px;
-                height: 30px;
-                border: 1px solid #005ece;
+            .text {
+              line-height: 35px;
+            }
+            .circle {
+              width: 30px;
+              height: 30px;
+              border: 1px solid #005ece;
+              border-radius: 50%;
+              flex: none;
+              margin-right: 10px;
+              text-align: center;
+              line-height: 36px;
+              cursor: pointer;
+            }
+            .active {
+              b {
+                width: 18px;
+                height: 18px;
+                background: #005ece;
+                display: inline-block;
                 border-radius: 50%;
-                flex: none;
-                margin-right: 10px;
-                text-align: center;
-                line-height: 36px;
-                cursor: pointer;
-              }
-              .active {
-                b {
-                  width: 18px;
-                  height: 18px;
-                  background: #005ece;
-                  display: inline-block;
-                  border-radius: 50%;
-                }
               }
             }
           }
-          .active {
-            background-color: #409EFF;
-            color: #fff;
-          }
-        }
-      }
-      
-      .van-circle {
-        .van-circle__text {
-          font-size: 25px;
-          color: #fff;
         }
       }
     }

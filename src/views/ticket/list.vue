@@ -205,6 +205,9 @@ export default {
                 position: fixed;
                 filter: blur(2px);
             }
+            .van-tab {
+                color: #fff;
+            }
             .van-nav-bar {
                 background-color: transparent;
                 .van-nav-bar__left {
