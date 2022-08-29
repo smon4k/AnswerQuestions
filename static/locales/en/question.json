@@ -50,6 +50,10 @@
     "ticketRedemption": "Ticket redemption",
     "startTicket": "open tickets",
     "using": "Using",
+    "toBeActivated": "To be activated",
+    "noAnswer": "no Answer",
+    "answered": "Answered",
+    "hoursActivation": "{{ time }} hours activation",
     "nominalInterestRate": "Nominal Interest Rate",
     "realInterestRate": "Real Interest Rate",
     "NumberOfParticipants": "Number Of Participants",
@@ -76,6 +80,7 @@
     "answerResult-01": "You got {{num}} questions right",
     "answerResult-02": "Got {{num}} points",
     "answerResult-03": "elapsed {{num}} seconds",
-    "answerResult-04": "The total income of this answer is {{ capped_num }} H2O, you get {{ award_rate }}% of the income{{ award_num }} H2O",
+    "answerResult-04": "The total income of this answer is {{ capped_num }} H2O",
+    "answerResult-05": "You get {{ award_rate }}% of the income{{ award_num }} H2O",
     "buyToRevive": "buy To Revive"
 }

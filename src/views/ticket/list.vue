@@ -27,27 +27,63 @@
                         <van-cell>
                         <template #title>
                                 <div class="custom-title">
-                                    <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
-                                        {{$t('question:denomination')}}：{{ toFixed(item.denomination, 2) }} USDT
-                                        <br>
-                                        {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
-                                        <br>
-                                        {{$t('question:DiscountPrice')}}：{{ toFixed(item.discount_price, 2) }} USDT
-                                        <br>
-                                        {{$t('question:Discount')}}：{{ toFixed(item.discount, 2) }} 折
-                                    </div>
-                                    <div v-else>
-                                        {{$t('question:denomination')}}：{{ toFixed(item.denomination, 2) }} USDT
-                                        <br>
-                                        {{$t('question:buyPrice')}}：{{ toFixed(item.price, 2) }} USDT
-                                    </div>
+                                    <van-row>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:denomination') }}</span>
+                                            <br>
+                                            <span>{{ toFixed(item.denomination, 2) }} USDT</span>
+                                        </van-col>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:buyPrice') }}</span>
+                                            <br>
+                                            <span>{{ toFixed(item.price, 2) }} USDT</span>
+                                        </van-col>
+                                    </van-row>
                                 </div>
-                                <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
-                                    <div class="custom-title">{{$t('question:DiscountStartTime')}}：{{item.start_time}}</div>
-                                    <div class="custom-title">{{$t('question:DiscountEndTime')}}：{{item.end_time}}</div>
-                                </div>
-                                <div class="custom-title">{{$t('question:nominalInterestRate')}}：{{ toFixed(item.annualized, 2) }} %</div>
-                                <div class="custom-title">{{$t('question:realInterestRate')}}：{{ getRealInterestRate(item) }}</div>
+                                <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" />
+                                <van-row>
+                                    <van-col span="12">
+                                        <span>{{ $t('question:nominalInterestRate') }}</span>
+                                        <br>
+                                        <span>{{ toFixed(item.annualized, 2) }} %</span>
+                                    </van-col>
+                                    <van-col span="12">
+                                        <span>{{ $t('question:realInterestRate') }}</span>
+                                        <br>
+                                        <span>{{ getRealInterestRate(item) }}</span>
+                                    </van-col>
+                                </van-row>
+
+                                <!-- 折扣价 -->
+                                 <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
+                                    <van-divider style="width:80%;margin:0 auto;height:10px;" />
+                                    <!-- <br> -->
+                                    <van-row>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:DiscountStartTime') }}</span>
+                                            <br>
+                                            <span>{{ item.start_time }}</span>
+                                        </van-col>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:DiscountEndTime') }}</span>
+                                            <br>
+                                            <span>{{ item.end_time }}</span>
+                                        </van-col>
+                                    </van-row>
+                                    <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" />
+                                    <van-row>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:DiscountPrice') }}</span>
+                                            <br>
+                                            <span>{{ toFixed(item.discount_price, 2) }} USDT</span>
+                                        </van-col>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:Discount') }}</span>
+                                            <br>
+                                            <span>{{ toFixed(item.discount, 2) }} 折</span>
+                                        </van-col>
+                                    </van-row>
+                                 </div>
                                 <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div> -->
                             </template>
                         </van-cell>
@@ -252,11 +288,15 @@ export default {
                     height: 30px;
                     font-size: 10px;
                     border-radius: 20px;
+                    background-color: #8C1AF5;
+                    border: 0;
                 }
                 .van-cell-group--inset {
                     margin-top: 10px;
                     .van-cell {
                         text-align: center;
+                        background-color: #AE8BF5;
+                        color: #fff;
                         .van-cell__value {
                             display: none;
                         }
@@ -267,11 +307,11 @@ export default {
                 position: absolute;
                 right: 0;
                 top: 0;
-                border-radius: 0px 5px 0px 10px;
+                border-radius: 0px 5px 0px 15px;
                 color: #fff;
-                padding: 2px 6px;
-                font-size: 10px;
-                line-height: 16px;
+                padding: 2px 15px;
+                font-size: 15px;
+                line-height: 30px;
                 background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.4), transparent) var(--bg, #EA3447);
                 background-blend-mode: soft-light;
             }

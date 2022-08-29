@@ -264,7 +264,7 @@ export default {
             clearTimeout(this.monitorUser);
             setTimeout(async() => {
               await this.calcQuestionAnswer();
-              loading.close();
+              // loading.close();
               // this.$router.push({ 
               //     name: "score", 
               //     params: {
@@ -298,7 +298,7 @@ export default {
                 if (json.code == 10000) {
                   if (json.data) {
                       if (json.data == 3) {
-                          this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
+                          // this.$message.warning(this.languag === 'zh' ? "门票今日已使用，请更换门票" : 'The ticket has been used today, please change the ticket');
                           this.$router.push('/home');
                       }
                   } else {

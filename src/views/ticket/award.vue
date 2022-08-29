@@ -294,7 +294,9 @@ export default {
                         margin-bottom: 10px;
                         // display: flex;
                         flex-direction: row;
-                        background: #fff; 
+                        background: #AE8BF5; 
+                        color: #fff;
+                        border-radius: 25px;
                         .list-item {
                             // width: 90%;
                             // text-align: center;

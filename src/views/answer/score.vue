@@ -5,12 +5,15 @@
                 <!-- <p class="line1">您答对了{{score / 20}}题</p> -->
                 <p class="line1">{{ $t('question:answerResult-01', {num: score / 20}) }}</p>
                 <p class="line2">{{ $t('question:answerResult-02', {num: score }) }}</p>
-                <p class="line3">{{ $t('question:answerResult-03', {num: times }) }}</p>
+                <p class="line2">{{ $t('question:answerResult-03', {num: times }) }}</p>
             </div>
             <div class="score-income">
                 <!-- <span>本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}H2O</span> -->
-                <span>{{ $t('question:answerResult-04', {capped_num: capped_num, award_rate: award_rate, award_num: toFixed(award_num, 2)}) }}</span>
+                <span>{{ $t('question:answerResult-04', {capped_num: capped_num}) }}</span>
+                <br>
+                <span>{{ $t('question:answerResult-05', {award_rate: award_rate, award_num: toFixed(award_num, 2)}) }}</span>
             </div>
+            <br>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
                 <div>{{ toFixed(consumeNumber, 2) }} H2O {{ $t('question:buyToRevive') }}</div>
                 <!-- <el-row>
@@ -18,7 +21,7 @@
                     <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
                 </el-row> -->
                 <div class="buy-button">
-                    <el-button type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</el-button>
+                    <el-button class="buy" type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</el-button>
                     <el-button type="info" round @click="giveUpResurrection()">{{ $t('question:abandon') }}</el-button>
                 </div>
                 <!-- <div class="buy-button"></div> -->
@@ -37,7 +40,7 @@ export default {
             correct_num: '',
             score: 0,
             times: 0,
-            is_possible_resurrection: 0,
+            is_possible_resurrection: 1,
             consumeNumber: 0,
             capped_num: 0, //总收益
             award_num: 0, //分配奖励数量
@@ -150,7 +153,7 @@ export default {
                 z-index: -10;
                 position: fixed;
                 .score-page {
-                    line-height: 18px;
+                    line-height: 10px;
                     // width: 100%;
                     // height: 100%;
                     // overflow: hidden;
@@ -190,6 +193,10 @@ export default {
                     width: 80%;
                     .buy-button {
                         margin-top: 10px;
+                        .buy {
+                            background-color: #8C1AF5;
+                            border: 0;
+                        }
                         button {
                             width: 100px;
                             height: 30px;

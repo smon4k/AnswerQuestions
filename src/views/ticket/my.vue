@@ -25,14 +25,21 @@
                                             <div>{{ item.name }}</div>
                                         </template>
                                         <template #right-icon>
-                                            <van-button v-if="item.is_start == 0 && item.is_ransom == 1" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button>
-                                            <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
-                                            <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag>
-                                            &nbsp;
-                                            <van-tag plain color="#969799" text-color="#969799" style="height:20px">
-                                                <span v-if="item.is_answer == 1">未作答</span>
-                                                <span v-if="item.is_answer == 3">已作答</span>
-                                            </van-tag>
+                                            <div v-if="item.is_activation" style="align-items: center;display: flex;">
+                                                <van-button v-if="item.is_start == 0 && item.is_ransom == 1" :disabled="!item.is_activation" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button>
+                                                <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
+                                                <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag>
+                                                &nbsp;
+                                                <van-tag plain color="#969799" text-color="#969799" style="height:20px">
+                                                    <span v-if="item.is_answer == 1">{{ $t('question:noAnswer') }}</span>
+                                                    <span v-if="item.is_answer == 3">{{ $t('question:answered') }}</span>
+                                                </van-tag>
+                                            </div>
+                                            <div v-else>
+                                                <van-tag plain type="primary" style="height:20px" color="#7232dd">{{ $t('question:toBeActivated') }}</van-tag>
+                                                <br>
+                                                <span>{{ $t('question:hoursActivation', {time: item.activation_time}) }}</span>
+                                            </div>
                                             <!-- <van-switch v-model="ticketStatus" size="24" /> -->
                                         </template>
                                     </van-cell>
@@ -373,25 +380,37 @@ export default {
             .main {
                 padding-bottom: 60px;
                 .ticket-button {
-                    width: 140px;
+                    width: 90px;
                     height: 30px;
                     font-size: 10px;
                     border-radius: 20px;
+                    background-color: #8C1AF5;
+                    border: 0;
                 }
                 .buy-button {
                     width: 100px;
                     height: 30px;
                     font-size: 10px;
                     border-radius: 20px;
+                    background-color: #8C1AF5;
+                    border: 0;
                 }
                 .van-cell-group--inset {
                     margin-top: 10px;
                     .van-cell {
+                        background-color: #AE8BF5;
                         text-align: center;
+                        color: #fff;
                         .van-cell__value {
                             display: none;
                         }
+                        .van-cell__label {
+                            color: #fff;
+                        }
                     }
+                }
+                .van-tag--primary.van-tag--plain {
+                    color: #8C1AF5;
                 }
             }
         }

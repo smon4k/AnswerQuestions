@@ -50,6 +50,10 @@
     "ticketRedemption": "门票赎回",
     "startTicket": "开启门票",
     "using": "使用中",
+    "toBeActivated": "待激活",
+    "noAnswer": "未作答",
+    "answered": "已作答",
+    "hoursActivation": "{{ time }} 小时激活",
     "viewRewards": "查看奖励",
     "nominalInterestRate": "名义利率",
     "realInterestRate": "实际利率",
@@ -77,6 +81,7 @@
     "answerResult-01": "您答对了{{num}}题",
     "answerResult-02": "得到了{{num}}分",
     "answerResult-03": "用时{{num}}秒",
-    "answerResult-04": "本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ award_num }}H2O",
+    "answerResult-04": "本次答题总收益{{ capped_num }} H2O",
+    "answerResult-05": "您获得{{ award_rate }}%的收益{{ award_num }}H2O",
     "buyToRevive": "购买进行复活"
 }

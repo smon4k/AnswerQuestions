@@ -35,7 +35,7 @@
                                 <van-col span="12">{{ getRealInterestRate(ticketDetail)}}</van-col>
                             </van-row>
                         </div>
-                        <van-divider />
+                        <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" />
                         <div v-if="type == 1">
                             <van-row>
                                 <van-col span="12">
@@ -99,11 +99,12 @@
                                 </van-cell>
                             </van-cell-group>
                         </van-radio-group>
-                        <div v-else style="height:30px">
+                        <div v-else style="height:30px;">
                             {{$t('question:redemptionPrice')}}：
                             <span v-if="ticketDetail.insurance_amount === 7">70% {{$t('question:repo')}}</span>
                             <span v-if="ticketDetail.insurance_amount === 10 || ticketDetail.insurance_amount === 0">{{$t('question:guaranteedRedemption')}}</span>
                         </div>
+                        <br>
                         <van-button class="buy-button" v-if="type == 1" :loading="loading" :disabled="loading" type="primary" @click="startBuyClick()">{{$t('question:buyNow')}}</van-button>
                         <van-button class="buy-button" v-else :loading="loading" :disabled="ticketDetail.insurance_amount <= 0 || loading" type="info" @click="startRedemptionClick()">{{$t('question:redeemNow')}}</van-button>
                     </template>
@@ -397,15 +398,23 @@ export default {
                     height: 35px;
                     font-size: 15px;
                     border-radius: 20px;
+                    background-color: #8C1AF5;
+                    border: 0;
                 }
                 .van-cell-group--inset {
                     margin-top: 10px;
                     .insurance_cell_group {
+                        background-color: unset !important;
+                        position: unset !important;
+                        .van-cell-group {
+                        }
                         .van-cell {
                             text-align: left !important;
                         }
                     }
                     .van-cell {
+                        background-color: #AE8BF5;
+                        color: #fff;
                         // padding: 20px;
                         text-align: center;
                         .van-cell__value {
@@ -414,6 +423,9 @@ export default {
                         .van-checkbox {
                             display: inline-flex;
                         }
+                    }
+                    .van-cell::after {
+                        border-bottom: unset;
                     }
                 }
             }

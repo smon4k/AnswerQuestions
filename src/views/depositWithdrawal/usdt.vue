@@ -2,157 +2,162 @@
     <div class="container">
         <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            title="USDT充提"
+            title="钱包充提"
             left-text=""
             right-text=""
             left-arrow
             @click-left="onClickSave"
         />
-        <van-row class="container" style="margin-top:20px;">
-            <van-col :span="24">
-                <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
-                    <van-tab title="存入" name="1" :disabled="trading">
-                        <van-row class="balance">
-                            <van-col :span="24">
-                                <div>
-                                    <span>平台余额：{{ keepDecimalNotRounding(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
-                                    <br />
-                                    <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
-                                    <!-- <span>GS Balance：{{gsBalance}}</span> -->
-                                    <!-- <span v-else>GS Balance：<el-skeleton-item variant="text" style="width: 5%;" /></span> -->
-                                </div>
-                            </van-col>
-                            <!-- <van-col :span="24">
-                                <div>
-                                    <div>
-                                        <span v-if="!isStatus && !isWithdraw">CS Balance：{{csBalance}}</span>
-                                        <span v-else>
-                                            CS Balance：<span v-loading="true"></span>
-                                            <span style="font-size:10px;color:#909399;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The transfer speed on the chain is slow, please be patient for 5 minutes. .</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </van-col> -->
-                        </van-row>
-                        <van-row>
-                            <van-col :span="24">
-                                <van-form ref="depositForm">
-                                    <van-field 
-                                        type="number" 
-                                        label="USDT:" 
-                                        v-model="depositForm.amount" 
-                                        placeholder="请输入充值金额" 
-                                        onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
-                                        :rules="[{ validator: checkDepositAmount, message: '' }]"
-                                        label-width="50"
-                                    >
-                                    <!-- <template #label>
-                                        <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
-                                    </template> -->
-                                    </van-field>
-                                    <van-row class="button-amount">
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
-                                        </van-col>
-                                    </van-row>
-                                    <van-row class="button-amount">
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
-                                        </van-col>
-                                    </van-row>
-                                    <div class="submit-name">
-                                        <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
-                                        <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>存入</van-button>
-                                        <!-- <van-button @click="resetForm('depositForm')">Cancel</van-button> -->
-                                    </div>
-                                </van-form>
-                            </van-col>
-                        </van-row>
-                    </van-tab>
-                    <van-tab title="提取" name="2" :disabled="trading">
-                        <van-row class="balance">
-                            <van-col :span="24">
-                                <div>
-                                    <span>平台余额：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
-                                    <br />
-                                    <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
-                                    <!-- <span>GS Balance：{{gsBalance}}</span> -->
-                                </div>
-                            </van-col>
-                            <!-- <van-col :span="24">
-                                <div>
-                                    <span v-if="!isStatus && !isWithdraw">CS Balance：{{csBalance}}</span>
-                                    <span v-else>
-                                        CS Balance：<span :loading="true"></span>
-                                        <span style="font-size:10px;color:#909399;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The transfer speed on the chain is slow, please be patient for 5 minutes. .</span>
-                                    </span>
-                                </div>
-                            </van-col> -->
-                        </van-row>
-                        <van-row>
-                            <van-col :span="24">
-                                <van-form ref="withdrawForm">
-                                    <van-field 
-                                        label="USDT:" 
-                                        type="number" 
-                                        v-model="withdrawForm.amount" 
-                                        placeholder="请输入金额" 
-                                        min="0" 
-                                        :max="maxWithdrawableBalance()" 
-                                        onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
-                                        :rules="[{ validator: checkWithdrawalAmount, message: '' }]"
-                                        label-width="50"
-                                    >
-                                        <!-- <template #label>
-                                            <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
-                                        </template> -->
-                                    </van-field>
-                                    <van-row class="button-amount">
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
-                                        </van-col>
-                                    </van-row>
-                                    <van-row class="button-amount">
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
-                                        </van-col>
-                                        <van-col :span="8">
-                                            <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
-                                        </van-col>
-                                    </van-row>
-                                    <div class="submit-name">
-                                        <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
-                                        <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>提取</van-button>
-                                        <!-- <van-button @click="resetForm('withdrawForm')">Cancel</van-button> -->
-                                    </div>
-                                </van-form>
-                            </van-col>
-                        </van-row>
-                    </van-tab>
-                </van-tabs>
-            </van-col>
-        </van-row>
+        <van-tabs v-model="tabActive">
+            <van-tab title="USDT充提">
+                <van-row class="container" style="margin-top:20px;">
+                    <van-col :span="24">
+                        <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
+                            <van-tab title="存入" name="1" :disabled="trading">
+                                <van-row class="balance">
+                                    <van-col :span="24">
+                                        <div>
+                                            <span>平台余额：{{ keepDecimalNotRounding(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <br />
+                                            <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <!-- <span>GS Balance：{{gsBalance}}</span> -->
+                                            <!-- <span v-else>GS Balance：<el-skeleton-item variant="text" style="width: 5%;" /></span> -->
+                                        </div>
+                                    </van-col>
+                                    <!-- <van-col :span="24">
+                                        <div>
+                                            <div>
+                                                <span v-if="!isStatus && !isWithdraw">CS Balance：{{csBalance}}</span>
+                                                <span v-else>
+                                                    CS Balance：<span v-loading="true"></span>
+                                                    <span style="font-size:10px;color:#909399;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The transfer speed on the chain is slow, please be patient for 5 minutes. .</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </van-col> -->
+                                </van-row>
+                                <van-row>
+                                    <van-col :span="24">
+                                        <van-form ref="depositForm">
+                                            <van-field 
+                                                type="number" 
+                                                label="USDT:" 
+                                                v-model="depositForm.amount" 
+                                                placeholder="请输入充值金额" 
+                                                onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
+                                                :rules="[{ validator: checkDepositAmount, message: '' }]"
+                                                label-width="50"
+                                            >
+                                            <!-- <template #label>
+                                                <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
+                                            </template> -->
+                                            </van-field>
+                                            <van-row class="button-amount">
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
+                                                </van-col>
+                                            </van-row>
+                                            <van-row class="button-amount">
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
+                                                </van-col>
+                                            </van-row>
+                                            <div class="submit-name">
+                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
+                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>存入</van-button>
+                                                <!-- <van-button @click="resetForm('depositForm')">Cancel</van-button> -->
+                                            </div>
+                                        </van-form>
+                                    </van-col>
+                                </van-row>
+                            </van-tab>
+                            <van-tab title="提取" name="2" :disabled="trading">
+                                <van-row class="balance">
+                                    <van-col :span="24">
+                                        <div>
+                                            <span>平台余额：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <br />
+                                            <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <!-- <span>GS Balance：{{gsBalance}}</span> -->
+                                        </div>
+                                    </van-col>
+                                    <!-- <van-col :span="24">
+                                        <div>
+                                            <span v-if="!isStatus && !isWithdraw">CS Balance：{{csBalance}}</span>
+                                            <span v-else>
+                                                CS Balance：<span :loading="true"></span>
+                                                <span style="font-size:10px;color:#909399;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The transfer speed on the chain is slow, please be patient for 5 minutes. .</span>
+                                            </span>
+                                        </div>
+                                    </van-col> -->
+                                </van-row>
+                                <van-row>
+                                    <van-col :span="24">
+                                        <van-form ref="withdrawForm">
+                                            <van-field 
+                                                label="USDT:" 
+                                                type="number" 
+                                                v-model="withdrawForm.amount" 
+                                                placeholder="请输入金额" 
+                                                min="0" 
+                                                :max="maxWithdrawableBalance()" 
+                                                onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
+                                                :rules="[{ validator: checkWithdrawalAmount, message: '' }]"
+                                                label-width="50"
+                                            >
+                                                <!-- <template #label>
+                                                    <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
+                                                </template> -->
+                                            </van-field>
+                                            <van-row class="button-amount">
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
+                                                </van-col>
+                                            </van-row>
+                                            <van-row class="button-amount">
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
+                                                </van-col>
+                                                <van-col :span="8">
+                                                    <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
+                                                </van-col>
+                                            </van-row>
+                                            <div class="submit-name">
+                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
+                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>提取</van-button>
+                                                <!-- <van-button @click="resetForm('withdrawForm')">Cancel</van-button> -->
+                                            </div>
+                                        </van-form>
+                                    </van-col>
+                                </van-row>
+                            </van-tab>
+                        </van-tabs>
+                    </van-col>
+                </van-row>
+            </van-tab>
+            <van-tab title="H2O充提" to="/h2o"></van-tab>
+        </van-tabs>
         <van-overlay :show="trading">
             <div class="wrapper">
                 <van-loading type="spinner" color="#1989fa" />
@@ -173,6 +178,7 @@ export default {
   name: "Index",
   data() {
     return {
+        tabActive: 0,
         activeName: "1",
         localBalance: 0, //本地余额
         walletBalance: 0, //清算余额
@@ -670,6 +676,15 @@ export default {
                 color: #fff;;
             }
         }
+        .van-tab {
+            color: #7f8285;
+        }
+        .van-tabs__nav {
+            background-color: transparent;
+            .van-tab--active {
+                color: #fff;
+            }
+        }
         div {
             min-height: 0;
         }
@@ -683,8 +698,9 @@ export default {
         }
         height: 100vh;
         .container {
+            color: #fff;
             border-radius: 20px !important;
-            background-color: #F6F6F6 !important;
+            background-color: #AE8BF5 !important;
             width: 80%;
             height: 50vh;
             padding: 20px;
@@ -694,7 +710,8 @@ export default {
             .van-form {
                 margin-top: 15px;
             }
-            .van-form-item {
+            .van-tabs__nav {
+                background-color: #AE8BF5;
                 // height: 50px;
             }
             .van-tabs__item {
@@ -704,6 +721,9 @@ export default {
                 font-weight: 800;
                 // color: #fff;
                 // @include mainFont($color-mainFont-light);
+            }
+            .van-tab--active {
+                color: #fff;
             }
             .van-tabs__item.is-active {
                 color: #409EFF;
@@ -725,6 +745,7 @@ export default {
                 // border: 1px solid #333257;
                 // padding: 0 10px;
                 font-size: 16px;
+                border-radius: 20px;
                 .van-field__label {
                     width: 50px;
                     margin-right: 0;
@@ -774,7 +795,7 @@ export default {
                     background-color: #409EFF !important;
                 }
                 .van-button:focus,.van-button:hover {
-                    background-color: #ff976a !important;
+                    background-color: #8C1AF5 !important;
                     color: #fff;
                 }
             }
@@ -782,8 +803,9 @@ export default {
                 margin-top: 20px;
                 .van-button--primary {
                     width: 200px;
-                    border-radius: 5px;
-                    background-color: #ff976a;
+                    border-radius: 30px;
+                    // background-color: #ff976a;
+                    background-color: #8C1AF5;
                     border: 0;
                 }
                 .van-button--primary.is-disabled {

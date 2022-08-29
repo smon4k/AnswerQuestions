@@ -9,6 +9,7 @@
             @click-left="onClickLeft"
         />
         <div class="generalStatistics">
+            <img src="@/assets/answer/user-top.png" class="image">
             <div class="box">
                 <van-row>
                     <van-col span="12" align="center">
@@ -38,7 +39,7 @@
             </div>
         </div>
         <div class="attContainer">
-            <div class="title">{{ $t('question:ranking') }}</div>
+            <!-- <div class="title">{{ $t('question:ranking') }}</div> -->
             <!-- <van-tabs @click="selectPage" v-model="tabIndex">
                 <van-tab title="我的邀请"> -->
                     <van-row class="sort">
@@ -69,7 +70,7 @@
                                             <div class="num-item">
                                                 <van-row type="flex" justify="center">
                                                     <van-col span="4" style="display: flex;align-items: center;">
-                                                        <span>{{ index + 1 }}</span>&nbsp;&nbsp;
+                                                        <!-- <span>{{ index + 1 }}</span>&nbsp;&nbsp; -->
                                                         <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
                                                         &nbsp;&nbsp;
                                                         <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
@@ -303,9 +304,13 @@ export default {
                 position: fixed;
                 top: 0;
                 width: 100%;
+                background-color: transparent;
+                .van-icon {
+                    color: #fff;
+                }
             }
-            .van-tabs__nav {
-                // background-color: transparent;
+            .van-nav-bar__title {
+                color: #fff;
             }
             .van-tabs__wrap {
                 // top: 50px;
@@ -320,15 +325,29 @@ export default {
             // position: absolute;
             // overflow: hidden;
             .generalStatistics {
+                position: relative;
                 width: 90%;
                 // height: 80vh;
                 margin: 0 auto;
-                background-color: #fff;
+                // background-color: #fff;
                 margin-top: 80px;
                 border-radius: 10px;
                 font-size: 14px;
+                .image {
+                    // padding: 0 3%;
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+                }
                 .box {
+                    width: 100%;
+                    position: absolute;
                     padding: 10px;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%,-50%);
+                    color: #fff;
+                    font-weight: 500;
                     .van-divider {
                         margin: 10px 0;;
                     }
@@ -342,7 +361,7 @@ export default {
                 width: 90%;
                 height: 65vh;
                 margin: 0 auto;
-                background-color: #fff;
+                // background-color: #fff;
                 margin-top: 10px;
                 border-radius: 10px;
                 overflow: auto;
@@ -384,8 +403,10 @@ export default {
                         margin-top: 10px;
                         // padding-right: 15px;
                         // display: flex;
+                        border-radius: 15px;
                         flex-direction: row;
-                        background: #fff; 
+                        background: #AE8BF5; 
+                        color: #fff;
                         border-bottom: 0.5px solid #969799;
                         .list-item {
                             .date {
@@ -400,6 +421,11 @@ export default {
                                     justify-content: space-around;
                                     flex-direction: column;
                                 }
+                                img {
+                                    width: 60px;
+                                    height: 60px;
+                                    border-radius: 100%;
+                                }
                             }
                         }
                         .van-divider {
@@ -413,10 +439,10 @@ export default {
                     font-size: 15px;
                     span {
                         padding: 10px;
-                        color: #646566;
+                        color: #A79BA9;
                     }
                     .active {
-                        color: #323233;
+                        color: #fff;
                         font-weight:500;
                     }
                 }

@@ -72,7 +72,7 @@
                 <div v-if="re_address && re_address !== ''" class="hint">邀请地址：{{re_address}}</div>
             </div>
             <div style="padding: 20px;">
-                <van-button round block type="info" native-type="submit">注册</van-button>
+                <van-button class="regist-button" round block type="info" native-type="submit">注册</van-button>
                 <van-row class="link" style="margin-top: 10px;">
                     <van-col span="24" align="center"><router-link to="/login">用户登录</router-link></van-col>
                 </van-row>
@@ -350,7 +350,7 @@ export default {
             // margin: 0 auto;
             .form {
                 width: 90%;
-                background-color: #fff;
+                background-color: #AE8BF5;
                 margin: 0 auto;
                 border-radius: 20px;
                 .box {
@@ -454,6 +454,10 @@ export default {
                 span{
                     color: #5394FF;
                 }
+            }
+            .regist-button {
+                background-color: #8C1AF5;
+                border: 0;
             }
         }
     }

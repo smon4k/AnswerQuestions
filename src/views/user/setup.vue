@@ -349,9 +349,9 @@ export default {
                 width: 90%;
                 height: 80vh;
                 margin: 0 auto;
-                background-color: #fff;
+                background-color: #AE8BF5;
                 margin-top: 30px;
-                // border-radius: 30px;
+                border-radius: 20px;
                 .content {
                     padding: 16px 16px 160px;
                 }
@@ -367,10 +367,20 @@ export default {
                 }
                 .item {
                     .item-index {
+                        .van-cell {
+                            border-radius: 20px;
+                            // background-color: #AE8BF5;
+                            // color: #fff;
+                            .van-cell__value {
+                                color: #fff;;
+                            }
+                        }
                         .van-cell--clickable {
                             height: 50px;
                             line-height: 30px;
                             vertical-align: middle;
+                            background-color: #AE8BF5;
+                            color: #fff;
                         }
                         .van-popup {
                             background-color: #F6F6F6;
@@ -382,6 +392,7 @@ export default {
                         }
                         .van-cell__left-icon, .van-cell__right-icon {
                             line-height: 30px;
+                            color: #fff;
                         }
                         .van-sheet {
                             .van-cell, .van-picker {

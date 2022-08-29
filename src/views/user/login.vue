@@ -285,7 +285,7 @@ export default {
       .regist {
         .form {
             width: 90%;
-            background-color: #fff;
+            background-color: #AE8BF5;
             margin: 0 auto;
             border-radius: 20px;
             padding-bottom: 20px;
@@ -381,6 +381,7 @@ export default {
           background: #5394ff;
           color: #fff;
           text-align: center;
+          border: 0;
           // pointer-events: none;
           .van-button__icon {
             margin-right: 10px;
@@ -398,7 +399,8 @@ export default {
           pointer-events: none;
         }
         .loginButton.disableds {
-          background: #5394ff;
+          background: #8C1AF5;
+          border: 0;
           pointer-events: auto;
         }
         .tips {

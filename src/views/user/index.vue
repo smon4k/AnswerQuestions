@@ -32,7 +32,7 @@
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="$t('question:logInRegister')">
+                    <van-cell is-link :title="$t('question:username')">
                         <div>{{username ? username : 'Unnamed'}}</div>
                     </van-cell>
                 </div>
@@ -359,7 +359,8 @@ export default {
                 width: 90%;
                 height: 80vh;
                 margin: 0 auto;
-                background-color: #fff;
+                background-color: #AE8BF5;
+                // background-color: #fff;
                 margin-top: 30px;
                 border-radius: 30px;
                 .content {
@@ -434,6 +435,14 @@ export default {
                 }
                 .item {
                     .item-index {
+                        border-bottom: 1px solid #A79BA9;
+                        .van-cell {
+                            background-color: #AE8BF5;
+                            color: #fff;
+                            .van-cell__value {
+                                color: #fff;;
+                            }
+                        }
                         .van-cell--clickable {
                             height: 50px;
                             line-height: 30px;
@@ -448,6 +457,7 @@ export default {
                         }
                         .van-cell__left-icon, .van-cell__right-icon {
                             line-height: 30px;
+                            color: #fff;
                         }
                         .van-sheet {
                             .van-cell, .van-picker {
@@ -459,6 +469,7 @@ export default {
                                 margin: 10px;
                                 border-radius: 15px;
                                 .van-cell {
+                                    background-color: #fff;
                                     border-radius: 15px;
                                 }
                             }

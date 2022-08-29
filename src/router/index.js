@@ -14,7 +14,7 @@ export const constantRoutes = [
         path: 'home',
         name: 'home',
         component: () => import('@/views/home/index'),
-        meta: { title: 'home', keepAlive: true, isBottomNav: true, }
+        meta: { title: 'home', keepAlive: true, isBottomNav: false, }
       },
       //开始答题
       {

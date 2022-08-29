@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "element-ui": "^2.15.5",
     "ethers": "^5.5.4",
+    "nativeshare": "^2.1.5",
     "normalize.css": "^7.0.0",
     "vue": "^2.7.2",
     "vue-clipboard2": "^0.3.1",
