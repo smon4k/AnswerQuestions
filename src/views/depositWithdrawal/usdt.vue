@@ -6,7 +6,7 @@
             left-text=""
             right-text=""
             left-arrow
-            @click-left="onClickSave"
+            @click-left="onReturnLeft"
         />
         <van-tabs v-model="tabActive">
             <van-tab title="USDT充提">
@@ -633,8 +633,9 @@ export default {
             }
         }
     },
-    onClickSave() { //编辑资料
-        this.$router.go(-1);
+    onReturnLeft() { //返回上一页
+        // this.$router.go(-1);
+        this.$router.push("/");
     },
     selectCurrencyClick() {
         this.selectCurrencyShow = true;

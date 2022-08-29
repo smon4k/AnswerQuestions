@@ -8,94 +8,96 @@
             right-text=""
             @click-left="onClickLeft"
         />
-        <div class="generalStatistics">
-            <img src="@/assets/answer/user-top.png" class="image">
-            <div class="box">
-                <van-row>
-                    <van-col span="12" align="center">
-                        <span>TVL</span><br>
-                        <span>{{ count_sell_number }} USDT</span>
-                    </van-col>
-                    <van-col span="12" align="center">
-                        <span>APR</span><br>
-                        <span>{{ toFixed(annualized_avg * 100, 4) }}%</span>
-                    </van-col>
-                </van-row>
-                <van-divider />
-                <van-row>
-                    <van-col span="8" align="center">
-                        <span>{{ $t('question:NumberOfParticipants') }}</span><br>
-                        <span>{{ answer_count_user }}</span>
-                    </van-col>
-                    <van-col span="8" align="center">
-                        <span>{{ $t('question:CompletedAnswers') }}</span><br>
-                        <span>{{ answer_count }}</span>
-                    </van-col>
-                    <van-col span="8" align="center">
-                        <span>{{ $t('question:CorrectAnswer') }}</span><br>
-                        <span>{{ answer_correct_count }}</span>
-                    </van-col>
-                </van-row>
-            </div>
-        </div>
-        <div class="attContainer">
-            <!-- <div class="title">{{ $t('question:ranking') }}</div> -->
-            <!-- <van-tabs @click="selectPage" v-model="tabIndex">
-                <van-tab title="我的邀请"> -->
-                    <van-row class="sort">
-                        <van-col span="6" align="center">
-                            <span @click="getActiveTime('d')" :class="[{'active':activeTime === 'd'}]">{{ $t('question:day') }}</span>
+        <div class="main">
+            <div class="generalStatistics">
+                <img src="@/assets/answer/user-top.png" class="image">
+                <div class="box">
+                    <van-row>
+                        <van-col span="12" align="center">
+                            <span>TVL</span><br>
+                            <span>{{ count_sell_number }} USDT</span>
                         </van-col>
-                        <van-col span="6" align="center">
-                            <span @click="getActiveTime('w')" :class="[{'active':activeTime === 'w'}]">{{ $t('question:week') }}</span>
-                        </van-col>
-                        <van-col span="6" align="center">
-                            <span @click="getActiveTime('m')" :class="[{'active':activeTime === 'm'}]">{{ $t('question:moon') }}</span>
-                        </van-col>
-                        <van-col span="6" align="center">
-                            <span @click="getActiveTime('1')" :class="[{'active':activeTime === '1'}]">{{ $t('question:OverallList') }}</span>
+                        <van-col span="12" align="center">
+                            <span>APR</span><br>
+                            <span>{{ toFixed(annualized_avg * 100, 4) }}%</span>
                         </van-col>
                     </van-row>
-                    <van-pull-refresh class="refresh" v-model="loading" @refresh="onRefresh">
-                        <van-list
-                            v-model="loading"
-                            :finished="finished"
-                            :finished-text="$t('question:noMore')"
-                            v-if="tableData.length"
-                        >
-                            <div class="attent-list">
-                                <ul>
-                                    <li v-for="(item,index) in tableData" class="attent-item" :key="index">
-                                        <div class="list-item">
-                                            <div class="num-item">
-                                                <van-row type="flex" justify="center">
-                                                    <van-col span="4" style="display: flex;align-items: center;">
-                                                        <!-- <span>{{ index + 1 }}</span>&nbsp;&nbsp; -->
-                                                        <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
-                                                        &nbsp;&nbsp;
-                                                        <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
-                                                    </van-col>
-                                                    <van-col span="20" class="score" align="right">
-                                                        <van-col span="24">
-                                                            <div>{{ $t('question:NumberOfAnswers') }}: {{ item.number_answers }}</div>
-                                                            <div>{{ $t('question:Score') }}: {{ item.score }} 分</div>
-                                                            <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} H2O</div>
+                    <van-divider />
+                    <van-row>
+                        <van-col span="8" align="center">
+                            <span>{{ $t('question:NumberOfParticipants') }}</span><br>
+                            <span>{{ answer_count_user }}</span>
+                        </van-col>
+                        <van-col span="8" align="center">
+                            <span>{{ $t('question:CompletedAnswers') }}</span><br>
+                            <span>{{ answer_count }}</span>
+                        </van-col>
+                        <van-col span="8" align="center">
+                            <span>{{ $t('question:CorrectAnswer') }}</span><br>
+                            <span>{{ answer_correct_count }}</span>
+                        </van-col>
+                    </van-row>
+                </div>
+            </div>
+            <div class="attContainer">
+                <!-- <div class="title">{{ $t('question:ranking') }}</div> -->
+                <!-- <van-tabs @click="selectPage" v-model="tabIndex">
+                    <van-tab title="我的邀请"> -->
+                        <van-row class="sort">
+                            <van-col span="6" align="center">
+                                <span @click="getActiveTime('d')" :class="[{'active':activeTime === 'd'}]">{{ $t('question:day') }}</span>
+                            </van-col>
+                            <van-col span="6" align="center">
+                                <span @click="getActiveTime('w')" :class="[{'active':activeTime === 'w'}]">{{ $t('question:week') }}</span>
+                            </van-col>
+                            <van-col span="6" align="center">
+                                <span @click="getActiveTime('m')" :class="[{'active':activeTime === 'm'}]">{{ $t('question:moon') }}</span>
+                            </van-col>
+                            <van-col span="6" align="center">
+                                <span @click="getActiveTime('1')" :class="[{'active':activeTime === '1'}]">{{ $t('question:OverallList') }}</span>
+                            </van-col>
+                        </van-row>
+                        <van-pull-refresh class="refresh" v-model="loading" @refresh="onRefresh">
+                            <van-list
+                                v-model="loading"
+                                :finished="finished"
+                                :finished-text="$t('question:noMore')"
+                                v-if="tableData.length"
+                            >
+                                <div class="attent-list">
+                                    <ul>
+                                        <li v-for="(item,index) in tableData" class="attent-item" :key="index">
+                                            <div class="list-item">
+                                                <div class="num-item">
+                                                    <van-row type="flex" justify="center">
+                                                        <van-col span="4" style="display: flex;align-items: center;">
+                                                            <!-- <span>{{ index + 1 }}</span>&nbsp;&nbsp; -->
+                                                            <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
+                                                            &nbsp;&nbsp;
+                                                            <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
                                                         </van-col>
-                                                    </van-col>
-                                                </van-row>
+                                                        <van-col span="20" class="score" align="right">
+                                                            <van-col span="24">
+                                                                <div>{{ $t('question:NumberOfAnswers') }}: {{ item.number_answers }}</div>
+                                                                <div>{{ $t('question:Score') }}: {{ item.score }} 分</div>
+                                                                <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} H2O</div>
+                                                            </van-col>
+                                                        </van-col>
+                                                    </van-row>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </van-list>
-                        <van-empty v-else :description="$t('question:nothing')" />
-                    </van-pull-refresh>
-                <!-- </van-tab> -->
-                 <!-- <van-tab title="邀请我的">
+                                        </li>
+                                    </ul>
+                                </div>
+                            </van-list>
+                            <van-empty v-else :description="$t('question:nothing')" />
+                        </van-pull-refresh>
+                    <!-- </van-tab> -->
+                    <!-- <van-tab title="邀请我的">
 
-                 </van-tab> -->
-            <!-- </van-tabs> -->
+                    </van-tab> -->
+                <!-- </van-tabs> -->
+            </div>
         </div>
     </div>
 </template>
@@ -301,9 +303,9 @@ export default {
             }
             // padding: 0 10px 0 10px;
             .van-nav-bar {
-                position: fixed;
-                top: 0;
-                width: 100%;
+                // position: fixed;
+                // top: 0;
+                // width: 100%;
                 background-color: transparent;
                 .van-icon {
                     color: #fff;
@@ -324,126 +326,132 @@ export default {
             width: 100%;
             // position: absolute;
             // overflow: hidden;
-            .generalStatistics {
-                position: relative;
-                width: 90%;
-                // height: 80vh;
+            .main {
+                width: 100%;
+                height: 100vh;
                 margin: 0 auto;
-                // background-color: #fff;
-                margin-top: 80px;
-                border-radius: 10px;
-                font-size: 14px;
-                .image {
-                    // padding: 0 3%;
-                    position: relative;
-                    width: 100%;
-                    height: 100%;
-                }
-                .box {
-                    width: 100%;
-                    position: absolute;
-                    padding: 10px;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%,-50%);
-                    color: #fff;
-                    font-weight: 500;
-                    .van-divider {
-                        margin: 10px 0;;
-                    }
-                }
-            }
-            .attContainer {
-                // width: 100%;
-                // min-height: 100vh;
-                // background-color: #ebedf0;
-                // padding-top: 10px;
-                width: 90%;
-                height: 65vh;
-                margin: 0 auto;
-                // background-color: #fff;
-                margin-top: 10px;
-                border-radius: 10px;
                 overflow: auto;
-                // padding-bottom: 50px;
-                .refresh {
-                    // height: 100vh;
-                    // padding-bottom: 50px;
-                    .van-pull-refresh__track {
-                        width: 100%;
-                    }
-                }
-                .content {
-                    width: 100%;
-                    img {
-                        width: 100%;
-                    }
-                }
-                .title {
-                    // width: 90%;
-                    // margin: 0 auto;
-                    height: 30px;
-                    line-height: 30px;
-                    font-size: 0.26rem;
-                    color: #9c9d9e;
-                    // margin-left: 0.39rem;
-                    background-color: #ebedf0;
-                    padding-left: 20px;
-                }
-                .attent-list {
+                .generalStatistics {
+                    position: relative;
                     width: 90%;
-                    font-size: 13px;
+                    // height: 80vh;
                     margin: 0 auto;
-                    ul > li {
-                        list-style: none;
+                    // background-color: #fff;
+                    margin-top: 40px;
+                    border-radius: 10px;
+                    font-size: 14px;
+                    .image {
+                        // padding: 0 3%;
+                        position: relative;
+                        width: 100%;
+                        height: 100%;
                     }
-                    .attent-item {
+                    .box {
+                        width: 100%;
+                        position: absolute;
                         padding: 10px;
-                        margin-bottom: 10px;
-                        margin-top: 10px;
-                        // padding-right: 15px;
-                        // display: flex;
-                        border-radius: 15px;
-                        flex-direction: row;
-                        background: #AE8BF5; 
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%,-50%);
                         color: #fff;
-                        border-bottom: 0.5px solid #969799;
-                        .list-item {
-                            .date {
-                                font-weight: 500;
-                                line-height: 30px;
-                                height: 30px;
-                            }
-                            .num-item {
-                                line-height: 20px;
-                                .score {
-                                    display: flex;
-                                    justify-content: space-around;
-                                    flex-direction: column;
-                                }
-                                img {
-                                    width: 60px;
-                                    height: 60px;
-                                    border-radius: 100%;
-                                }
-                            }
-                        }
+                        font-weight: 500;
                         .van-divider {
-                            line-height: 15px;
-                            margin: 5px 0;
+                            margin: 10px 0;;
                         }
                     }
                 }
-                .sort {
-                    padding-top: 10px;
-                    font-size: 15px;
-                    span {
-                        padding: 10px;
-                        color: #A79BA9;
+                .attContainer {
+                    // width: 100%;
+                    // min-height: 100vh;
+                    // background-color: #ebedf0;
+                    // padding-top: 10px;
+                    width: 90%;
+                    height: 65vh;
+                    margin: 0 auto;
+                    // background-color: #fff;
+                    margin-top: 10px;
+                    border-radius: 10px;
+                    overflow: auto;
+                    // padding-bottom: 50px;
+                    .refresh {
+                        // height: 100vh;
+                        // padding-bottom: 50px;
+                        .van-pull-refresh__track {
+                            width: 100%;
+                        }
                     }
-                    .active {
-                        color: #fff;
-                        font-weight:500;
+                    .content {
+                        width: 100%;
+                        img {
+                            width: 100%;
+                        }
+                    }
+                    .title {
+                        // width: 90%;
+                        // margin: 0 auto;
+                        height: 30px;
+                        line-height: 30px;
+                        font-size: 0.26rem;
+                        color: #9c9d9e;
+                        // margin-left: 0.39rem;
+                        background-color: #ebedf0;
+                        padding-left: 20px;
+                    }
+                    .attent-list {
+                        width: 90%;
+                        font-size: 13px;
+                        margin: 0 auto;
+                        ul > li {
+                            list-style: none;
+                        }
+                        .attent-item {
+                            padding: 10px;
+                            margin-bottom: 10px;
+                            margin-top: 10px;
+                            // padding-right: 15px;
+                            // display: flex;
+                            border-radius: 15px;
+                            flex-direction: row;
+                            background: #AE8BF5; 
+                            color: #fff;
+                            border-bottom: 0.5px solid #969799;
+                            .list-item {
+                                .date {
+                                    font-weight: 500;
+                                    line-height: 30px;
+                                    height: 30px;
+                                }
+                                .num-item {
+                                    line-height: 20px;
+                                    .score {
+                                        display: flex;
+                                        justify-content: space-around;
+                                        flex-direction: column;
+                                    }
+                                    img {
+                                        width: 60px;
+                                        height: 60px;
+                                        border-radius: 100%;
+                                    }
+                                }
+                            }
+                            .van-divider {
+                                line-height: 15px;
+                                margin: 5px 0;
+                            }
+                        }
+                    }
+                    .sort {
+                        padding-top: 10px;
+                        font-size: 15px;
+                        span {
+                            padding: 10px;
+                            color: #A79BA9;
+                        }
+                        .active {
+                            color: #fff;
+                            font-weight:500;
+                        }
                     }
                 }
             }

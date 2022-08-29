@@ -53,6 +53,12 @@ export default {
     .app-container {
         /deep/ {
             .van-tabbar {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                margin: auto;
+                max-width: 750px;
                 background-color: #00000040;
             }
             .van-tabbar-item {

@@ -383,10 +383,13 @@ export default {
                             color: #fff;
                         }
                         .van-popup {
-                            background-color: #F6F6F6;
+                            background-color: #AE8BF5;
+                            .van-nav-bar__text {
+                                color: #fff;
+                            }
                         }
                         .hint {
-                            color: #969799;
+                            color: #fff;
                             padding-left: 15px;
                             font-size: 15px;
                         }
@@ -406,6 +409,9 @@ export default {
                                 .van-cell {
                                     border-radius: 15px;
                                 }
+                            }
+                            .van-hairline--top-bottom::after{
+                                border-width: inherit !important;
                             }
                         }
                         .merge-box {

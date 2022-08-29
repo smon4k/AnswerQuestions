@@ -449,10 +449,13 @@ export default {
                             vertical-align: middle;
                         }
                         .van-popup {
-                            background-color: #F6F6F6;
+                            background-color: #AE8BF5;
+                            .van-nav-bar__text {
+                                color: #fff;
+                            }
                         }
                         .hint {
-                            color: #969799;
+                            color: #fff;
                             padding-left: 15px;
                         }
                         .van-cell__left-icon, .van-cell__right-icon {
@@ -472,6 +475,9 @@ export default {
                                     background-color: #fff;
                                     border-radius: 15px;
                                 }
+                            }
+                            .van-hairline--top-bottom::after{
+                                border-width: inherit !important;
                             }
                         }
                         .van-language-sheet {

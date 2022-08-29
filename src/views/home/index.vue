@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="main" :style="{ backgroundSize: isMobel ? '100% 100%' : '' }">
+    <div class="main" :style="{ backgroundSize: isMobel ? '100% 100%' : '',position: isMobel ? 'fixed' : 'relative' }">
         <div class="title">
-            <div class="title01">{{ $t("question:answerQuestions") }}</div>
+            <div class="title01">{{ $t("question:oneStopName") }}</div>
         </div>
         <div class="user">
             <img src="@/assets/answer/user-top.png" class="image">
@@ -11,6 +11,14 @@
                     <el-avatar :size="80" :src="avatar"></el-avatar>
                 </div>
                 <div class="nickname">{{ nickname }}</div>
+            </div>
+            <div class="balance">
+                <div @click="getUsdtDepositWithdraw()">USDT: 
+                    <span style="text-decoration: underline;">{{ toFixed(usdt_balance, 4) }}</span>
+                </div>
+                <div @click="getH2ODepositWithdraw()">H2O: 
+                    <span style="text-decoration: underline;">{{ toFixed(h2o_balance, 4) }}</span>
+                </div>
             </div>
         </div>
         <div class="content">
@@ -29,7 +37,7 @@
                     </div>
                     <div @click="routePushBank()">
                         <!-- 银行 -->
-                        <img src="@/assets/answer/bank.png" class="image">
+                        <img src="@/assets/answer/wallet.png" class="image">
                     </div>
                     <div @click="routePushTickets()">
                         <!-- 门票 -->
@@ -65,6 +73,8 @@ export default {
         avatar: '',
         nickname: '',
         username: '',
+        usdt_balance: 0,
+        h2o_balance: 0,
     };
   },
   computed: {
@@ -111,6 +121,8 @@ export default {
                 this.username = json.data.username;
                 this.nickname = json.data.nickname;
                 this.avatar = json.data.avatar;
+                this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
+                this.h2o_balance = Number(json.data.h2o_local_balance) + Number(json.data.h2o_wallet_balance);
             } else {
                 this.$message({ type: 'warning', message: 'Error' });
             }
@@ -165,6 +177,12 @@ export default {
     routePushSetUp() {
         this.$router.push("/user");
     },
+    getUsdtDepositWithdraw() {
+        this.$router.push("/usdt");
+    },
+    getH2ODepositWithdraw() {
+        this.$router.push("/h2o");
+    },
     onSelect() {
           const self = this
             var nativeShare = new NativeShare({
@@ -208,7 +226,7 @@ export default {
       left: 0;
       width: 100%;
       height: 100%;
-      z-index: -10;
+    //   z-index: -10;
       position: fixed;
       .title {
         position: relative;
@@ -288,15 +306,28 @@ export default {
         }
         .avatar {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%,-50%);
+            top: 0;
+            left: 10%;
+            bottom: 0;
+            margin: auto;
+            height: 110px;
+            // transform: translate(-50%,-50%);
             .nickname {
                 color: #fff;
                 font-size: 15px;
                 font-weight: 500;
                 text-align: center;
             }
+        }
+        .balance {
+            position: absolute;
+            top: 20%;
+            left: 40%;
+            bottom: 0;
+            margin: auto;
+            height: 110px;
+            color: #fff;
+            font-size: 18px;
         }
     }
   }
