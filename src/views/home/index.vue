@@ -36,7 +36,7 @@
             </div> -->
         </div>
         <div class="content">
-            <!-- <button @click="onSelect()">微信好友</button> -->
+            <button @click="onSelect()">微信好友</button>
             <!-- <div class="title01">{{ $t("question:oneStopName") }}</div>
             <div class="title02">{{ $t("question:answerQuestions") }}</div>
             <div style="margin-top: 10px">
