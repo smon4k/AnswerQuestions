@@ -211,7 +211,7 @@ export default {
             // 设置分享文案
             nativeShare.setShareData({
                 icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
-                link: 'https://apiy.h2ofinance.pro',
+                link: 'https://www.baidu.com',
                 title: 'NativeShare',
                 desc: 'NativeShare是一个整合了各大移动端浏览器调用原生分享的插件',
                 from: '@fa-ge1',
