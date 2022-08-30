@@ -211,7 +211,7 @@ export default {
             // 设置分享文案
             nativeShare.setShareData({
                 icon: 'https://h2o-finance-images.s3.amazonaws.com/h2oMedia/picture/avatar/100218_2293735179_.png',
-                link: 'https://futu.win',
+                link: 'https://futu.win/#/home',
                 title: '一站到底',
                 desc: '一站到底一站到底一站到底一站到底',
                 from: '@fa-ge',
