@@ -214,7 +214,7 @@ export default {
                 link: 'https://github.com/fa-ge/NativeShare',
                 title: 'NativeShare',
                 desc: 'NativeShare是一个整合了各大移动端浏览器调用原生分享的插件',
-                from: '@fa-ge',
+                from: '@fa-ge1',
             })
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
             try {
