@@ -211,7 +211,7 @@ export default {
             // 设置分享文案
             nativeShare.setShareData({
                 icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
-                link: 'https://pic3.zhimg.com',
+                link: 'https://futu.win/home',
                 title: 'XXX的个人博客',
                 desc: 'XXX的个人博客',
                 from: '@fa-ge1',
