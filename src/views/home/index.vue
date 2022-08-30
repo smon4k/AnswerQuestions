@@ -7,19 +7,33 @@
         <div class="user">
             <img src="@/assets/answer/user-top.png" class="image">
             <div class="avatar">
+                <div class="nickname">{{ nickname ? nickname : 'User-' + user_id }}</div>
                 <div @click="getUserClick()">
-                    <el-avatar :size="80" :src="avatar"></el-avatar>
+                    <el-avatar :size="70" :src="avatar" style="border: 3px solid #fff;"></el-avatar>
                 </div>
-                <div class="nickname">{{ nickname }}</div>
+                <el-row class="coins">
+                    <el-col :span="12">
+                        <div @click="getUsdtDepositWithdraw()">
+                            <img src="@/assets/h2oToken.png" alt="" width="25">
+                            <span>{{ toFixed(usdt_balance, 4) }}</span>
+                        </div>
+                    </el-col>
+                    <el-col :span="12">
+                        <div @click="getH2ODepositWithdraw()">
+                            <img src="@/assets/usdt.png" alt="" width="25">
+                            <span>{{ toFixed(h2o_balance, 4) }}</span>
+                        </div>
+                    </el-col>
+                </el-row>
             </div>
-            <div class="balance">
+            <!-- <div class="balance">
                 <div @click="getUsdtDepositWithdraw()">USDT: 
                     <span style="text-decoration: underline;">{{ toFixed(usdt_balance, 4) }}</span>
                 </div>
                 <div @click="getH2ODepositWithdraw()">H2O: 
                     <span style="text-decoration: underline;">{{ toFixed(h2o_balance, 4) }}</span>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="content">
             <!-- <button @click="onSelect()">微信好友</button> -->
@@ -58,6 +72,7 @@
                 </div>
             </div>
         </div>
+
     </div>
   </div>
 </template>
@@ -70,6 +85,7 @@ export default {
   data() {
     return {
         languag: this.$i18n.i18next.language,
+        user_id: 0,
         avatar: '',
         nickname: '',
         username: '',
@@ -118,6 +134,7 @@ export default {
         }).then(async (json) => {
             if (json && json.code == 10000) {
                 console.log(json.data);
+                this.user_id = json.data.id;
                 this.username = json.data.username;
                 this.nickname = json.data.nickname;
                 this.avatar = json.data.avatar;
@@ -218,7 +235,7 @@ export default {
 .container {
   /deep/ {
     .main {
-      background-image: url("../../assets/answer/2.jpg");
+      background-image: url("../../assets/answer/home-bg.png");
       background-repeat: no-repeat;
       background-attachment: fixed; /*关键*/
       background-position: center;
@@ -228,6 +245,7 @@ export default {
       height: 100%;
     //   z-index: -10;
       position: fixed;
+      overflow-x: hidden;
       .title {
         position: relative;
         width: 90%;
@@ -306,17 +324,29 @@ export default {
         }
         .avatar {
             position: absolute;
-            top: 0;
-            left: 10%;
-            bottom: 0;
-            margin: auto;
-            height: 110px;
+            top: 5px;
+            left: 0;
+            right: 0;
+            // margin: auto;
+            height: 80px;
+            text-align: center;
             // transform: translate(-50%,-50%);
             .nickname {
                 color: #fff;
                 font-size: 15px;
                 font-weight: 500;
                 text-align: center;
+            }
+            .coins {
+                img {
+                    vertical-align: middle;
+                    margin-top: -6px;
+                }
+                span {
+                    text-decoration: underline;
+                    color: #fff;
+                    font-size: 16px;
+                }
             }
         }
         .balance {

@@ -70,16 +70,16 @@
                                             <div class="list-item">
                                                 <div class="num-item">
                                                     <van-row type="flex" justify="center">
-                                                        <van-col span="4" style="display: flex;align-items: center;">
+                                                        <van-col span="6" style="" align="left">
                                                             <!-- <span>{{ index + 1 }}</span>&nbsp;&nbsp; -->
                                                             <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
-                                                            &nbsp;&nbsp;
-                                                            <span>{{ item.nickname ? item.nickname : 'Unnamed'}}</span>
+                                                            <br>
+                                                            <div>{{ item.nickname ? item.nickname : 'Unnamed'}}</div>
                                                         </van-col>
-                                                        <van-col span="20" class="score" align="right">
+                                                        <van-col span="14" class="score" align="right">
                                                             <van-col span="24">
                                                                 <div>{{ $t('question:NumberOfAnswers') }}: {{ item.number_answers }}</div>
-                                                                <div>{{ $t('question:Score') }}: {{ item.score }} 分</div>
+                                                                <!-- <div>{{ $t('question:Score') }}: {{ item.score }} 分</div> -->
                                                                 <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} H2O</div>
                                                             </van-col>
                                                         </van-col>

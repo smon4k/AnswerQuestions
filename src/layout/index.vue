@@ -5,7 +5,10 @@
         <div class="appmain-container">
             <AppMain/>
         </div>
-        <footerNav v-if="$route.meta.isBottomNav" />
+        <!-- <footerNav v-if="$route.meta.isBottomNav" /> -->
+        <div v-if="$route.path !== '/home'">
+            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page.png" />
+        </div>
     </div>
 </template>
 <script>
@@ -87,6 +90,11 @@ export default {
                     
                 }
             }
+        }
+    },
+    methods: {
+        pushHomePage() {
+            this.$router.push("/"); 
         }
     }
 }
