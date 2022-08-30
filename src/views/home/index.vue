@@ -79,7 +79,7 @@
 <script>
 import { mapState } from "vuex";
 import { get, post } from "@/common/axios.js";
-// import NativeShare from 'nativeshare'
+import NativeShare from 'nativeshare'
 export default {
   name: "home",
   data() {
