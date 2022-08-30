@@ -210,11 +210,11 @@ export default {
             });
             // 设置分享文案
             nativeShare.setShareData({
-                icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
-                link: 'https://github.com/fa-ge/NativeShare',
-                title: 'NativeShare',
-                desc: 'NativeShare是一个整合了各大移动端浏览器调用原生分享的插件',
-                from: '@fa-ge',
+                icon: 'https://h2o-finance-images.s3.amazonaws.com/h2oMedia/picture/avatar/100218_2293735179_.png',
+                link: 'https://futu.win',
+                title: '一站到底',
+                desc: '一站到底一站到底一站到底一站到底',
+                from: '@futu',
             })
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
             try {
