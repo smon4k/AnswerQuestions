@@ -36,7 +36,7 @@
             </div> -->
         </div>
         <div class="content">
-            <button @click="onSelect()">微信好友</button>
+            <!-- <button @click="onSelect()">微信好友</button> -->
             <!-- <div class="title01">{{ $t("question:oneStopName") }}</div>
             <div class="title02">{{ $t("question:answerQuestions") }}</div>
             <div style="margin-top: 10px">
@@ -79,7 +79,6 @@
 <script>
 import { mapState } from "vuex";
 import { get, post } from "@/common/axios.js";
-import NativeShare from 'nativeshare'
 export default {
   name: "home",
   data() {
@@ -200,33 +199,6 @@ export default {
     getH2ODepositWithdraw() {
         this.$router.push("/h2o");
     },
-    onSelect() {
-          const self = this
-            var nativeShare = new NativeShare({
-                appId: '',
-                timestamp: '',
-                nonceStr: '',
-                signature: '',
-            });
-            // 设置分享文案
-            nativeShare.setShareData({
-                icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
-                link: 'https://futu.win/home',
-                title: 'XXX的个人博客',
-                desc: 'XXX的个人博客',
-                from: '@fa-ge1',
-            })
-            // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
-            try {
-              nativeShare.call('wechatFriend')
-              // 如果是分享到微信则需要 nativeShare.call('wechatFriend')
-              // 类似的命令下面有介绍
-              console.log('支持')
-            } catch(err) {
-              // 如果不支持，你可以在这里做降级处理
-              self.$toast('不支持该浏览器自动分享,请您手动分享')
-            }
-          },
   },
   mounted() {},
 };
