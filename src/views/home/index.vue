@@ -211,10 +211,10 @@ export default {
             // 设置分享文案
             nativeShare.setShareData({
                 icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
-                link: 'https://futu.win',
+                link: 'https://apiy.h2ofinance.pro',
                 title: 'NativeShare',
                 desc: 'NativeShare是一个整合了各大移动端浏览器调用原生分享的插件',
-                from: '@fa-ge',
+                from: '@fa-ge1',
             })
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
             try {
