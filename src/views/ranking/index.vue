@@ -10,7 +10,7 @@
         />
         <div class="main">
             <div class="generalStatistics">
-                <img src="@/assets/answer/user-top.png" class="image">
+                <img src="@/assets/answer/ranking.png" class="image">
                 <div class="box">
                     <van-row>
                         <van-col span="12" align="center">
@@ -344,7 +344,8 @@ export default {
                         // padding: 0 3%;
                         position: relative;
                         width: 100%;
-                        height: 100%;
+                        // height: 100%;
+                        height: 150px;
                     }
                     .box {
                         width: 100%;
