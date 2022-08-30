@@ -3,7 +3,7 @@
     <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
     <div class="regist">
         <div class="bg-radius"></div>
-        <div class="title">账号注册</div>
+        <div class="title">用户名注册</div>
         <!-- <div class="subtitle">未注册的手机号验证后将自动注册</div> -->
         <van-form @submit="onSubmit" class="form">
             <div class="box">
@@ -31,15 +31,15 @@
                 />
                     <div class="codeText" @click="sendVerify" :style='{"pointer-events": !is_send&&!phone?"none":"auto","background": (!phone?"#C0C0C0":"#5394FF")}'>{{verify_title}}</div>
                 </div> -->
-                <div class="hint" style="margin-top:44px;margin-bottom:10px;">账号只能设置一次，不能进行修改</div>
+                <div class="hint" style="margin-top:44px;margin-bottom:10px;">用户名只能设置一次，不能进行修改</div>
                 <div class="li">
                     <van-field
                         class="phone"
                         v-model="username"
-                        name="账号"
-                        placeholder="请输入账号"
+                        name="用户名"
+                        placeholder="请输入用户名"
                         clearable
-                        :rules="[{ validator: usernameValidator, message: '请输入正确的账号' }]"
+                        :rules="[{ validator: usernameValidator, message: '请输入正确的用户名' }]"
                     />
                 </div>
                 <div class="hint">6-15个字符，仅可使用英文（必须）、数字、下划线</div>
@@ -377,7 +377,7 @@ export default {
                 position: relative;
             }
             .hint {
-                color: #969799;
+                color: #fff;
                 padding-left: 40px;
                 margin-top: 10px;
                 font-size: 13px;

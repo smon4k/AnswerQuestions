@@ -11,12 +11,12 @@
         <div class="box">
             <div class="item">
                 <div class="item-index">
-                    <van-cell is-link title="登录账号" @click="isNameShow = true">
-                        <div>{{username ? username : '请输入账号'}}</div>
+                    <van-cell is-link title="登录用户名" @click="isNameShow = true">
+                        <div>{{username ? username : '请输入用户名'}}</div>
                     </van-cell>
                     <van-action-sheet v-model="isNameShow" title="" close-on-click-action class="van-sheet">
                         <van-nav-bar
-                            title="设置账号"
+                            title="设置用户名"
                             left-text="取消"
                             :right-text="isUsername ? '' : '保存'"
                             @click-left="isNameShow = false"
@@ -29,9 +29,9 @@
                                     <van-field 
                                         v-model="username" 
                                         label="" 
-                                        placeholder="请输入账号" 
+                                        placeholder="请输入用户名" 
                                         :disabled="isUsername && isUsername !== '' ? true : false" 
-                                        :rules="[{ validator: usernameValidator, message: '请输入正确的账号' }]"
+                                        :rules="[{ validator: usernameValidator, message: '请输入正确的用户名' }]"
                                     />
                                 </van-form>
                             </van-cell-group>
@@ -83,7 +83,7 @@
                 </div>
             </div>
         </div>
-        <van-dialog v-model="usernameShow" title="账号合并" show-cancel-button :before-close="onBeforeClose" @confirm="margintSubmit">
+        <van-dialog v-model="usernameShow" title="用户名合并" show-cancel-button :before-close="onBeforeClose" @confirm="margintSubmit">
             <div class="merge-box">
                 <van-field
                     v-model="username"

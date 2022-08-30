@@ -6,7 +6,7 @@
           <img src="@/assets/sign-pic.png" alt="" class="logo">
       </div> -->
       <div class="bg-radius"></div>
-      <div class="title">账号登录</div>
+      <div class="title">用户名登录</div>
       <!-- <van-tabs class="tab-class" v-model="active" @click="tabsEvents">
         <van-tab title="账号登录"> -->
           <div class="form">
@@ -17,7 +17,7 @@
                     class="phone"
                     v-model="username"
                     name="账号"
-                    placeholder="请输入账号"
+                    placeholder="请输入用户名"
                     clearable
                     center
                     :rules="[{ required: true, message: '' }]"
@@ -165,7 +165,7 @@ export default {
     },
     loginEvent() {
       if (this.username == "") {
-        Toast("请输入账号");
+        Toast("请输入用户名");
         return;
       }
       if (this.password == "") {
