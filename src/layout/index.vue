@@ -7,7 +7,7 @@
         </div>
         <!-- <footerNav v-if="$route.meta.isBottomNav" /> -->
         <div v-if="$route.path !== '/home'">
-            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page.png" />
+            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page-04.png" />
         </div>
     </div>
 </template>
