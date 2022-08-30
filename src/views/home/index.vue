@@ -213,9 +213,8 @@ export default {
                 icon: 'https://pic3.zhimg.com/v2-080267af84aa0e97c66d5f12e311c3d6_xl.jpg',
                 link: 'https://pic3.zhimg.com',
                 title: 'XXX的个人博客',
-                img_title:'XXX的个人博客',// 图片标题
                 desc: 'XXX的个人博客',
-                from: 'XXX的个人博客',
+                from: '@fa-ge1',
             })
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
             try {
