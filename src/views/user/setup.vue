@@ -262,7 +262,14 @@ export default {
                     username: this.username,
                     password: this.m_password,
                 };
+                const loading = this.$loading({
+                    lock: true,
+                    text: '账号合并中...',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
                 await axios.post(this.apiUrl + '/Api/User/marginUsername', params).then(async (json) => {
+                    loading.close();
                     if (json && json.code == 10000) {
                         this.getUserInfo();
                         this.usernameShow = false;
