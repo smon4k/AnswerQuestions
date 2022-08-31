@@ -111,7 +111,7 @@ export default {
             });
             // 设置分享文案
             nativeShare.setShareData({
-                // icon: 'https://h2o-finance-images.s3.amazonaws.com/h2oMedia/default_avatar.png',
+                icon: 'https://h2o-finance-images.s3.amazonaws.com/h2oMedia/default_avatar.png',
                 link: 'https://apiy.h2ofinance.pro',
                 title: '一站到底',
                 desc: '一站到底',
