@@ -101,6 +101,12 @@
                 />
             </div>
         </van-dialog>
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">答案计算中...</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -128,6 +134,7 @@ export default {
             pattern: /\d{6}/,
             // usernameValidator: /[a-zA-Z]([-_a-zA-Z0-9_]{6,20})/,
             usernameShow: false,
+            loadingShow: false,
         }
     },
     created() {
@@ -262,14 +269,16 @@ export default {
                     username: this.username,
                     password: this.m_password,
                 };
-                const loading = this.$loading({
-                    lock: true,
-                    text: '账号合并中...',
-                    spinner: 'el-icon-loading',
-                    background: 'rgba(0, 0, 0, 0.7)'
-                });
+                // const loading = this.$loading({
+                //     lock: true,
+                //     text: '账号合并中...',
+                //     spinner: 'el-icon-loading',
+                //     background: 'rgba(0, 0, 0, 0.7)'
+                // });
+                this.loadingShow = true;
                 await axios.post(this.apiUrl + '/Api/User/marginUsername', params).then(async (json) => {
-                    loading.close();
+                    // loading.close();
+                    this.loadingShow = false;
                     if (json && json.code == 10000) {
                         this.getUserInfo();
                         this.usernameShow = false;

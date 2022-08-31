@@ -64,6 +64,11 @@
       </van-col>
     </van-row>
   </div>
+  <van-overlay :show="loadingShow" @click="loadingShow = false">
+      <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+          <van-loading size="24px" vertical color="#0094ff">答案计算中...</van-loading>
+      </div>
+  </van-overlay>
 </div>
 </template>
 <script>
@@ -92,6 +97,7 @@ export default {
       timerCount: 0, //10秒倒计时
       timerPercentage: 100,
       languag: this.$i18n.i18next.language,
+      loadingShow: false,
     };
   },
   activated() { //页面进来
@@ -311,12 +317,13 @@ export default {
         }
     },
     async calcQuestionAnswer() { //开始提交作答题目
-      const loading = this.$loading({
-            lock: true,
-            text: '答案计算中...',
-            spinner: 'van-icon-loading',
-            background: 'rgba(0, 0, 0, 0.7)'
-        });
+      // const loading = this.$loading({
+      //       lock: true,
+      //       text: '答案计算中...',
+      //       spinner: 'van-icon-loading',
+      //       background: 'rgba(0, 0, 0, 0.7)'
+      //   });
+      this.loadingShow = true;
         // return false;
       setTimeout(() => {
         post(this.apiUrl + "/Answer/question/calcQuestionAnswer", {
@@ -329,7 +336,8 @@ export default {
             if (json && json.code == 10000) {
                 if(json.data) {
                     setTimeout(() => {
-                        loading.close();
+                        // loading.close();
+                        this.loadingShow = false;
                         this.$router.push({ 
                             name: "score", 
                             params: {
