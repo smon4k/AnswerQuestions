@@ -7,8 +7,11 @@
         </div>
         <!-- <footerNav v-if="$route.meta.isBottomNav" /> -->
         <div v-if="$route.path !== '/home'">
-            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page-04.png" />
             <img style="width: 2.8rem;height: 2.8rem;position: fixed;bottom: 5rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
+            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page-04.png" />
+        </div>
+        <div v-else>
+            <img style="width: 2.8rem;height: 2.8rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
         </div>
     </div>
 </template>
@@ -109,10 +112,9 @@ export default {
             // 设置分享文案
             nativeShare.setShareData({
                 icon: 'https://h2o-finance-images.s3.amazonaws.com/h2oMedia/default_avatar.png',
-                link: 'https://futu.win/home',
+                link: 'https://futu.win',
                 title: '一站到底',
                 desc: '一站到底',
-                from: '@futu',
             })
             // 唤起浏览器原生分享组件(如果在微信中不会唤起，此时call方法只会设置文案。类似setShareData)
             try {
