@@ -9,22 +9,22 @@
             <div class="avatar">
                 <div class="nickname">{{ nickname ? nickname : 'User-' + user_id }}</div>
                 <div @click="getUserClick()">
-                    <el-avatar :size="70" :src="avatar" style="border: 3px solid #fff;"></el-avatar>
+                    <van-image width="70" height="70" :src="avatar" style="border: 3px solid #fff;"></van-image>
                 </div>
-                <el-row class="coins">
-                    <el-col :span="12">
+                <van-row class="coins">
+                    <van-col :span="12">
                         <div @click="getUsdtDepositWithdraw()">
                             <img src="@/assets/h2oToken.png" alt="" width="25">
                             <span>{{ toFixed(h2o_balance, 4) }}</span>
                         </div>
-                    </el-col>
-                    <el-col :span="12">
+                    </van-col>
+                    <van-col :span="12">
                         <div @click="getH2ODepositWithdraw()">
                             <img src="@/assets/usdt.png" alt="" width="25">
                             <span>{{ toFixed(usdt_balance, 4) }}</span>
                         </div>
-                    </el-col>
-                </el-row>
+                    </van-col>
+                </van-row>
             </div>
             <!-- <div class="balance">
                 <div @click="getUsdtDepositWithdraw()">USDT: 
@@ -274,13 +274,7 @@ export default {
       //     height: 100%;
       //     display: block;
       // }
-      .el-avatar {
-        width: 100px;
-        height: 100px;
-        img {
-          width: 100%;
-        }
-      }
+
     }
     .user {
         position: relative;
@@ -318,6 +312,19 @@ export default {
                     text-decoration: underline;
                     color: #fff;
                     font-size: 16px;
+                }
+            }
+            .van-image {
+                width: 100px;
+                border-radius: 50%;
+                // height: 100px;
+                .van-image__error {
+                    width: 100%;
+                    border-radius: 50%;
+                }
+                img {
+                    width: 100%;
+                    border-radius: 50%;
                 }
             }
         }

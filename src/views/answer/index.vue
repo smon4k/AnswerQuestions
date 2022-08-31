@@ -6,10 +6,10 @@
     <div class="pen"></div>
     <div class="wheel" :style="animateWheel"></div> -->
     <!-- <div :class="['woman', animateShow ? 'an-woman' : 'an-woman2']"></div> -->
-    <el-row class="content">
-      <el-col :span="24" align="center">
+    <van-row class="content">
+      <van-col :span="24" align="center">
         <!-- {{ timerCount }} 秒 -->
-        <!-- <el-progress :width="70" color="#D7B078"  type="circle" :percentage="timerPercentage" :format="timerFormat"></el-progress> -->
+        <!-- <van-progress :width="70" color="#D7B078"  type="circle" :percentage="timerPercentage" :format="timerFormat"></van-progress> -->
         <van-circle
           style="width:70px"
           color="#D7B078"
@@ -20,9 +20,9 @@
           :text="(timerPercentage / 10).toString()"
           :stroke-width="150"
         />
-      </el-col>
-      <el-col :span="24" align="center">
-        <transition name="el-zoom-in-center">
+      </van-col>
+      <van-col :span="24" align="center">
+        <transition name="van-fade">
           <div class="list-content" v-if="getQAlist.length" :key="listIndex">
               <!-- <div > -->
                 <!-- <p class="title" v-if="$i18n.i18next.language === 'zh'">第{{ listIndex + 1 }}/{{questionNum}}题</p> -->
@@ -52,17 +52,17 @@
           @click="handleNextClick()"
           v-show="!subMitBtnShow"
         >
-            <el-button type="primary">{{ $t('question:nextQuestion') }}</el-button>
+            <van-button type="primary">{{ $t('question:nextQuestion') }}</van-button>
         </div> -->
         <div
           class="submit-btn"
           v-show="subMitBtnShow"
           @click="handleNextClick()"
         >
-            <el-button type="primary">{{ $t('question:Submit') }}</el-button>
+            <van-button type="primary">{{ $t('question:Submit') }}</van-button>
         </div>
-      </el-col>
-    </el-row>
+      </van-col>
+    </van-row>
   </div>
 </div>
 </template>
@@ -314,7 +314,7 @@ export default {
       const loading = this.$loading({
             lock: true,
             text: '答案计算中...',
-            spinner: 'el-icon-loading',
+            spinner: 'van-icon-loading',
             background: 'rgba(0, 0, 0, 0.7)'
         });
         // return false;

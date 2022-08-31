@@ -1,5 +1,5 @@
 import qs from 'qs';
-import { Message } from 'element-ui';
+import { Notify } from 'vant';
 export default function (axios,router) {
 
   axios.defaults.timeout = 180000; //超时时间
@@ -66,11 +66,7 @@ export function get(url, params={}, callback) {
     .then(response => {
         callback && callback(response);
     },err => {
-        Message({
-            showClose:true,
-            message: "请求数据异常",
-            type: 'error'
-        });
+        Notify({ type: 'warning', message: '请求数据异常' });
     })
 }
 /**
@@ -86,11 +82,7 @@ export function patch(url, params={}, callback) {
     .then(response => {
         callback && callback(response);
     }).catch(err => {
-        Message({
-            showClose:true,
-            message: "请求数据异常",
-            type: 'error'
-        });
+        Notify({ type: 'warning', message: '请求数据异常' });
     })
 }
 /**
@@ -106,11 +98,7 @@ export function post(url, params={}, callback) {
     .then(response => {
         callback && callback(response);
     },err => {
-        Message({
-            showClose:true,
-            message: "请求数据异常",
-            type: 'error'
-        });
+        Notify({ type: 'warning', message: '请求数据异常' });
     })
 }
 /**
@@ -126,11 +114,7 @@ export function put(url, params={}, callback) {
     .then(response => {
         callback && callback(response);
     }).catch(err => {
-        Message({
-            showClose:true,
-            message: "请求数据异常",
-            type: 'error'
-        });
+        Notify({ type: 'warning', message: '请求数据异常' });
     })
 }
 
@@ -147,10 +131,6 @@ export function upload(url, formData = {}, callback) {
     .then(response => {
         callback && callback(response);
     }).catch(err => {
-        Message({
-            showClose: true,
-            message: "请求异常",
-            type: 'error'
-        });
+        Notify({ type: 'warning', message: '请求数据异常' });
     })
 }

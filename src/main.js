@@ -4,8 +4,8 @@ import '@/styles/index.scss'
 import router from './router'
 import store from './store'
 import 'normalize.css/normalize.css'
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+// import ElementUI from 'element-ui';
+// import 'element-ui/lib/theme-chalk/index.css';
 import VueClipboard from 'vue-clipboard2'
 import {
   $inputLimit,
@@ -43,7 +43,7 @@ else {
     window.web3 = new Web3(new Web3.providers.HttpProvider("https://bsc-dataseed.binance.org"));
 }
 
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 Vue.use(Vant);
 Vue.use(VueClipboard)
 
