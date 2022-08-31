@@ -15,13 +15,13 @@
                     <el-col :span="12">
                         <div @click="getUsdtDepositWithdraw()">
                             <img src="@/assets/h2oToken.png" alt="" width="25">
-                            <span>{{ toFixed(usdt_balance, 4) }}</span>
+                            <span>{{ toFixed(h2o_balance, 4) }}</span>
                         </div>
                     </el-col>
                     <el-col :span="12">
                         <div @click="getH2ODepositWithdraw()">
                             <img src="@/assets/usdt.png" alt="" width="25">
-                            <span>{{ toFixed(h2o_balance, 4) }}</span>
+                            <span>{{ toFixed(usdt_balance, 4) }}</span>
                         </div>
                     </el-col>
                 </el-row>
@@ -115,7 +115,7 @@ export default {
     changeData: {
       immediate: true,
       async handler(val) {
-        if(val.address || val.userId > 0) {
+        if(val.userId > 0) {
             // this.getCommentList(true);
             this.getUserInfo();
         }
@@ -127,7 +127,6 @@ export default {
     async getUserInfo() { //获取用户信息
         await axios.get(this.apiUrl + '/Api/User/getUserInfo', {
             params: {
-                address: this.address,
                 userId: this.userId
             }
         }).then(async (json) => {
@@ -292,7 +291,8 @@ export default {
             // padding: 0 3%;
             position: relative;
             width: 100%;
-            height: 100%;
+            // height: 100%;
+            height: 140px;
         }
         .avatar {
             position: absolute;

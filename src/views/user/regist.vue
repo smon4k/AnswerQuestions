@@ -363,7 +363,7 @@ export default {
             .title{
                 margin-left: 30px;
                 color:#fff;
-                font-size: 28px;
+                font-size: 20px;
             }
             .subtitle{
                 font-size: 12px;
@@ -433,8 +433,8 @@ export default {
             .loginButton{
                 margin: 30px auto;
                 display: block;
-                width:315px;
-                height:44px;
+                width:70%;
+                height:40px;
                 border-radius: 25px;
                 background: #C0C0C0;
                 color:#fff;

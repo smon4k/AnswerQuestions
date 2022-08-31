@@ -155,7 +155,7 @@ export default {
         changeData: {
             immediate: true,
             handler(val){
-                if(val.address || val.userId > 0) {
+                if(val.userId > 0) {
                     // this.getCommentList(true);
                     this.getUserInfo();
                 }
@@ -170,7 +170,6 @@ export default {
         async getUserInfo() { //获取用户信息
             await axios.get(this.apiUrl + '/Api/User/getUserInfo', {
                 params: {
-                    address: this.address,
                     userId: this.userId
                 }
             }).then(async (json) => {

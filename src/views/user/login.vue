@@ -311,7 +311,7 @@ export default {
           margin-left: 30px;
           margin-top: 20px;
           color: #fff;
-          font-size: 28px;
+          font-size: 20px;
         }
         .subtitle {
           font-size: 12px;
@@ -390,8 +390,8 @@ export default {
         .loginButton {
           margin: 30px auto;
           display: block;
-          width: 315px;
-          height: 44px;
+          width: 70%;
+          height: 40px;
           border-radius: 25px;
           background: #c0c0c0;
           color: #fff;
@@ -404,6 +404,7 @@ export default {
           pointer-events: auto;
         }
         .tips {
+          font-size: 13px;
           position: absolute;
           height: 50px;
           // bottom: 30px;
@@ -411,13 +412,14 @@ export default {
           text-align: center;
           width: 100%;
           max-width: 500px;
-          color: #666;
+          color: #fff;
           span {
             color: #5394ff;
           }
         }
         .link {
           a {
+            font-size: 13px;
             // color: #fff;
           }
         }
