@@ -111,7 +111,7 @@ export default {
             });
             // 设置分享文案
             nativeShare.setShareData({
-                icon: require('@/assets/log.png'),
+                icon: 'https://www.futu.win/log.png',
                 link: 'https://www.futu.win',
                 title: '一站到底',
                 desc: '一站到底',
