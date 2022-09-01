@@ -82,5 +82,6 @@
     "answerResult-03": "elapsed {{num}} seconds",
     "answerResult-04": "The total income of this answer is {{ capped_num }} H2O",
     "answerResult-05": "You get {{ award_rate }}% of the income{{ award_num }} H2O",
-    "buyToRevive": "buy To Revive"
+    "buyToRevive": "buy To Revive",
+    "DataLoading": "Data loading"
 }

@@ -100,6 +100,12 @@
                 <van-tab :title="$t('question:myTicket')" to="/ticket/my/list"></van-tab>
             </van-tabs>
         </div>
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -117,6 +123,7 @@ export default {
             total: 0,
             cardActive: 0,
             SCTPrice: 0,
+            loadingShow: false,
         }
     },
     created() {
@@ -177,6 +184,7 @@ export default {
                 limit: this.pageSize,
                 page: this.currPage,
             };
+            this.loadingShow = true;
             axios.get(this.apiUrl + "/Answer/Ticket/getTicketList", {
                 params: ServerWhere
             }).then((json) => {
@@ -198,6 +206,7 @@ export default {
                 } else {
                     this.$notify({ type: 'warning', message: '加载数据失败' });
                 }
+                this.loadingShow = false;
             }).catch((error) => {
                 this.$notify({ type: 'warning', message: error });
             });

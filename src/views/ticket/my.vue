@@ -139,6 +139,12 @@
                 <van-button class="ticket-button"  type="info" @click="buyTicket()">{{ $t('question:ticketBuy') }}</van-button>
             </van-empty>
         </div>
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -161,6 +167,7 @@ export default {
             ticketStatus: false,
             SCTPrice: 0,
             active: '1',
+            loadingShow: true,
         }
     },
     created() {
@@ -255,6 +262,7 @@ export default {
                     } else {
                         this.$notify({ type: 'warning', message: '加载数据失败' });
                     }
+                    this.loadingShow = false;
                 }).catch((error) => {
                     this.$notify({ type: 'warning', message: error });
                 });

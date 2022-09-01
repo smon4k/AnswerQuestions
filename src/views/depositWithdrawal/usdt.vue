@@ -188,6 +188,12 @@
         </van-overlay>
 
         <van-action-sheet v-model="selectCurrencyShow" :actions="actions" @select="onSelect" />
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -227,6 +233,7 @@ export default {
         USDTPlatformBalance: 0, //USDT平台总余额
         SCTPlatformBalance: 0, //SCT平台总余额
         SSTPlatformBalance: 0, //SST平台总余额
+        loadingShow: true,
     };
   },
   activated() { //页面进来
@@ -598,6 +605,9 @@ export default {
             } else {
                 console.log("get Data error");
             }
+            setTimeout(() => {
+                this.loadingShow = false;
+            }, 100)
         }).catch((error) => {
             console.log(error);
             this.$notify({ type: 'danger', message: error });(error);

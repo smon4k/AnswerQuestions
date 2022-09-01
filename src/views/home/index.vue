@@ -82,6 +82,11 @@
             </div>
         </div>
     </div>
+    <van-overlay :show="loadingShow" @click="loadingShow = false">
+        <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+            <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+        </div>
+    </van-overlay>
   </div>
 </template>
 <script>
@@ -99,6 +104,7 @@ export default {
         usdt_balance: 0,
         sct_balance: 0,
         sst_balance: 0,
+        loadingShow: true,
     };
   },
   computed: {
@@ -148,6 +154,9 @@ export default {
                 this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
                 this.sct_balance = Number(json.data.sct_local_balance) + Number(json.data.sct_wallet_balance);
                 this.sst_balance = Number(json.data.sst_local_balance) + Number(json.data.sst_wallet_balance);
+                setTimeout(() => {
+                    this.loadingShow = false;
+                }, 300)
             } else {
                 this.$message({ type: 'warning', message: 'Error' });
             }

@@ -99,6 +99,12 @@
                 <!-- </van-tabs> -->
             </div>
         </div>
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -122,7 +128,8 @@ export default {
             annualized_avg: 0,
             answer_count_user: 0,
             answer_count: 0,
-            answer_correct_count: 0
+            answer_correct_count: 0,
+            loadingShow: false,
         }
     },
     created() {
@@ -174,6 +181,7 @@ export default {
             this.getDataList(ServerWhere);
         },
         getCountRankingData() {
+            this.loadingShow = true;
             axios.get(this.apiUrl + "/Answer/question/getCountRankingData", {
                 params: {
                     userId: this.userId,
@@ -187,12 +195,16 @@ export default {
                     this.answer_count = json.data.answer_count;
                     this.answer_correct_count = json.data.answer_correct_count;
                 }
+                setTimeout(() => {
+                    this.loadingShow = false;
+                }, 300)
             }).catch((error) => {
                 this.$notify({ type: 'warning', message: error });
             });
         },
         async getDataList(ServerWhere) { //获取我邀请的数据
             this.finished = true;
+            this.loadingShow = true;
             if (this.finished) { //下拉刷新状态
                 this.tableData = [];
                 this.finished = false;
@@ -236,6 +248,9 @@ export default {
                         this.$notify({ type: 'warning', message: '加载数据失败' });
                     }
                     this.loading = false;
+                    setTimeout(() => {
+                        this.loadingShow = false;
+                    }, 300)
                 }).catch((error) => {
                     this.$notify({ type: 'warning', message: error });
                 });

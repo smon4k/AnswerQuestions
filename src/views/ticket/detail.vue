@@ -111,6 +111,12 @@
                 </van-cell>
             </van-cell-group>
         </div>
+
+        <van-overlay :show="loadingShow" @click="loadingShow = false">
+            <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            </div>
+        </van-overlay>
     </div>
 </template>
 <script>
@@ -138,6 +144,7 @@ export default {
             swanlakeBalance: 0, //usdt可用余额 天鹅湖 平台余额 + 本地余额
             userTicketId: 0,
             SCTPrice: 0,
+            loadingShow: false,
         }
     },
     created() {
@@ -165,6 +172,7 @@ export default {
             handler(val){
                 console.log(val);
                 if(val.userId && val.ticketId > 0) {
+                    this.loadingShow = true;
                     this.getTicketDetail();
                     this.getUserInfo();
                 }
@@ -251,6 +259,7 @@ export default {
                 } else {
                     console.log("get Data error");
                 }
+                this.loadingShow = false;
             }).catch((error) => {
                 console.log(error);
                 this.$notify({ type: 'danger', message: error });(error);
