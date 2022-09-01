@@ -84,7 +84,7 @@
                                         </van-col>
                                     </van-row>
                                  </div>
-                                <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} H2O</div> -->
+                                <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} SCT</div> -->
                             </template>
                         </van-cell>
                         <van-cell>
@@ -116,12 +116,12 @@ export default {
             currPage: 1,
             total: 0,
             cardActive: 0,
-            H2OPrice: 0,
+            SCTPrice: 0,
         }
     },
     created() {
         this.getListData();
-        this.getH2OPrice();
+        this.getSCTPrice();
     },
     async mounted() {
         console.log("111");
@@ -151,17 +151,17 @@ export default {
 
     },
     methods: {
-        async getH2OPrice() {
+        async getSCTPrice() {
             const Gwei1 = 1000000000;
-            let H2OPrice = await getSwapPoolsAmountsOut(
+            let SCTPrice = await getSwapPoolsAmountsOut(
                 Address.routerContractAddress,
-                Address.H2O,
+                Address.SCT,
                 Address.BUSDT
             );
-            // console.log(H2OPrice);
-            this.H2OPrice = this.keepDecimalNotRounding(H2OPrice, 4);
-            console.log("H2OPrice", this.H2OPrice);
-            // this.H2OPrice = 1;
+            // console.log(SCTPrice);
+            this.SCTPrice = this.keepDecimalNotRounding(SCTPrice, 4);
+            console.log("SCTPrice", this.SCTPrice);
+            // this.SCTPrice = 1;
         },
         startBuy(row) {
             this.$router.push({
@@ -206,7 +206,7 @@ export default {
             this.$router.go(-1);
         },
         cealPaybackPeriod(row) { //实时计算回本周期
-            let num = Number(row.price) / (row.capped * this.H2OPrice);
+            let num = Number(row.price) / (row.capped * this.SCTPrice);
             return this.keepDecimalNotRounding(num, 1, true);
         },
         getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
@@ -216,7 +216,7 @@ export default {
             if(row.is_discount && (row.discount_status == 2 || row.discount_status == 1)) {
                 price = row.discount_price;
             }
-            num = ((Number(row.capped) * this.H2OPrice * 365) / Number(price)) * 100;
+            num = ((Number(row.capped) * this.SCTPrice * 365) / Number(price)) * 100;
             return this.toFixed(num, 2) + "%";
         }
     },

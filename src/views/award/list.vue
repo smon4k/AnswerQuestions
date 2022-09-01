@@ -24,13 +24,13 @@
                                         <div>
                                             <span>{{index}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <span>{{$t('question:userNumber')}}：{{item.number_user}}</span> &nbsp;&nbsp;
-                                            <span>{{$t('question:award')}}：{{toFixed(item.count_amount, 2)}} H2O</span> 
+                                            <span>{{$t('question:award')}}：{{toFixed(item.count_amount, 2)}} SCT</span> 
                                         </div>
                                     </template>
                                     <div class="attent-list">
                                         <ul>
                                             <li v-for="(items,indexs) in item.list" class="attent-item" :key="indexs">
-                                                <van-cell center title="" :value="$t('question:award')+ ': ' + items.count_award + ' H2O'">
+                                                <van-cell center title="" :value="$t('question:award')+ ': ' + items.count_award + ' SCT'">
                                                     <template #title>
                                                         <div style="display: flex;align-items: center;">
                                                             <img style="border-radius: 10%;height: 40px;width: 40px;" :src="items.avatar" alt="" width="30" @click="pushMyHomepage(itemss)">
@@ -48,19 +48,19 @@
                                                     <div class="num-item">
                                                         <van-row>
                                                             <van-col span="12">浏览作品数量: {{items.info.browse_num}}</van-col>
-                                                            <van-col span="12">奖励：{{toFixed(items.info.browse_award, 2)}} H2O</van-col>
+                                                            <van-col span="12">奖励：{{toFixed(items.info.browse_award, 2)}} SCT</van-col>
                                                         </van-row>
                                                         <van-row>
                                                             <van-col span="12">评论作品数量: {{ items.info.comment_num }}</van-col>
-                                                            <van-col span="12">奖励：{{ toFixed(items.info.comment_award, 2) }} H2O</van-col>
+                                                            <van-col span="12">奖励：{{ toFixed(items.info.comment_award, 2) }} SCT</van-col>
                                                         </van-row>
                                                         <van-row>
                                                             <van-col span="12">点赞作品数量: {{ items.info.like_num }}</van-col>
-                                                            <van-col span="12">奖励：{{ toFixed(items.info.like_award, 2) }} H2O</van-col>
+                                                            <van-col span="12">奖励：{{ toFixed(items.info.like_award, 2) }} SCT</van-col>
                                                         </van-row>
                                                         <van-row>
                                                             <van-col span="12">打赏作品数量: {{ items.info.reward_num }}</van-col>
-                                                            <van-col span="12">奖励：{{ toFixed(items.info.reward_award, 2) }} H2O</van-col>
+                                                            <van-col span="12">奖励：{{ toFixed(items.info.reward_award, 2) }} SCT</van-col>
                                                         </van-row>
                                                     </div>
                                                 </div> -->

@@ -31,7 +31,8 @@
             </div>
         </div>
         <van-tabs v-model="tabActive">
-            <van-tab title="USDT充提">
+            <van-tab title="USDT充提" to="/usdt"></van-tab>
+            <van-tab title="SCT充提">
                 <van-row class="container" style="margin-top:20px;">
                     <van-col :span="24">
                         <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
@@ -39,9 +40,9 @@
                                 <van-row class="balance">
                                     <van-col :span="24">
                                         <div>
-                                            <span>平台余额：{{ keepDecimalNotRounding(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <span>平台余额：{{ keepDecimalNotRounding(Number(localBalance) + Number(walletBalance), 4) }} SCT</span>
                                             <br />
-                                            <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <span>钱包余额：{{ toFixed(Number(SCTBalance), 4) }} SCT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                             <!-- <span v-else>GS Balance：<el-skeleton-item variant="text" style="width: 5%;" /></span> -->
                                         </div>
@@ -63,7 +64,7 @@
                                         <van-form ref="depositForm">
                                             <van-field 
                                                 type="number" 
-                                                label="USDT:" 
+                                                label="SCT:" 
                                                 v-model="depositForm.amount" 
                                                 placeholder="请输入充值金额" 
                                                 onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
@@ -109,9 +110,9 @@
                                 <van-row class="balance">
                                     <van-col :span="24">
                                         <div>
-                                            <span>平台余额：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <span>平台余额：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} SCT</span>
                                             <br />
-                                            <span>钱包余额：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <span>钱包余额：{{ toFixed(Number(SCTBalance), 4) }} SCT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
@@ -129,7 +130,7 @@
                                     <van-col :span="24">
                                         <van-form ref="withdrawForm">
                                             <van-field 
-                                                label="USDT:" 
+                                                label="SCT:" 
                                                 type="number" 
                                                 v-model="withdrawForm.amount" 
                                                 placeholder="请输入金额" 
@@ -178,7 +179,6 @@
                     </van-col>
                 </van-row>
             </van-tab>
-            <van-tab title="SCT充提" to="/sct"></van-tab>
             <van-tab title="SST充提" to="/sst"></van-tab>
         </van-tabs>
         <van-overlay :show="trading">
@@ -201,7 +201,7 @@ export default {
   name: "Index",
   data() {
     return {
-        tabActive: 0,
+        tabActive: 1,
         activeName: "1",
         localBalance: 0, //本地余额
         walletBalance: 0, //清算余额
@@ -212,7 +212,7 @@ export default {
         approve: false,
         trading: false,
         buttonAmountNum: 0, //按钮选择额度值
-        usdtBalance: 0,
+        SCTBalance: 0,
         depositForm: {
             amount: '',
         },
@@ -221,9 +221,9 @@ export default {
         },
         balanceTimeInterval: null,
         refreshTime: 5000, //数据刷新间隔时间
-        actions: [{ name: 'H2O' }, { name: 'USDT' }],
+        actions: [{ name: 'SCT' }, { name: 'USDT' }],
         selectCurrencyShow: false,
-        currencyName: 'H2O', //默认币 H2O
+        currencyName: 'SCT', //默认币 SCT
         USDTPlatformBalance: 0, //USDT平台总余额
         SCTPlatformBalance: 0, //SCT平台总余额
         SSTPlatformBalance: 0, //SST平台总余额
@@ -266,8 +266,8 @@ export default {
       ...mapState({
         isConnected:state=>state.base.isConnected,
         address:state=>state.base.address,
-        gamesFillingAddress:state=>state.base.usdtFillingAddress,
-        gamesSCTFillingAddress:state=>state.base.sctFillingAddress,
+        gamesFillingAddress:state=>state.base.sctFillingAddress,
+        gamesUSDTFillingAddress:state=>state.base.usdtFillingAddress,
         gamesSSTFillingAddress:state=>state.base.sstFillingAddress,
         apiUrl:state=>state.base.apiUrl,
         userId:state=>state.base.userId,
@@ -286,7 +286,7 @@ export default {
         if (!value) {
             return false;
         }
-        let num = this.usdtBalance;
+        let num = this.SCTBalance;
         if(Number(value) > num) {
             return false;
         } else {
@@ -322,7 +322,7 @@ export default {
         // this.csBalance = await getGameFillingBalance(); //获取余额
         this.timeInterval = setInterval(async() => {
             this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取余额
-            this.usdtBalance = await getBalance(Address.BUSDT, 18); //获取H2O余额
+            this.SCTBalance = await getBalance(Address.SCT, 18); //获取SCT余额
             // console.log(this.csBalance);
         }, this.refreshTime)
     },
@@ -338,17 +338,17 @@ export default {
       this.withdrawForm.amount = '';
     },
     async getIsApprove() { //获取余额 查看是否授权
-      let balance = await getBalance(Address.BUSDT, 18); //获取余额
-      console.log("USDT balance", balance);
+      let balance = await getBalance(Address.SCT, 18); //获取余额
+      console.log("SCT balance", balance);
       this.tokenBalance = balance;
-      isApproved(Address.BUSDT, 18, balance, this.gamesFillingAddress).then((bool) => {
+      isApproved(Address.SCT, 18, balance, this.gamesFillingAddress).then((bool) => {
         console.log("isApprove", bool);
         this.approve = bool ? true : false;
       });
     },
     startApprove() { //批准USDT
       this.trading = true;
-      approve(Address.BUSDT, this.gamesFillingAddress).then((hash) => {
+      approve(Address.SCT, this.gamesFillingAddress).then((hash) => {
         // console.log(result);
         if(hash) {
           this.approve = true;
@@ -407,21 +407,21 @@ export default {
                 address: this.address,
                 userId: this.userId,
                 type: Number(this.activeName),
-                local_balance: this.localBalance,
-                wallet_balance: this.walletBalance,
+                sct_local_balance: this.localBalance,
+                sct_wallet_balance: this.walletBalance,
                 hash: '',
-                currency: 'usdt'
+                currency: 'sct'
             };
-            contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
+            contractName(amount, Address.SCT, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
                 if(hash) {
                     if(this.activeName == 1) {//充值的话 二次检测是否充值成功
                         // await this.setDepositWithdraw(amount, hash);
-                        saveNotifyStatus(0, true, 'usdt');
+                        saveNotifyStatus(0, true, 'h20');
                         await this.getGameFillingBalanceFun(this.activeName, hash);
                     } else { //提取的话 不二次检测是否充值成功 异步机器人扣除 这里直接写入数据库记录
                         // await this.setDepositWithdraw(amount, hash);
                         // this.trading = false;
-                        saveNotifyStatus(0, false, 'usdt'); //提取的话 这里不通知GS获取余额
+                        saveNotifyStatus(0, false, 'h20'); //提取的话 这里不通知GS获取余额
                         this.resetForm('depositForm');
                         this.resetForm('withdrawForm');
                     }
@@ -453,16 +453,16 @@ export default {
             type: Number(this.activeName),
             local_balance: this.localBalance,
             wallet_balance: this.walletBalance,
-            currency: 'usdt',
+            currency: 'sct',
             hash: hash
         }).then((json) => {
             if (json && json.code == 10000) {
                 this.getUserInfo(true);
                 if(this.activeName == 1) {
                     //开始修改用户充提状态为充提进行中 通知GS获取余额
-                    saveNotifyStatus(0, true);
+                    saveNotifyStatus(0, true, 'sct');
                 } else {
-                    saveNotifyStatus(0, false); //提取的话 这里不通知GS获取余额
+                    saveNotifyStatus(0, false, 'sct'); //提取的话 这里不通知GS获取余额
                 }
                 this.trading = false;
                 this.$notify({ type: 'success', message: this.activeName == 1 ? '存款成功' : '提取成功' });
@@ -491,7 +491,7 @@ export default {
             // console.log(actualBalance, balance);
             // if(repeat <= 0 || actualBalance == balance) {
             if(receipt && receipt.status) {
-                await setDepWithdrawStatus(deWithId, 2, true, 'usdt'); //修改充值状态为已完成 并通知GS获取余额
+                await setDepWithdrawStatus(deWithId, 2, true, 'sct'); //修改充值状态为已完成 并通知GS获取余额
                 // this.trading = false;
                 // saveNotifyStatus(0, true);
                 this.trading = false;
@@ -514,7 +514,7 @@ export default {
                 if(withdrawStatus) {
                     // await this.getUserInfo(true); //更新用户信息
                     clearInterval(withdrawTimer);
-                    saveNotifyStatus(0, true); //通知GS更新余额
+                    saveNotifyStatus(0, true, 'sct'); //通知GS更新余额
                     setTimeout(async () => {
                         this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //重新获取一次余额
                         this.isWithdraw = false;
@@ -536,7 +536,7 @@ export default {
         return false;
     },
     allWalletBlanceFun() { //全部钱包余额
-        if(this.usdtBalance > 0) {
+        if(this.SCTBalance > 0) {
             this.depositForm.amount = Math.trunc(this.usdtBalance);
             return true;
         }
@@ -550,8 +550,8 @@ export default {
         }).then(async (json) => {
             console.log(json);
             if (json.code == 10000) {
-                this.localBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
-                let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
+                this.localBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
+                let USDTLocalBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
                 let SSTLocalBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
                 // this.csBalance = json.data.csBalance;
                 this.isGame = json.data.isGame;
@@ -564,16 +564,15 @@ export default {
                 }
                 console.log('是否打赏中：', this.isGame);
                 this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
-                let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
+                let USDTWalletBalance = await getGameFillingBalance(18, this.gamesUSDTFillingAddress); //获取USDT合约余额
                 let SSTWalletBalance = await getGameFillingBalance(18, this.gamesSSTFillingAddress); //获取SST合约余额
                 console.log('链上余额：', this.walletBalance);
-                this.USDTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
-                this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
+                this.SCTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
+                this.USDTPlatformBalance = Number(USDTLocalBalance) + Number(USDTWalletBalance);
                 this.SSTPlatformBalance = Number(SSTLocalBalance) + Number(SSTWalletBalance);
                 console.log("USDT总余额:", this.USDTPlatformBalance);
                 console.log("SCT总余额:", this.SCTPlatformBalance);
                 console.log("SST总余额:", this.SSTPlatformBalance);
-
                 this.isStatus = json.data.dw_status == 1 ? true : false;
                 this.isWithdraw = json.data.isDeWith; //是否充提中
                 console.log('是否充提中：', this.isStatus, this.isWithdraw);
@@ -593,8 +592,8 @@ export default {
                         }
                     }
                 }
-                this.usdtBalance = await getBalance(Address.BUSDT, 18); //获取H2O余额
-                console.log('USDT钱包余额：', this.usdtBalance);
+                this.SCTBalance = await getBalance(Address.SCT, 18); //获取SCT余额
+                console.log('SCT钱包余额：', this.SCTBalance);
             } else {
                 console.log("get Data error");
             }
@@ -691,7 +690,7 @@ export default {
 <style lang="scss" scoped>
 .container {
     /deep/ {
-        .bg {
+         .bg {
             background-image: url("../../assets/answer/2.jpg");
             background-repeat: no-repeat;
             background-attachment: fixed;  /*关键*/
@@ -766,7 +765,7 @@ export default {
             -webkit-appearance: none;
             margin: 0;
         }
-        height: 100vh;
+        // height: 100vh;
         .container {
             color: #fff;
             border-radius: 20px !important;
@@ -776,13 +775,12 @@ export default {
             padding: 20px;
             text-align: center;
             margin: 0 auto;
-            // margin-top: 30px;
+            // margin-top: 35px;
             .van-form {
                 margin-top: 15px;
             }
             .van-tabs__nav {
                 background-color: #AE8BF5;
-                // height: 50px;
             }
             .van-tabs__item {
                 height: 60px;
@@ -873,8 +871,7 @@ export default {
                 margin-top: 20px;
                 .van-button--primary {
                     width: 200px;
-                    border-radius: 30px;
-                    // background-color: #ff976a;
+                    border-radius: 5px;
                     background-color: #8C1AF5;
                     border: 0;
                 }

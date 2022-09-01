@@ -22,7 +22,7 @@
                                     <div>
                                         <span>{{index}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span>参与人数：{{item.number_user}}</span> &nbsp;&nbsp;
-                                        <span>奖励：{{toFixed(item.count_amount, 2)}} H2O</span>
+                                        <span>奖励：{{toFixed(item.count_amount, 2)}} SCT</span>
                                     </div>
                                 </template> -->
                                 <div class="attent-list" v-for="(item, index) in list" :key="index">
@@ -31,7 +31,7 @@
                                             <div class="list-item">
                                                 <div class="date">
                                                     <span>{{ item.date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span style="float:right;">奖励：{{toFixed(item.award_num, 2)}} H2O</span>
+                                                    <span style="float:right;">奖励：{{toFixed(item.award_num, 2)}} SCT</span>
                                                 </div>
                                             </div>
                                             <!-- <van-divider :style="{ borderColor: '#c8c9cc' }" /> -->

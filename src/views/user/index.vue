@@ -32,23 +32,23 @@
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="$t('question:username')">
+                    <van-cell is-link :title="$t('question:username')" @click="setUpInfo()">
                         <div>{{username ? username : 'Unnamed'}}</div>
                     </van-cell>
                 </div>
-                <div class="item-index">
+                <!-- <div class="item-index">
                     <van-cell is-link :title="$t('question:accountBinding')" @click="setUpInfo()"></van-cell>
-                </div>
-                <div class="item-index">
+                </div> -->
+                <!-- <div class="item-index">
                     <van-cell is-link :title="'USDT' + $t('question:Balance')" @click="getUsdtDepositWithdraw()">
                         <div>{{ toFixed(usdt_balance, 4) }} USDT</div>
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="'H2O' + $t('question:Balance')" @click="getH2ODepositWithdraw()">
-                        <div>{{ toFixed(h2o_balance, 4) }} H2O</div>
+                    <van-cell is-link :title="'SCT' + $t('question:Balance')" @click="getSCTDepositWithdraw()">
+                        <div>{{ toFixed(sct_balance, 4) }} SCT</div>
                     </van-cell>
-                </div>
+                </div> -->
                 <div class="item-index">
                     <van-cell is-link :title="$t('question:nickname')" @click="isNameShow = true">
                         <div>{{nickname ? nickname : $t('question:enterName')}}</div>
@@ -125,7 +125,7 @@ export default {
             isconfirm: true,
             language: 'zh',
             usdt_balance: 0, //usdt余额
-            h2o_balance: 0, //h2o余额
+            sct_balance: 0, //sct余额
         }
     },
     created() {
@@ -178,8 +178,8 @@ export default {
                     this.username = json.data.username;
                     this.nickname = json.data.nickname;
                     this.avatar = json.data.avatar;
-                    this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
-                    this.h2o_balance = Number(json.data.h2o_local_balance) + Number(json.data.h2o_wallet_balance);
+                    // this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
+                    // this.h2o_balance = Number(json.data.h2o_local_balance) + Number(json.data.h2o_wallet_balance);
                     if(json.data.avatar && json.data.avatar !== '') {
                         this.fileList[0] = {url: json.data.avatar};
                         this.$forceUpdate();
@@ -308,8 +308,8 @@ export default {
         getUsdtDepositWithdraw() {
             // this.$router.push("/usdt");
         },
-        getH2ODepositWithdraw() {
-            // this.$router.push("/h2o");
+        getSCTDepositWithdraw() {
+            // this.$router.push("/sct");
         },
         loginEvent() { //登录注册
             this.$router.push('/login');

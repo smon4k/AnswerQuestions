@@ -111,7 +111,7 @@
                                                     </van-row>
                                                     <van-row>
                                                         <!-- <van-col span="8">{{ item.annualized }}</van-col> -->
-                                                        <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} H2O</van-col> -->
+                                                        <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} SCT</van-col> -->
                                                         <van-col span="24">{{ toFixed(item.price, 2)}} USDT</van-col>
                                                     </van-row>
                                                 </div>
@@ -159,12 +159,12 @@ export default {
             total: 0,
             radio: 0,
             ticketStatus: false,
-            H2OPrice: 0,
+            SCTPrice: 0,
             active: '1',
         }
     },
     created() {
-        this.getH2OPrice();
+        this.getSCTPrice();
     },
     watch: {
         changeData: {
@@ -196,16 +196,16 @@ export default {
 
     },
     methods: {
-        async getH2OPrice() {
+        async getSCTPrice() {
             const Gwei1 = 1000000000;
-            let H2OPrice = await getSwapPoolsAmountsOut(
+            let SCTPrice = await getSwapPoolsAmountsOut(
                 Address.routerContractAddress,
-                Address.H2O,
+                Address.SCT,
                 Address.BUSDT
             );
-            // console.log(H2OPrice);
-            this.H2OPrice = this.keepDecimalNotRounding(H2OPrice, 4);
-            // this.H2OPrice = 1;
+            // console.log(SCTPrice);
+            this.SCTPrice = this.keepDecimalNotRounding(SCTPrice, 4);
+            // this.SCTPrice = 1;
         },
         startBuy(row) {
             this.$router.push({
@@ -320,13 +320,13 @@ export default {
             this.$router.push('/ticket/list');
         },
         cealPaybackPeriod(row) { //实时计算回本周期
-            let num = 10 / (row.capped * this.H2OPrice);
+            let num = 10 / (row.capped * this.SCTPrice);
             return this.keepDecimalNotRounding(num, 1, true);
         },
         getRealInterestRate(row) { //计算实际利率 实际利率=（封顶Token * Token价格 * 365）/购票价格
             // console.log(row);
             let num = 0;
-            num = ((Number(row.capped) * this.H2OPrice * 365) / Number(row.buy_price)) * 100;
+            num = ((Number(row.capped) * this.SCTPrice * 365) / Number(row.buy_price)) * 100;
             return this.toFixed(num, 2) + "%";
         }
     },

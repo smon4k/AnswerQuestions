@@ -80,7 +80,7 @@
                                                             <van-col span="24">
                                                                 <div>{{ $t('question:NumberOfAnswers') }}: {{ item.number_answers }}</div>
                                                                 <!-- <div>{{ $t('question:Score') }}: {{ item.score }} 分</div> -->
-                                                                <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} H2O</div>
+                                                                <div>{{ $t('question:TotalRevenue') }}: {{ item.award_num }} SCT</div>
                                                             </van-col>
                                                         </van-col>
                                                     </van-row>

@@ -12,16 +12,25 @@
                     <van-image width="70" height="70" :src="avatar" style="border: 3px solid #fff;"></van-image>
                 </div>
                 <van-row class="coins">
-                    <van-col :span="12">
+                    <van-col :span="8" align="center">
                         <div @click="getUsdtDepositWithdraw()">
-                            <img src="@/assets/h2oToken.png" alt="" width="25">
-                            <span>{{ toFixed(h2o_balance, 4) }}</span>
+                            <img src="@/assets/usdt.png" alt="" width="25">
+                            <br>
+                            <span>{{ toFixed(usdt_balance, 4) }}</span>
                         </div>
                     </van-col>
-                    <van-col :span="12">
-                        <div @click="getH2ODepositWithdraw()">
-                            <img src="@/assets/usdt.png" alt="" width="25">
-                            <span>{{ toFixed(usdt_balance, 4) }}</span>
+                    <van-col :span="8" align="center">
+                        <div @click="getSctDepositWithdraw()">
+                            <img src="@/assets/sct.png" alt="" width="25">
+                            <br>
+                            <span>{{ toFixed(sct_balance, 4) }}</span>
+                        </div>
+                    </van-col>
+                    <van-col :span="8" align="center">
+                        <div @click="getSstDepositWithdraw()">
+                            <img src="@/assets/sst.png" alt="" width="25">
+                            <br>
+                            <span>{{ toFixed(sst_balance, 4) }}</span>
                         </div>
                     </van-col>
                 </van-row>
@@ -51,7 +60,7 @@
                     </div>
                     <div @click="routePushBank()">
                         <!-- 银行 -->
-                        <img src="@/assets/answer/wallet.png" class="image">
+                        <img src="@/assets/answer/bank.png" class="image">
                     </div>
                     <div @click="routePushTickets()">
                         <!-- 门票 -->
@@ -88,7 +97,8 @@ export default {
         nickname: '',
         username: '',
         usdt_balance: 0,
-        h2o_balance: 0,
+        sct_balance: 0,
+        sst_balance: 0,
     };
   },
   computed: {
@@ -136,7 +146,8 @@ export default {
                 this.nickname = json.data.nickname;
                 this.avatar = json.data.avatar;
                 this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
-                this.h2o_balance = Number(json.data.h2o_local_balance) + Number(json.data.h2o_wallet_balance);
+                this.sct_balance = Number(json.data.sct_local_balance) + Number(json.data.sct_wallet_balance);
+                this.sst_balance = Number(json.data.sst_local_balance) + Number(json.data.sst_wallet_balance);
             } else {
                 this.$message({ type: 'warning', message: 'Error' });
             }
@@ -194,8 +205,11 @@ export default {
     getUsdtDepositWithdraw() {
         this.$router.push("/usdt");
     },
-    getH2ODepositWithdraw() {
-        this.$router.push("/h2o");
+    getSctDepositWithdraw() {
+        this.$router.push("/sct");
+    },
+    getSstDepositWithdraw() {
+        this.$router.push("/sst");
     },
   },
   mounted() {},
@@ -285,7 +299,7 @@ export default {
             position: relative;
             width: 100%;
             // height: 100%;
-            height: 140px;
+            height: 180px;
         }
         .avatar {
             position: absolute;
@@ -303,6 +317,7 @@ export default {
                 text-align: center;
             }
             .coins {
+                padding-top: 10px;
                 img {
                     vertical-align: middle;
                     margin-top: -6px;

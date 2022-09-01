@@ -8,21 +8,21 @@
                 <p class="line2">{{ $t('question:answerResult-03', {num: times }) }}</p>
             </div>
             <div class="score-income">
-                <!-- <span>本次答题总收益{{ capped_num }} H2O，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}H2O</span> -->
+                <!-- <span>本次答题总收益{{ capped_num }} SCT，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}SCT</span> -->
                 <span>{{ $t('question:answerResult-04', {capped_num: capped_num}) }}</span>
                 <br>
                 <span>{{ $t('question:answerResult-05', {award_rate: award_rate, award_num: toFixed(award_num, 2)}) }}</span>
             </div>
             <br>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
-                <div>{{ toFixed(consumeNumber, 2) }} H2O {{ $t('question:buyToRevive') }}</div>
-                <!-- <el-row>
-                    <el-col :span="12"></el-col>
-                    <el-col :span="12"><div class="grid-content bg-purple-light"></div></el-col>
-                </el-row> -->
+                <div>{{ toFixed(consumeNumber, 2) }} SCT {{ $t('question:buyToRevive') }}</div>
+                <!-- <van-row>
+                    <van-col :span="12"></van-col>
+                    <van-col :span="12"><div class="grid-content bg-purple-light"></div></van-col>
+                </van-row> -->
                 <div class="buy-button">
-                    <el-button class="buy" type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</el-button>
-                    <el-button type="info" round @click="giveUpResurrection()">{{ $t('question:abandon') }}</el-button>
+                    <van-button class="buy" type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</van-button>
+                    <van-button type="info" round @click="giveUpResurrection()">{{ $t('question:abandon') }}</van-button>
                 </div>
                 <!-- <div class="buy-button"></div> -->
             </div>
@@ -97,13 +97,13 @@ export default {
         buyResurrection() {
             Dialog.confirm({
                 title: '提示',
-                message: '消耗 '+this.consumeNumber+' H2O 购买 1 次复活机会。',
+                message: '消耗 '+this.consumeNumber+' SCT 购买 1 次复活机会。',
             })
             .then(() => {
                 const loading = this.$loading({
                     lock: true,
                     text: '支付中...',
-                    spinner: 'el-icon-loading',
+                    spinner: 'van-icon-loading',
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
                 get(this.apiUrl + "/Answer/question/buyResurrection", {

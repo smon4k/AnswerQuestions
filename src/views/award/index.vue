@@ -23,7 +23,7 @@
                                             <div>
                                                 <span>{{index}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 <span>参与人数：{{item.number_user}}</span> &nbsp;&nbsp;
-                                                <span>奖励：{{toFixed(item.count_amount, 2)}} H2O</span> 
+                                                <span>奖励：{{toFixed(item.count_amount, 2)}} SCT</span> 
                                             </div>
                                         </template> -->
                                         <div class="attent-list">
@@ -35,7 +35,7 @@
                                                         <!-- &nbsp;&nbsp;&nbsp;&nbsp;
                                                         <span>总数量：{{ items.count_num}}</span>
                                                         &nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <span>总奖励：{{ items.count_award}} H2O</span> -->
+                                                        <span>总奖励：{{ items.count_award}} SCT</span> -->
                                                     </div>
                                                     <div class="list-item">
                                                         <!-- <div class="date">
@@ -44,19 +44,19 @@
                                                         <div class="num-item">
                                                             <van-row>
                                                                 <van-col span="12">浏览作品数量: {{items.info.browse_num}}</van-col>
-                                                                <van-col span="12">奖励：{{toFixed(items.info.browse_amount, 2)}} H2O</van-col>
+                                                                <van-col span="12">奖励：{{toFixed(items.info.browse_amount, 2)}} SCT</van-col>
                                                             </van-row>
                                                             <van-row>
                                                                 <van-col span="12">评论作品数量: {{ items.info.comment_num }}</van-col>
-                                                                <van-col span="12">奖励：{{ toFixed(items.info.comment_amount, 2) }} H2O</van-col>
+                                                                <van-col span="12">奖励：{{ toFixed(items.info.comment_amount, 2) }} SCT</van-col>
                                                             </van-row>
                                                             <van-row>
                                                                 <van-col span="12">点赞作品数量: {{ items.info.like_num }}</van-col>
-                                                                <van-col span="12">奖励：{{ toFixed(items.info.like_amount, 2) }} H2O</van-col>
+                                                                <van-col span="12">奖励：{{ toFixed(items.info.like_amount, 2) }} SCT</van-col>
                                                             </van-row>
                                                             <van-row>
                                                                 <van-col span="12">打赏作品数量: {{ items.info.reward_num }}</van-col>
-                                                                <van-col span="12">奖励：{{ toFixed(items.info.reward_amount, 2) }} H2O</van-col>
+                                                                <van-col span="12">奖励：{{ toFixed(items.info.reward_amount, 2) }} SCT</van-col>
                                                             </van-row>
                                                         </div>
                                                     </div>
@@ -84,7 +84,7 @@
                                         <div>
                                             <span>{{index}}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             <span>总分数：{{item.user_count_amount}}</span> &nbsp;&nbsp;
-                                            <span>奖励：{{keepDecimalNotRounding(item.ave_award || 0, 2)}} H2O</span> 
+                                            <span>奖励：{{keepDecimalNotRounding(item.ave_award || 0, 2)}} SCT</span> 
                                         </div>
                                     </template>
                                     <div class="attent-list">
@@ -123,7 +123,7 @@
                                                         </van-row>
                                                         <van-row>
                                                             <van-col span="12">奖励</van-col>
-                                                            <van-col span="12">{{ toFixed(items.ave_award || 0, 2) }} H2O</van-col>
+                                                            <van-col span="12">{{ toFixed(items.ave_award || 0, 2) }} SCT</van-col>
                                                         </van-row>
                                                         <van-row>
                                                             <van-col span="12">是否结算</van-col>

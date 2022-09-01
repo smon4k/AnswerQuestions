@@ -128,10 +128,16 @@ export const constantRoutes = [
         meta: { title: 'usdt', keepAlive: false }
       },
       {
-        path: 'h2o',
-        name: 'h2o',
-        component: () => import('@/views/depositWithdrawal/h2o'),
-        meta: { title: 'h2o', keepAlive: false }
+        path: 'sct',
+        name: 'sct',
+        component: () => import('@/views/depositWithdrawal/sct'),
+        meta: { title: 'sct', keepAlive: false }
+      },
+      {
+        path: 'sst',
+        name: 'sst',
+        component: () => import('@/views/depositWithdrawal/sst'),
+        meta: { title: 'sst', keepAlive: false }
       },
     ]
   },
