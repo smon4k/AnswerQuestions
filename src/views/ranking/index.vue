@@ -70,7 +70,7 @@
                                             <div class="list-item">
                                                 <div class="num-item">
                                                     <van-row type="flex" justify="center">
-                                                        <van-col span="6" style="" align="left">
+                                                        <van-col span="6" style="" align="center">
                                                             <!-- <span>{{ index + 1 }}</span>&nbsp;&nbsp; -->
                                                             <img :src="item.avatar" alt="" width="30" @click="pushHomepage(item)">
                                                             <br>
