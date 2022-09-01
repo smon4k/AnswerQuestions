@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const env = config.test.env
 let Version = new Date().getTime();
@@ -107,7 +108,8 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.test.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
+    ]),
+    new BundleAnalyzerPlugin()
   ]
 })
 
@@ -124,7 +126,8 @@ if (config.test.productionGzip) {
         ')$'
       ),
       threshold: 10240,
-      minRatio: 0.8
+      minRatio: 0.8,
+      deleteOriginalAssets: true//压缩完是否删除源文件
     })
   )
 }
