@@ -20,9 +20,9 @@ import i18next from 'i18next';
 import VueI18Next from '@panter/vue-i18next';
 import XHR from 'i18next-xhr-backend';
 import LngDetector from 'i18next-browser-languagedetector';
-import visibility from 'vue-visibility-change';
+// import visibility from 'vue-visibility-change';
 import Vant from 'vant';
-import 'vant/lib/index.css';
+// import 'vant/lib/index.css';
 
 // import "./utils/rem";
 
@@ -45,11 +45,11 @@ else {
 
 // Vue.use(ElementUI);
 Vue.use(Vant);
-Vue.use(VueClipboard)
+// Vue.use(VueClipboard)
 
 Vue.use(VueI18Next);
 
-Vue.use(visibility);
+// Vue.use(visibility);
 Vue.config.productionTip = false
 
 // 语言包配置
