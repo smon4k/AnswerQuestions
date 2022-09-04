@@ -4,6 +4,12 @@ import Router from 'vue-router'
 Vue.use(Router)
 import Layout from '@/layout'
 
+const originalPush = Router.prototype.push
+// 修改 原型对象中的push方法
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err=>err)
+}
+
 export const constantRoutes = [
   {
     path: '/',
@@ -15,6 +21,12 @@ export const constantRoutes = [
         name: 'home',
         component: resolve => require(['@/views/home/index'], resolve),
         meta: { title: 'home', keepAlive: true, isBottomNav: false, }
+      },
+      {
+        path: 'bank',
+        name: 'bank',
+        component: resolve => require(['@/views/user/bank'], resolve),
+        meta: { title: 'bank', keepAlive: true, isBottomNav: false, }
       },
       //开始答题
       {
@@ -136,6 +148,39 @@ export const constantRoutes = [
         name: 'sst',
         component: resolve => require(['@/views/depositWithdrawal/sst'], resolve),
         meta: { title: 'sst', keepAlive: false }
+      },
+      {
+        path: 'swap',
+        name: 'swap',
+        component: resolve => require(['@/views/swap/index'], resolve),
+        meta: { title: 'swap', keepAlive: false }
+      },
+      {
+        path: '/Liquidity',
+        name: 'Liquidity',
+        component: resolve => require(['@/views/liquidity/index'], resolve),
+        meta: { 
+          title: 'Liquidity',
+          keepAlive: false 
+        }
+      },
+      {
+        path: 'Liquidity/add',
+        name: 'LiquidityAdd',
+        component: () => import('@/views/liquidity/add'),
+        meta: { 
+          title: 'LiquidityAdd',
+          keepAlive: false 
+        }
+      },
+      {
+        path: 'Liquidity/remove',
+        name: 'LiquidityRemove',
+        component: () => import('@/views/liquidity/remove'),
+        meta: { 
+          title: 'LiquidityRemove',
+          keepAlive: false 
+        }
       },
     ]
   },

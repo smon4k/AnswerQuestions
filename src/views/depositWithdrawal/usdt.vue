@@ -1,14 +1,14 @@
 <template>
     <div class="container">
-        <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
-        <van-nav-bar
+        <!-- <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div> -->
+        <!-- <van-nav-bar
             title="钱包"
             left-text=""
             right-text=""
             left-arrow
             @click-left="onReturnLeft"
-        />
-        <div class="generalStatistics">
+        /> -->
+        <!-- <div class="generalStatistics">
             <img src="@/assets/answer/ranking.png" class="image">
             <div class="box">
                 <van-row>
@@ -29,9 +29,9 @@
                     </van-col>
                 </van-row>
             </div>
-        </div>
-        <van-tabs v-model="tabActive">
-            <van-tab title="USDT充提">
+        </div> -->
+        <!-- <van-tabs v-model="tabActive">
+            <van-tab title="USDT充提"> -->
                 <van-row class="container" style="margin-top:20px;">
                     <van-col :span="24">
                         <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
@@ -177,10 +177,10 @@
                         </van-tabs>
                     </van-col>
                 </van-row>
-            </van-tab>
+            <!-- </van-tab>
             <van-tab title="SCT充提" to="/sct"></van-tab>
             <van-tab title="SST充提" to="/sst"></van-tab>
-        </van-tabs>
+        </van-tabs> -->
         <van-overlay :show="trading">
             <div class="wrapper">
                 <van-loading type="spinner" color="#1989fa" />
@@ -233,7 +233,7 @@ export default {
         USDTPlatformBalance: 0, //USDT平台总余额
         SCTPlatformBalance: 0, //SCT平台总余额
         SSTPlatformBalance: 0, //SST平台总余额
-        loadingShow: true,
+        loadingShow: false,
     };
   },
   activated() { //页面进来
@@ -558,8 +558,8 @@ export default {
             console.log(json);
             if (json.code == 10000) {
                 this.localBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
-                let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
-                let SSTLocalBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
+                // let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
+                // let SSTLocalBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
                 // this.csBalance = json.data.csBalance;
                 this.isGame = json.data.isGame;
                 if(!isHint && json.data.isGame) {
@@ -571,15 +571,15 @@ export default {
                 }
                 console.log('是否打赏中：', this.isGame);
                 this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
-                let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
-                let SSTWalletBalance = await getGameFillingBalance(18, this.gamesSSTFillingAddress); //获取SST合约余额
-                console.log('链上余额：', this.walletBalance);
-                this.USDTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
-                this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
-                this.SSTPlatformBalance = Number(SSTLocalBalance) + Number(SSTWalletBalance);
-                console.log("USDT总余额:", this.USDTPlatformBalance);
-                console.log("SCT总余额:", this.SCTPlatformBalance);
-                console.log("SST总余额:", this.SSTPlatformBalance);
+                // let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
+                // let SSTWalletBalance = await getGameFillingBalance(18, this.gamesSSTFillingAddress); //获取SST合约余额
+                // console.log('链上余额：', this.walletBalance);
+                // this.USDTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
+                // this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
+                // this.SSTPlatformBalance = Number(SSTLocalBalance) + Number(SSTWalletBalance);
+                // console.log("USDT总余额:", this.USDTPlatformBalance);
+                // console.log("SCT总余额:", this.SCTPlatformBalance);
+                // console.log("SST总余额:", this.SSTPlatformBalance);
 
                 this.isStatus = json.data.dw_status == 1 ? true : false;
                 this.isWithdraw = json.data.isDeWith; //是否充提中

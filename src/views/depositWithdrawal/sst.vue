@@ -1,14 +1,14 @@
 <template>
     <div class="container">
-        <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
-        <van-nav-bar
+        <!-- <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div> -->
+        <!-- <van-nav-bar
             title="钱包"
             left-text=""
             right-text=""
             left-arrow
             @click-left="onReturnLeft"
-        />
-        <div class="generalStatistics">
+        /> -->
+        <!-- <div class="generalStatistics">
             <img src="@/assets/answer/ranking.png" class="image">
             <div class="box">
                 <van-row>
@@ -29,11 +29,11 @@
                     </van-col>
                 </van-row>
             </div>
-        </div>
-        <van-tabs v-model="tabActive">
+        </div> -->
+        <!-- <van-tabs v-model="tabActive">
             <van-tab title="USDT充提" to="/usdt"></van-tab>
             <van-tab title="SCT充提" to="/sct"></van-tab>
-            <van-tab title="SST充提">
+            <van-tab title="SST充提"> -->
                 <van-row class="container" style="margin-top:20px;">
                     <van-col :span="24">
                         <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
@@ -179,8 +179,8 @@
                         </van-tabs>
                     </van-col>
                 </van-row>
-            </van-tab>
-        </van-tabs>
+            <!-- </van-tab>
+        </van-tabs> -->
         <van-overlay :show="trading">
             <div class="wrapper">
                 <van-loading type="spinner" color="#1989fa" />
@@ -558,8 +558,8 @@ export default {
             console.log(json);
             if (json.code == 10000) {
                 this.localBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
-                let USDTLocalBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
-                let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
+                // let USDTLocalBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
+                // let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
                 // this.csBalance = json.data.csBalance;
                 this.isGame = json.data.isGame;
                 if(!isHint && json.data.isGame) {
@@ -571,15 +571,15 @@ export default {
                 }
                 console.log('是否打赏中：', this.isGame);
                 this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
-                let USDTWalletBalance = await getGameFillingBalance(18, this.gamesUSDTFillingAddress); //获取USDT合约余额
-                let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
-                console.log('链上余额：', this.walletBalance);
-                this.SSTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
-                this.USDTPlatformBalance = Number(USDTLocalBalance) + Number(USDTWalletBalance);
-                this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
-                console.log("USDT总余额:", this.USDTPlatformBalance);
-                console.log("SCT总余额:", this.SCTPlatformBalance);
-                console.log("SST总余额:", this.SSTPlatformBalance);
+                // let USDTWalletBalance = await getGameFillingBalance(18, this.gamesUSDTFillingAddress); //获取USDT合约余额
+                // let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
+                // console.log('链上余额：', this.walletBalance);
+                // this.SSTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
+                // this.USDTPlatformBalance = Number(USDTLocalBalance) + Number(USDTWalletBalance);
+                // this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
+                // console.log("USDT总余额:", this.USDTPlatformBalance);
+                // console.log("SCT总余额:", this.SCTPlatformBalance);
+                // console.log("SST总余额:", this.SSTPlatformBalance);
                 this.isStatus = json.data.dw_status == 1 ? true : false;
                 this.isWithdraw = json.data.isDeWith; //是否充提中
                 console.log('是否充提中：', this.isStatus, this.isWithdraw);

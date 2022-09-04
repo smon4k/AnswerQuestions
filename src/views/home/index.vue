@@ -6,12 +6,12 @@
         </div>
         <div class="user">
             <img src="@/assets/answer/user-top.png" class="image">
-            <div class="avatar">
-                <div class="nickname">{{ nickname ? nickname : 'User-' + user_id }}</div>
+            <div class="avatar" >
                 <div @click="getUserClick()">
                     <van-image width="70" height="70" :src="avatar" style="border: 3px solid #fff;"></van-image>
                 </div>
-                <van-row class="coins">
+                <div class="nickname">{{ nickname ? nickname : 'User-' + user_id }}</div>
+                <!-- <van-row class="coins">
                     <van-col :span="8" align="center">
                         <div @click="getUsdtDepositWithdraw()">
                             <img src="@/assets/usdt.png" alt="" width="25">
@@ -33,16 +33,25 @@
                             <span>{{ toFixed(sst_balance, 4) }}</span>
                         </div>
                     </van-col>
-                </van-row>
+                </van-row> -->
             </div>
-            <!-- <div class="balance">
-                <div @click="getUsdtDepositWithdraw()">USDT: 
-                    <span style="text-decoration: underline;">{{ toFixed(usdt_balance, 4) }}</span>
+            <div class="balance">
+                <div @click="getUsdtDepositWithdraw()">
+                    <img src="@/assets/usdt.png" alt="" width="25">
+                    <!-- <br> -->
+                    <span>{{ toFixed(usdt_balance, 4) }}</span>
                 </div>
-                <div @click="getH2ODepositWithdraw()">H2O: 
-                    <span style="text-decoration: underline;">{{ toFixed(h2o_balance, 4) }}</span>
+                <div @click="getSctDepositWithdraw()">
+                    <img src="@/assets/sct.png" alt="" width="25">
+                    <!-- <br> -->
+                    <span>{{ toFixed(sct_balance, 4) }}</span>
                 </div>
-            </div> -->
+                <div @click="getSstDepositWithdraw()">
+                    <img src="@/assets/sst.png" alt="" width="25">
+                    <!-- <br> -->
+                    <span>{{ toFixed(sst_balance, 4) }}</span>
+                </div>
+            </div>
         </div>
         <div class="content">
             <!-- <button @click="onSelect()">微信好友</button> -->
@@ -69,7 +78,7 @@
                 </div>
                 <div class="right">
                     <!-- 好友对战 -->
-                    <img style="opacity:0.5;" src="@/assets/answer/friend-battle02.png" class="image">
+                    <img style="opacity:0.5;" src="@/assets/answer/friend-battle.png" class="image">
                     <div @click="startRanking()">
                         <!-- 绩效 -->
                         <img src="@/assets/answer/performance.png" class="image">
@@ -203,7 +212,7 @@ export default {
       this.$router.push("/user");
     },
     routePushBank() {
-        this.$router.push("/usdt");
+        this.$router.push("/bank");
     },
     routePushTickets() {
         this.$router.push("/ticket/list");
@@ -212,13 +221,13 @@ export default {
         this.$router.push("/user");
     },
     getUsdtDepositWithdraw() {
-        this.$router.push("/usdt");
+        // this.$router.push("/usdt");
     },
     getSctDepositWithdraw() {
-        this.$router.push("/sct");
+        // this.$router.push("/sct");
     },
     getSstDepositWithdraw() {
-        this.$router.push("/sst");
+        // this.$router.push("/sst");
     },
   },
   mounted() {},
@@ -312,13 +321,13 @@ export default {
         }
         .avatar {
             position: absolute;
-            top: 5px;
-            left: 0;
+            top: 50%;
+            left: 20%;
             right: 0;
             // margin: auto;
             height: 80px;
             text-align: center;
-            // transform: translate(-50%,-50%);
+            transform: translate(-50%,-50%);
             .nickname {
                 color: #fff;
                 font-size: 15px;
@@ -332,7 +341,7 @@ export default {
                     margin-top: -6px;
                 }
                 span {
-                    text-decoration: underline;
+                    // text-decoration: underline;
                     color: #fff;
                     font-size: 16px;
                 }
@@ -360,6 +369,11 @@ export default {
             height: 110px;
             color: #fff;
             font-size: 18px;
+            line-height: 30px;
+            img {
+                margin-top: -5px;
+                vertical-align: middle;
+            }
         }
     }
   }

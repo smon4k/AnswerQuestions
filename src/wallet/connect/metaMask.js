@@ -249,7 +249,9 @@ async function getBaseData(chainId, accounts, address) {
     __ownInstance__.$store.commit("getAccounts", accounts);
     __ownInstance__.$store.commit("getAddress", address);
     localStorage.setItem('connectorId', 'injected');
+    __ownInstance__.$store.commit("isConnected", true);
     return true;
-  }
+  } 
   __ownInstance__.$store.commit("isConnected", true);
+  return true;
 }

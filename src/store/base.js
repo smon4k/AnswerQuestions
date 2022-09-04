@@ -1,5 +1,5 @@
 import router from '@/router'
-import { getUserAddressInfo, saveUserInfo } from '@/wallet/serve'
+import { getUserAddressInfo, saveUserInfo, getSwapPoolsTokensData, getLiquidityPoolsTokensData } from '@/wallet/serve'
 import {
     deepCopy,
     fromWei,
@@ -9,6 +9,9 @@ import {
     calcDaily
 } from '@/utils/tools'
 import Address from '@/wallet/address.json'
+import swapPoolsList from '@/wallet/swap_pools.js'
+import liquidityPoolsList from '@/wallet/liquidity_pools.js'
+import configAddress from '@/wallet/swap_pools'
 import Web3 from 'web3'
 import Vue from 'vue'
 let copyBaseState 
@@ -35,9 +38,13 @@ export default {
             FailedHash:'',
             userDenyId:''
         },
+        swapPoolsList: {
+        },
+        liquidityPoolsList: {
+        },
         domainHostAddress:'https://bscscan.com/tx/',
-        apiUrl: window.location.host === 'localhost:8008' ? '' : 'https://www.swanlake.club',
-        // apiUrl: window.location.host === 'localhost:8008' ? '' : 'http://8.219.55.168:82',
+        // apiUrl: window.location.host === 'localhost:8008' ? '' : 'https://www.swanlake.club',
+        apiUrl: window.location.host === 'localhost:8008' ? '' : 'http://8.219.55.168:82',
         // apiUrl: '',
         nftUrl: window.location.host === 'localhost:8008' || window.location.host === '192.168.1.3:8008' ? 'http://www.api.com' : 'https://api.h2o.live',
         // swanlakeUrl: window.location.host === 'localhost:8008' || window.location.host === '192.168.1.5:8008' ? 'http://www.swan.com' : 'https://www.swanlake.club',
@@ -124,6 +131,93 @@ export default {
                 }
             }
         },
+        setSwapPoolsListLoading(state ,val){
+            state.swapPoolsList.loading = val
+        },
+        setSwapPoolsList(state , {tokenList, publicAddress}){
+            state.swapPoolsList = []
+            tokenList.forEach(item=>{
+                state.swapPoolsList.push({
+                    id: item.id,
+                    poolId: item.poolId,
+                    isGuru: item.isGuru,
+                    logo: require("@/assets/"+item.logo),
+                    name: item.name,
+                    tokenDecimals: item.tokenDecimals,
+                    tokenAddress: item.tokenAddress,
+                    oracleContractAddress: publicAddress.oracleContractAddress,
+                    routerContractAddress: publicAddress.routerContractAddress,
+                    tk0Address: item.tk0Address, // 7 tk0
+                    tk1Address: item.tk1Address, // 8 tk1
+                    usdtContractAddress: item.usdtContractAddress, //USDT_CONTRACT_ADDR
+                    bnbAddress: item.bnbAddress, //BNB_ADDR
+                    tokenBalanceUsd: 0,
+                    tokenBalance: 0,
+                    allowance: false,
+                    reserves: [],
+                    loading:true,
+                })
+            })
+            state.swapPoolsList.loading = false
+        },
+        setLiquidityPoolsListLoading(state ,val){
+            state.liquidityPoolsList.loading = val
+        },
+        setLiquidityPoolsList(state , list){
+            state.liquidityPoolsList = []
+            list.forEach(item=>{
+                state.liquidityPoolsList.push({
+                    id: item.id,
+                    poolId: item.poolId,
+                    isGuru: item.isGuru,
+                    logo: require("@/assets/"+item.logo),
+                    logo2: require("@/assets/"+item.logo2),
+                    name: item.name,
+                    name2: item.name2,
+                    tokenDecimals: item.tokenDecimals,
+                    tokenAddress: item.tokenAddress,
+                    oracleContractAddress: swapPoolsList.publicAddress.oracleContractAddress,
+                    routerContractAddress: swapPoolsList.publicAddress.routerContractAddress,
+                    tk0Address: item.tk0Address, // 7 tk0
+                    tk1Address: item.tk1Address, // 8 tk1
+                    usdtContractAddress: item.usdtContractAddress, //USDT_CONTRACT_ADDR
+                    bnbAddress: item.bnbAddress, //BNB_ADDR
+                    tokenOneBalanceUsd: 0,
+                    tokenTwoBalanceUsd: 0,
+                    tokenBalance: 0,
+                    allowance: false,
+                    reserves: [],
+                    loading:true,
+                })
+            })
+            state.liquidityPoolsList.loading = false
+        },
+        setSwapPoolsData(state , info  ){
+            if(!state.swapPoolsList) return 
+            let index = state.swapPoolsList.findIndex(item=>item.poolId == info.t)
+            if(index !== -1 ){
+                state.swapPoolsList[index].allowance = info.allowance
+                state.swapPoolsList[index].tokenBalance = info.tokenBalance
+                state.swapPoolsList[index].reserves = info.reserves
+                state.swapPoolsList[index].totalSupply = info.totalSupply
+                state.swapPoolsList[index].tokenBalanceUsd = info.tokenBalanceUsd
+                state.swapPoolsList[index].loading = false
+            }
+        },
+        setLiquidityPoolsData(state , info  ){
+            if(!state.liquidityPoolsList) return 
+            let index = state.liquidityPoolsList.findIndex(item=>item.poolId == info.t)
+            if(index !== -1 ){
+                state.liquidityPoolsList[index].allowance = info.allowance
+                state.liquidityPoolsList[index].tokenBalance = info.tokenBalance
+                state.liquidityPoolsList[index].reserves = info.reserves
+                state.liquidityPoolsList[index].totalSupply = info.totalSupply
+                state.liquidityPoolsList[index].tokenOneBalanceUsd = info.tokenOneBalanceUsd
+                state.liquidityPoolsList[index].tokenTwoBalanceUsd = info.tokenTwoBalanceUsd
+                state.liquidityPoolsList[index].nonce = info.nonce
+                state.liquidityPoolsList[index].loading = false
+            }
+        },
     },
     getters:{
         pendingOrderAmount: state=>{
@@ -178,6 +272,65 @@ export default {
         },
         changeTradeStatus({commit} , status){
             commit('change_TradeStatus' , status)
+        },
+        //swap
+        async swapPoolsTokenList({commit , state} ,){
+            if(state.swapPoolsList.loading) return 
+            commit("setSwapPoolsListLoading" , true)
+            const {tokenList, publicAddress } = swapPoolsList
+            // console.log(tokenList);
+            commit('setSwapPoolsList' , {tokenList, publicAddress} )
+            if(tokenList.length){
+                let fixedList = [...tokenList]
+                fixedList.forEach(async item=>{
+                    let info = await getSwapPoolsTokensData(item, publicAddress)
+                    // console.log(info);
+                    info.t = item.poolId
+                    commit('setSwapPoolsData' ,info)
+                })
+            }
+            commit("setSwapPoolsListLoading" , false)
+            // console.log('state.swapPoolsList' , state.swapPoolsList);
+        },
+        async refreshSwapPoolsList({commit , state}){
+            if(!state.swapPoolsList.length) return
+            // state.countStakeTvlMintNum = 0;
+            state.swapPoolsList.forEach(async item=>{
+                let info = await getSwapPoolsTokensData(item, swapPoolsList.publicAddress)
+                // console.log(info);
+                info.t = item.poolId
+                commit('setSwapPoolsData' ,info)
+            })
+
+        },
+        //liquidity
+        async liquidityPoolsTokenList({commit , state} ,){
+            if(state.liquidityPoolsList.loading) return 
+            commit("setLiquidityPoolsListLoading" , true)
+            // console.log(liquidityPoolsList);
+            commit('setLiquidityPoolsList' , liquidityPoolsList)
+            if(liquidityPoolsList.length){
+                let fixedList = [...liquidityPoolsList]
+                fixedList.forEach(async item=>{
+                    let info = await getLiquidityPoolsTokensData(item, swapPoolsList.publicAddress)
+                    // console.log(info);
+                    info.t = item.poolId
+                    commit('setLiquidityPoolsData' ,info)
+                })
+            }
+            commit("setLiquidityPoolsListLoading" , false)
+            // console.log('state.liquidityPoolsList' , state.liquidityPoolsList);
+        },
+        async refreshLiquidityPoolsList({commit , state}){
+            if(!state.liquidityPoolsList.length) return
+            // state.countStakeTvlMintNum = 0;
+            state.liquidityPoolsList.forEach(async item=>{
+                let info = await getLiquidityPoolsTokensData(item, swapPoolsList.publicAddress)
+                // console.log(info);
+                info.t = item.poolId
+                commit('setLiquidityPoolsData' ,info)
+            })
+
         },
     }
 }

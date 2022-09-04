@@ -2,7 +2,7 @@
     <div class="container">
         <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            title="设置"
+            :title="$t('question:SetUp')"
             left-text=""
             right-text=""
             left-arrow
@@ -11,42 +11,42 @@
         <div class="box">
             <div class="item">
                 <div class="item-index">
-                    <van-cell is-link title="登录用户名" @click="isNameShow = true">
-                        <div>{{username ? username : '请输入用户名'}}</div>
+                    <van-cell is-link :title="$t('question:LoginUsername')" @click="isNameShow = true">
+                        <div>{{username ? username : $t('question:pleaseEnterUsername')}}</div>
                     </van-cell>
                     <van-action-sheet v-model="isNameShow" title="" close-on-click-action class="van-sheet">
                         <van-nav-bar
-                            title="设置用户名"
-                            left-text="取消"
-                            :right-text="isUsername ? '' : '保存'"
+                            :title="$t('question:setUsername')"
+                            :left-text="$t('question:Cancel')"
+                            :right-text="isUsername ? '' : $t('question:Save')"
                             @click-left="isNameShow = false"
                             @click-right="onClickSaveUserInfo('username', username)"
                         />
-                            <span class="hint" v-if="!isUsername || isUsername == ''">账号只能设置一次</span>
-                            <span class="hint" v-else>修改次数已达上限</span>
+                            <span class="hint" v-if="!isUsername || isUsername == ''">{{ $t('question:AccountSetOnce') }}</span>
+                            <span class="hint" v-else>{{ $t('question:ModificationLimitReached') }}</span>
                             <van-cell-group>
                                 <van-form>
                                     <van-field 
                                         v-model="username" 
                                         label="" 
-                                        placeholder="请输入用户名" 
+                                        :placeholder="$t('question:pleaseEnterUsername')" 
                                         :disabled="isUsername && isUsername !== '' ? true : false" 
-                                        :rules="[{ validator: usernameValidator, message: '请输入正确的用户名' }]"
+                                        :rules="[{ validator: usernameValidator, message: $t('question:UsernameRegistration-01') }]"
                                     />
                                 </van-form>
                             </van-cell-group>
-                            <span class="hint">6-15个字符，仅可使用英文（必须）、数字、下划线</span>
+                            <span class="hint">{{ $t('question:UsernameRegistration-02') }}</span>
                     </van-action-sheet>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link title="登录密码" @click="isPasswordShow = true">
+                    <van-cell is-link :title="$t('question:LoginPassword')" @click="isPasswordShow = true">
                         <!-- <div>{{password ? password : '请输入登录密码'}}</div> -->
                     </van-cell>
                     <van-action-sheet v-model="isPasswordShow" title="" close-on-click-action class="van-sheet">
                         <van-nav-bar
-                            title="设置密码"
-                            left-text="取消"
-                            right-text="保存"
+                            :title="$t('question:setPassword')"
+                            :left-text="$t('question:Cancel')"
+                            right-text="$t('question:Save')"
                             @click-left="isPasswordShow = false"
                             @click-right="onClickSaveUserInfo('password', password)"
                         />
@@ -56,55 +56,55 @@
                                         type="password"
                                         v-model="password" 
                                         label="" 
-                                        placeholder="输入新的密码" 
-                                        :rules="[{ validator: passwordValidator, message: '请输入正确的密码' }]"
+                                        :placeholder="$t('question:EnterNewPassword')" 
+                                        :rules="[{ validator: passwordValidator, message: $t('question:PleaseEnterCorrectPassword') }]"
                                     />
                                     <van-field
                                         type="password" 
                                         v-model="qr_password" 
                                         label="" 
-                                        placeholder="再次输入新的密码" 
-                                        :rules="[{ validator: qrPasswordValidator, message: '两次输入的密码不一致' }]"
+                                        :placeholder="$t('question:EnterNewPasswordAgain')" 
+                                        :rules="[{ validator: qrPasswordValidator, message: $t('question:TheTwoEnteredPasswordsDoNotMatch') }]"
                                     />
                                 </van-form>
                             </van-cell-group>
-                            <span class="hint">6-16位密码，同时包含字母和数字</span>
+                            <span class="hint">{{ $t('question:PasswordRegistration-01') }}</span>
                     </van-action-sheet>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link title="钱包地址" @click="connectWalletClick()">
+                    <van-cell is-link :title="$t('question:walletAddress')" click="connectWalletClick()">
                         <div>{{ addressStr() }}</div>
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link title="退出登录" @click="LoginOut">
+                    <van-cell is-link :title="$t('question:signOut')" @click="LoginOut">
                         <!-- <div>{{password ? password : '请输入登录密码'}}</div> -->
                     </van-cell>
                 </div>
             </div>
         </div>
-        <van-dialog v-model="usernameShow" title="用户名合并" show-cancel-button :before-close="onBeforeClose" @confirm="margintSubmit">
+        <van-dialog v-model="usernameShow" :title="$t('question:UsernameMerge')" show-cancel-button :before-close="onBeforeClose" @confirm="margintSubmit">
             <div class="merge-box">
                 <van-field
                     v-model="username"
-                    name="用户名"
-                    label="用户名"
-                    placeholder="用户名"
+                    :name="$t('question:username')"
+                    :label="$t('question:username')"
+                    :placeholder="$t('question:username')"
                     readonly
                 />
                 <van-field
                     v-model="m_password"
                     type="password"
-                    name="密码"
-                    label="密码"
-                    placeholder="密码"
+                    :name="$t('question:password')"
+                    :label="$t('question:password')"
+                    :placeholder="$t('question:password')"
                 />
             </div>
         </van-dialog>
 
         <van-overlay :show="loadingShow" @click="loadingShow = false">
             <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-                <van-loading size="24px" vertical color="#0094ff">答案计算中...</van-loading>
+                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:TheAnswerIsBeingCalculated') }}...</van-loading>
             </div>
         </van-overlay>
     </div>

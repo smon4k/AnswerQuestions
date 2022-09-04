@@ -2,7 +2,7 @@
     <div class="container">
         <div class="bg" :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
         <van-nav-bar
-            :title="tickerName + ' 奖励'"
+            :title="tickerName + $t('question:award')"
             left-text=""
             left-arrow
             right-text=""
@@ -14,7 +14,7 @@
                         <van-list
                             v-model="loading"
                             :finished="finished"
-                            finished-text="没有更多了"
+                            :finished-text="$t('question:noMore')"
                             v-if="list"
                         >
                             <!-- <van-collapse-item :title="item.date" :name="item.date" v-for="(item, index) in list" :key="index">
@@ -31,7 +31,7 @@
                                             <div class="list-item">
                                                 <div class="date">
                                                     <span>{{ item.date }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                    <span style="float:right;">奖励：{{toFixed(item.award_num, 2)}} SCT</span>
+                                                    <span style="float:right;">{{ $t('question:award')}}：{{toFixed(item.award_num, 2)}} SCT</span>
                                                 </div>
                                             </div>
                                             <!-- <van-divider :style="{ borderColor: '#c8c9cc' }" /> -->
@@ -40,7 +40,7 @@
                                 </div>
                             <!-- </van-collapse-item> -->
                         </van-list>
-                        <van-empty v-else description="没有任何奖励哦" />
+                        <van-empty v-else :description="$t('question:noReward')" />
                 <!-- </van-collapse> -->
             </van-pull-refresh>
             <!-- <div class="title">每日奖励</div> -->

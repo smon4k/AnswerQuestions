@@ -7,11 +7,11 @@
         </div>
         <!-- <footerNav v-if="$route.meta.isBottomNav" /> -->
         <div v-if="$route.path !== '/home'">
-            <img style="width: 2.8rem;height: 2.8rem;position: fixed;bottom: 5rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
-            <img style="width: 3rem;height: 3rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page-04.png" />
+            <img style="width: 4rem;height: 4rem;position: fixed;bottom: 5rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
+            <img style="width: 4rem;height: 4rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushHomePage()" src="@/assets/answer/home-page-04.png" />
         </div>
         <div v-else>
-            <img style="width: 2.8rem;height: 2.8rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
+            <img style="width: 4rem;height: 4rem;position: fixed;bottom: 1rem;right: 0.5rem;z-index: 9999;" @click="pushShare()" src="@/assets/answer/share.png" />
         </div>
     </div>
 </template>
@@ -47,6 +47,7 @@ export default {
             handler(val){
                 if(val){
                     this.$notify({
+                        type: 'primary',
                         title: 'Trading...',
                         message: `${val} Processing`,
                         duration: 6000
@@ -69,11 +70,13 @@ export default {
         },
         FailedHash:{
             handler(val){
+                console.log(val);
                 if(val){
-                    this.$notify.error({
+                    this.$notify({
                         title: 'Failed!',
                         dangerouslyUseHTMLString:true,  
                         message: this.errMessage || `<a href="${this.domainHostAddress + '' + val}" target="_blank">View on Explorer</a>`,
+                        type: 'warning',
                         duration: 6000
                     });
                     if(this.errMessage){
@@ -87,9 +90,10 @@ export default {
                 console.log('userDenyId' , val);
                 if(val){
                     
-                    this.$notify.error({
+                    this.$notify({
                         title: 'Failed!',
                         message: `Refuse`,
+                        type: 'warning',
                         duration: 6000
                     });
                     

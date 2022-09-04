@@ -3,7 +3,7 @@
     <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
     <div class="regist">
         <div class="bg-radius"></div>
-        <div class="title">用户名注册</div>
+        <div class="title">{{ $t('question:UsernameRegistration') }}</div>
         <!-- <div class="subtitle">未注册的手机号验证后将自动注册</div> -->
         <van-form @submit="onSubmit" class="form">
             <div class="box">
@@ -31,18 +31,18 @@
                 />
                     <div class="codeText" @click="sendVerify" :style='{"pointer-events": !is_send&&!phone?"none":"auto","background": (!phone?"#C0C0C0":"#5394FF")}'>{{verify_title}}</div>
                 </div> -->
-                <div class="hint" style="margin-top:44px;margin-bottom:10px;">用户名只能设置一次，不能进行修改</div>
+                <div class="hint" style="margin-top:44px;margin-bottom:10px;">{{ $t('question:UsernameOne') }}</div>
                 <div class="li">
                     <van-field
                         class="phone"
                         v-model="username"
-                        name="用户名"
-                        placeholder="请输入用户名"
+                        :name="$t('question:username')"
+                        :placeholder="$t('question:UsernameRegistration-01')"
                         clearable
-                        :rules="[{ validator: usernameValidator, message: '请输入正确的用户名' }]"
+                        :rules="[{ validator: usernameValidator, message: $t('question:PleaseEnterCorrectUsername') }]"
                     />
                 </div>
-                <div class="hint">6-15个字符，仅可使用英文（必须）、数字、下划线</div>
+                <div class="hint">{{ $t('question:UsernameRegistration-02') }}</div>
                 <br>
                 <div class="li">
                     <van-field
@@ -51,12 +51,12 @@
                     clearable
                     center
                     type="password"
-                    name="密码"
-                    placeholder="请输入密码"
-                    :rules="[{ validator: passwordValidator, message: '请输入正确的密码' }]"
+                    :name="$t('question:password')"
+                    :placeholder="$t('question:pleaseEnterPassword')"
+                    :rules="[{ validator: passwordValidator, message: $t('question:PleaseEnterCorrectPassword') }]"
                 />
                 </div>
-                <div class="hint">6-16位密码，同时包含字母和数字</div>
+                <div class="hint">{{ $t('question:PasswordRegistration') }}</div>
                 <div class="li">
                     <van-field
                     class="code"
@@ -66,15 +66,15 @@
                     type="password"
                     name="密码"
                     placeholder="请确认密码"
-                    :rules="[{ validator: qrPasswordValidator, message: '两次输入的密码不一致' }]"
+                    :rules="[{ validator: qrPasswordValidator, message: $t('question:PasswordRegistration-02') }]"
                 />
                 </div>
-                <div v-if="re_address && re_address !== ''" class="hint">邀请地址：{{re_address}}</div>
+                <div v-if="re_address && re_address !== ''" class="hint">{{ $t('question:InvitationAddress') }}：{{re_address}}</div>
             </div>
             <div style="padding: 20px;">
-                <van-button class="regist-button" round block type="info" native-type="submit">注册</van-button>
+                <van-button class="regist-button" round block type="info" native-type="submit">{{ $t('question:register') }}</van-button>
                 <van-row class="link" style="margin-top: 10px;">
-                    <van-col span="24" align="center"><router-link to="/login">用户登录</router-link></van-col>
+                    <van-col span="24" align="center"><router-link to="/login">{{ $t('question:UsernameLogin') }}</router-link></van-col>
                 </van-row>
             </div>
         </van-form>

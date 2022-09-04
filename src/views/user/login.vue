@@ -6,7 +6,7 @@
           <img src="@/assets/sign-pic.png" alt="" class="logo">
       </div> -->
       <div class="bg-radius"></div>
-      <div class="title">用户名登录</div>
+      <div class="title">{{ $t('question:UsernameLogin') }}</div>
       <!-- <van-tabs class="tab-class" v-model="active" @click="tabsEvents">
         <van-tab title="账号登录"> -->
           <div class="form">
@@ -16,8 +16,8 @@
                   <van-field
                     class="phone"
                     v-model="username"
-                    name="账号"
-                    placeholder="请输入用户名"
+                    :name="$t('question:username')"
+                    :placeholder="$t('question:pleaseEnterUsername')"
                     clearable
                     center
                     :rules="[{ required: true, message: '' }]"
@@ -30,8 +30,8 @@
                     clearable
                     center
                     type="password"
-                    name="密码"
-                    placeholder="请输入密码"
+                    :name="$t('question:password')"
+                    :placeholder="$t('question:pleaseEnterPassword')"
                     :rules="[{ required: true, message: '' }]"
                   />
                 </div>
@@ -44,10 +44,10 @@
                 { disableds: username != '' && password != '' },
               ]"
               @click="loginEvent()"
-              >登录</van-button
+              >{{ $t('question:login') }}</van-button
             >
             <van-row class="link">
-              <van-col span="20" align="right"><router-link to="/regist">新用户注册</router-link></van-col>
+              <van-col span="20" align="right"><router-link to="/regist">{{ $t('question:NewUserRegistration') }}</router-link></van-col>
             </van-row>
           <!-- </van-tab> -->
           <!-- <van-tab title="钱包登录">
@@ -68,10 +68,10 @@
             <img src="../assets/wechat.png" alt="" srcset="">
         </div> -->
         <div class="tips">
-          登录即同意<span @click="agreement"> 用户协议 </span>和<span
+          {{ $t('question:SignInToAgree') }}<span @click="agreement"> {{ $t('question:UserAgreement') }} </span>{{ $t('question:and') }}<span
             @click="privacy"
           >
-            隐私政策
+            {{ $t('question:PrivacyPolicy') }}
           </span>
         </div>
 
