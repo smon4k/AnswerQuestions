@@ -6,7 +6,7 @@ import store from './store'
 import 'normalize.css/normalize.css'
 // import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
-import VueClipboard from 'vue-clipboard2'
+// import VueClipboard from 'vue-clipboard2'
 import {
   $inputLimit,
   toFixed,
@@ -103,6 +103,12 @@ import {
   CollapseItem as ElCollapseItem,
   Link as ElLink,
   Slider as ElSlider,
+  Message as Message,
+  Descriptions as ElDescriptions,
+  DescriptionsItem as ElDescriptionsItem,
+  Empty as ElEmpty,
+  Select as ElSelect,
+  Option as ElOption,
 } from 'element-ui';
 Vue.use(ElIcon);
 Vue.use(ElRow);
@@ -121,6 +127,13 @@ Vue.use(ElCollapse);
 Vue.use(ElCollapseItem);
 Vue.use(ElLink);
 Vue.use(ElSlider);
+Vue.component(Message);
+Vue.use(ElDescriptions);
+Vue.use(ElDescriptionsItem);
+Vue.use(ElEmpty);
+Vue.use(ElSelect);
+Vue.use(ElOption);
+Vue.prototype.$message = Message;
 // import 'vant/lib/index.css';
 
 // import "./utils/rem";

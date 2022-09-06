@@ -1,7 +1,7 @@
 <template>
   <div :class="['main', isMobel ? 'main' : 'main-pc']">
     <div class="bg-pic">
-      <img src="@/assets/answer/2.jpg" alt="" :style="animateBg" />
+      <img src="@/assets/answer/home-bg.png" alt="" :style="animateBg" />
     </div>
     <!-- <div class="car"></div>
     <div class="pen"></div>

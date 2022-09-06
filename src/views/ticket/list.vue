@@ -17,7 +17,8 @@
             <van-tabs v-model="cardActive">
                 <van-tab :title="$t('question:buyTickets')">
                     <van-cell-group inset v-for="(item,index) in tableData" :key="index">
-                        <van-cell>
+                        <img src="@/assets/answer/list-bg.png" alt="" class="list-bg">
+                        <van-cell class="title">
                             <template #title>
                                 <span class="custom-title">{{ item.name }}</span>
                                 <!-- <van-tag type="danger">标签</van-tag> -->
@@ -25,7 +26,7 @@
                             </template>
                         </van-cell>
                         <van-cell>
-                        <template #title>
+                            <template #title>
                                 <div class="custom-title">
                                     <van-row>
                                         <van-col span="12">
@@ -40,7 +41,8 @@
                                         </van-col>
                                     </van-row>
                                 </div>
-                                <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" />
+                                <br>
+                                <!-- <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" /> -->
                                 <van-row>
                                     <van-col span="12">
                                         <span>{{ $t('question:nominalInterestRate') }}</span>
@@ -238,7 +240,7 @@ export default {
     .container {
         /deep/ {
             .bg {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -292,6 +294,14 @@ export default {
                 // border-radius: 30px;
                 overflow: auto;
                 // padding-bottom: 60px;
+                .list-bg {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                }
+                .title {
+                    height: 63px;
+                }
                 .buy-button {
                     width: 100px;
                     height: 30px;
@@ -304,11 +314,15 @@ export default {
                     margin-top: 10px;
                     .van-cell {
                         text-align: center;
-                        background-color: #AE8BF5;
+                        background-color: transparent;
                         color: #fff;
+                        border-bottom: 0;
                         .van-cell__value {
                             display: none;
                         }
+                    }
+                    .van-cell::after {
+                        border-bottom: 0;
                     }
                 }
             }

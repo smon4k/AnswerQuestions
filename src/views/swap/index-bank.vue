@@ -735,8 +735,8 @@ export default {
     /deep/ {
       .card {
         border-radius: 24px;
-        border-color: #AE8BF5;
-        background-color: #AE8BF5;
+        border-color: #05D2FA;
+        background-color: #05D2FA;
         color: #606077;
         border: 1px solid #EBEEF5;
         transition: .3s;

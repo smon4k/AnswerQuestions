@@ -636,7 +636,7 @@ export default {
         return total;
     },
     backClinke() { //返回流动性列表
-        this.$router.push({name:'bank', params:{tabActiveOne: 2}});
+        this.$router.push({path:'/liquidity'});
     }
   },
 };
@@ -646,7 +646,7 @@ export default {
 .container {
     /deep/ {
         .bg {
-            background-image: url("../../assets/answer/2.jpg");
+            background-image: url("../../assets/answer/home-bg.png");
             background-repeat: no-repeat;
             background-attachment: fixed;  /*关键*/
             background-position: center;
@@ -686,9 +686,9 @@ export default {
             margin: 0 auto;
             border: 1px solid #0096ff;
             .el-card {
-                background-color: #AE8BF5;
+                background-color: #05D2FA;
                 border-radius: 24px;
-                border-color: #AE8BF5;
+                border-color: #05D2FA;
             }
             .el-card__body {
                 padding: 10px;
@@ -818,7 +818,7 @@ export default {
             cursor: default;
             margin: 0 auto;
             // padding: 15px;
-            background-color: #AE8BF5;
+            background-color: #05D2FA;
             color: #fff;
             .item-bottom-box {
             padding: 15px;
@@ -854,7 +854,7 @@ export default {
                     max-width: 500px;
                     min-height: 60vh;
                     border-radius: 32px;
-                    background-color: #AE8BF5;
+                    background-color: #05D2FA;
                     margin: 0 auto;
                     // margin-left: 45%;
                 }

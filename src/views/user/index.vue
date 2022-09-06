@@ -330,7 +330,7 @@ export default {
     .container {
         /deep/ {
             .bg {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -358,7 +358,7 @@ export default {
                 width: 90%;
                 height: 80vh;
                 margin: 0 auto;
-                background-color: #AE8BF5;
+                background-color: #05D2FA;
                 // background-color: #fff;
                 margin-top: 30px;
                 border-radius: 30px;
@@ -436,7 +436,7 @@ export default {
                     .item-index {
                         border-bottom: 1px solid #A79BA9;
                         .van-cell {
-                            background-color: #AE8BF5;
+                            background-color: #05D2FA;
                             color: #fff;
                             .van-cell__value {
                                 color: #fff;;
@@ -448,7 +448,7 @@ export default {
                             vertical-align: middle;
                         }
                         .van-popup {
-                            background-color: #AE8BF5;
+                            background-color: #05D2FA;
                             .van-nav-bar__text {
                                 color: #fff;
                             }

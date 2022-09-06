@@ -171,6 +171,7 @@ export default {
             }
             return;
         }).catch((error) => {
+            console.log(2222);
             this.$message({ type: 'warning', message: error });
         });
     },

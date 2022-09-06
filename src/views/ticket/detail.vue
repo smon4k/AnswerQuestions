@@ -379,7 +379,7 @@ export default {
     .container {
         /deep/ {
             .bg {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -428,7 +428,7 @@ export default {
                         }
                     }
                     .van-cell {
-                        background-color: #AE8BF5;
+                        background-color: #05D2FA;
                         color: #fff;
                         // padding: 20px;
                         text-align: center;

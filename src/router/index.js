@@ -149,12 +149,14 @@ export const constantRoutes = [
         component: resolve => require(['@/views/depositWithdrawal/sst'], resolve),
         meta: { title: 'sst', keepAlive: false }
       },
+      // 兑换
       {
         path: 'swap',
         name: 'swap',
         component: resolve => require(['@/views/swap/index'], resolve),
         meta: { title: 'swap', keepAlive: false }
       },
+      // 流动性
       {
         path: '/Liquidity',
         name: 'Liquidity',
@@ -181,6 +183,25 @@ export const constantRoutes = [
           title: 'LiquidityRemove',
           keepAlive: false 
         }
+      },
+      // 存币生息
+      {
+        path: 'deposit',
+        name: 'deposit',
+        component: resolve => require(['@/views/deposit/index'], resolve),
+        meta: { title: 'deposit', keepAlive: false, isBottomNav: true, }
+      },
+      {
+        path: 'my/deposit',
+        name: 'myDeposit',
+        component: resolve => require(['@/views/deposit/myDeposit'], resolve),
+        meta: { title: 'deposit', keepAlive: false, isBottomNav: true, }
+      },
+      {
+        path: 'my/deposit/list',
+        name: 'myDepositList',
+        component: resolve => require(['@/views/deposit/userDetailsList'], resolve),
+        meta: { title: 'deposit', keepAlive: false, isBottomNav: true, }
       },
     ]
   },

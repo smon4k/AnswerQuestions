@@ -142,7 +142,7 @@ export default {
     .container {
         /deep/ {
             .main {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -157,7 +157,7 @@ export default {
                     // width: 100%;
                     // height: 100%;
                     // overflow: hidden;
-                    // background: #fff url(../assets/2.jpg) no-repeat center center/auto 100%;
+                    // background: #fff url(../assets/home-bg.png) no-repeat center center/auto 100%;
                     p {
                         color: #fff;
                         font-size: 27px;

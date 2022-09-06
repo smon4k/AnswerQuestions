@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <!-- <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div> -->
+    <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
+    <van-nav-bar
+        :title="$t('liquidity:Liquidity')"
+        left-text=""
+        left-arrow
+        right-text=""
+        @click-left="backClinke"
+    />
     <div class="item">
       <el-card shadow="hover" v-loading="receiveLoading">
         <div slot="header" class="clearfix">
@@ -200,24 +207,47 @@ export default {
 <style lang="scss" scoped>
 @import '@/styles/color.scss';
 .container {
+  /deep/ {
   flex-grow: 1;
   align-items: center;
-  padding-top: 20px;
-  width: 90%;
+  // padding-top: 20px;
+  width: 100%;
   margin: 0 auto;
+  .bg {
+      background-image: url("../../assets/answer/home-bg.png");
+      background-repeat: no-repeat;
+      background-attachment: fixed;  /*关键*/
+      background-position: center;
+      top:0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -10;
+      position: fixed;
+      filter: blur(2px);
+  }
+  .van-nav-bar {
+      background-color: transparent;
+      .van-icon {
+          color: #fff;
+      }
+  }
+  .van-nav-bar__title {
+      color: #fff;
+  }
   .item {
     border-radius: 24px;
     margin-top: 20px;
     max-width: 436px;
-    width: 100%;
+    width: 90%;
     cursor: default;
     margin: 0 auto;
     // border: 1px solid #0096ff;
-    /deep/ {
       .el-card {
-        background-color: #AE8BF5;
+        margin-top: 50px;
+        background-color: #05D2FA;
         border-radius: 24px;
-        border-color: #AE8BF5;
+        border-color: #05D2FA;
       }
       .el-card__header {
         padding: 10px 20px;
@@ -231,12 +261,11 @@ export default {
         // font-size: 16px;
         color: #fff;
       }
-    }
+    
     .info {
         color: #fff;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
-        /deep/ {
             .el-collapse {
                 border-top: 0;
             }
@@ -280,7 +309,7 @@ export default {
             .add-liquidity {
                 color: #b7b7b7;
             }
-        }
+        
     }
     .el-divider {
         width: 100vh;
@@ -318,6 +347,7 @@ export default {
   }
   .textCenter {
       text-align: center;
+  }
   }
 }
 </style>

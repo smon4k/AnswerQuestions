@@ -50,6 +50,9 @@
             <!-- <van-tab :title="$t('liquidity:Liquidity')">
                 <Liquidity />
             </van-tab> -->
+            <van-tab :title="$t('question:DepositMoney')">
+                <Deposit />
+            </van-tab>
         </van-tabs>
 
 
@@ -77,6 +80,7 @@ import VanSct from "../depositWithdrawal/sct.vue";
 import VanSst from "../depositWithdrawal/sst.vue";
 import Swap from "../swap/index.vue";
 import Liquidity from "../liquidity/index.vue";
+import Deposit from "../deposit/index.vue";
 export default {
   name: "Index",
   data() {
@@ -102,7 +106,8 @@ export default {
     VanSct,
     VanSst,
     Swap,
-    Liquidity
+    Liquidity,
+    Deposit
   },
   beforeRouteLeave(to, from, next){ //页面离开
       if (this.balanceTimeInterval) {
@@ -213,7 +218,7 @@ export default {
     /deep/ {
         height: auto !important;
         .bg {
-            background-image: url("../../assets/answer/2.jpg");
+            background-image: url("../../assets/answer/home-bg.png");
             background-repeat: no-repeat;
             background-attachment: fixed;  /*关键*/
             background-position: center;
@@ -271,13 +276,13 @@ export default {
             color: #7f8285;
         }
         .van-tabs__nav--card {
-            border: 1px solid #AE8BF5;
+            border: 1px solid #05D2FA;
             .van-tab--active {
                 color: #fff;
-                background-color: #AE8BF5;
+                background-color: #05D2FA;
             }
             .van-tab {
-                border-right: 1px solid #AE8BF5;
+                border-right: 1px solid #05D2FA;
             }
         }
         .van-tabs__nav {

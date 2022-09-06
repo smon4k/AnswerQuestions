@@ -19,6 +19,7 @@
                     <van-tab :title="$t('question:bought')">
                         <div v-for="(item,index) in list" :key="index">
                             <van-cell-group inset v-if="item.is_ransom == 1">
+                                <img src="@/assets/answer/list-bg.png" alt="" class="list-bg">
                                     <van-cell title="" value="" :label="item.time">
                                         <template #icon>ID: {{item.id}}</template>
                                         <template #title>
@@ -26,18 +27,26 @@
                                         </template>
                                         <template #right-icon>
                                             <div v-if="item.is_activation" style="align-items: center;display: flex;">
+                                                <!-- 开启门票 -->
                                                 <van-button v-if="item.is_start == 0 && item.is_ransom == 1" :disabled="!item.is_activation" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button>
+                                                <!-- 已赎回 -->
                                                 <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
-                                                <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag>
+                                                <!-- 使用中 -->
+                                                <img v-else src="@/assets/answer/using.png" alt="" width="50">
+                                                <!-- <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag> -->
                                                 &nbsp;
                                                 <van-tag plain color="#969799" text-color="#969799" style="height:20px">
+                                                    <!-- 未作答 -->
                                                     <span v-if="item.is_answer == 1">{{ $t('question:noAnswer') }}</span>
+                                                    <!-- 已作答 -->
                                                     <span v-if="item.is_answer == 3">{{ $t('question:answered') }}</span>
                                                 </van-tag>
                                             </div>
                                             <div v-else>
+                                                <!-- 待激活 -->
                                                 <van-tag plain type="primary" style="height:20px" color="#7232dd">{{ $t('question:toBeActivated') }}</van-tag>
                                                 <br>
+                                                <!-- 24小时激活 -->
                                                 <span>{{ $t('question:hoursActivation', {time: item.activation_time}) }}</span>
                                             </div>
                                             <!-- <van-switch v-model="ticketStatus" size="24" /> -->
@@ -72,15 +81,15 @@
                                                         </van-col>
                                                     </van-row>
                                                 </div>
-                                                <van-divider />
+                                                <!-- <van-divider /> -->
                                                 <div>
                                                     <van-row>
-                                                        <van-col span="12">
-                                                            <van-button v-if="item.is_ransom == 1" class="ticket-button" round type="info" :disabled="item.insurance_amount <= 0" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
-                                                            <van-button v-else class="ticket-button" disabled round type="info">{{ $t('question:redeemed') }}</van-button>
-                                                        </van-col>
-                                                        <van-col span="12">
-                                                            <van-button class="ticket-button" round type="info" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
+                                                        <!-- <van-col span="12">
+                                                        </van-col> -->
+                                                        <van-col span="24" align="right">
+                                                            <van-button v-if="item.is_ransom == 1" class="redeemed-button" round type="info" :disabled="item.insurance_amount <= 0" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
+                                                            <van-button v-else class="redeemed-button-disabled" disabled round type="info">{{ $t('question:redeemed') }}</van-button>
+                                                            <van-button class="view-rewards" round type="info" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
                                                         </van-col>
                                                     </van-row>
                                                 </div>
@@ -347,7 +356,7 @@ export default {
     .container {
         /deep/ {
             .bg {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -387,6 +396,11 @@ export default {
             // min-height: 100vh;
             .main {
                 padding-bottom: 60px;
+                .list-bg {
+                    position: absolute;
+                    width: 100%;
+                    height: 100%;
+                }
                 .ticket-button {
                     width: 90px;
                     height: 30px;
@@ -394,6 +408,29 @@ export default {
                     border-radius: 20px;
                     background-color: #8C1AF5;
                     border: 0;
+                }
+                .redeemed-button {
+                    width: 90px;
+                    height: 40px;
+                    background: url("../../assets/answer/redeemed-button.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    // display: table;
+                }
+                .redeemed-button-disabled {
+                    width: 90px;
+                    height: 40px;
+                    background: url("../../assets/answer/redeemed-button-disabled.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    // display: table;
+                }
+                .view-rewards {
+                    height: 40px;
+                    background: url("../../assets/answer/view-rewards.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    // display: table;
                 }
                 .buy-button {
                     width: 100px;
@@ -406,7 +443,8 @@ export default {
                 .van-cell-group--inset {
                     margin-top: 10px;
                     .van-cell {
-                        background-color: #AE8BF5;
+                        // background-color: #05D2FA;
+                        background-color: transparent;
                         text-align: center;
                         color: #fff;
                         .van-cell__value {
@@ -415,6 +453,9 @@ export default {
                         .van-cell__label {
                             color: #fff;
                         }
+                    }
+                    .van-cell::after {
+                        border-bottom: 0;
                     }
                 }
                 .van-tag--primary.van-tag--plain {

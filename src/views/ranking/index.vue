@@ -304,7 +304,7 @@ export default {
         /deep/ {
             position: fixed;
             .bg {
-                background-image: url("../../assets/answer/2.jpg");
+                background-image: url("../../assets/answer/home-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -428,7 +428,7 @@ export default {
                             // display: flex;
                             border-radius: 15px;
                             flex-direction: row;
-                            background: #AE8BF5; 
+                            background: #05D2FA; 
                             color: #fff;
                             border-bottom: 0.5px solid #969799;
                             .list-item {

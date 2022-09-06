@@ -702,7 +702,7 @@ export default {
 .container {
     /deep/ {
         .bg {
-            background-image: url("../../assets/answer/2.jpg");
+            background-image: url("../../assets/answer/home-bg.png");
             background-repeat: no-repeat;
             background-attachment: fixed;  /*关键*/
             background-position: center;
@@ -780,7 +780,7 @@ export default {
         .container {
             color: #fff;
             border-radius: 20px !important;
-            background-color: #AE8BF5 !important;
+            background-color: #05D2FA !important;
             width: 80%;
             height: 50vh;
             padding: 20px;
@@ -791,7 +791,7 @@ export default {
                 margin-top: 15px;
             }
             .van-tabs__nav {
-                background-color: #AE8BF5;
+                background-color: #05D2FA;
                 // height: 50px;
             }
             .van-tabs__item {

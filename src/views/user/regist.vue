@@ -320,7 +320,7 @@ export default {
 .container {
     /deep/ {
         .bg {
-            background-image: url("../../assets/answer/2.jpg");
+            background-image: url("../../assets/answer/home-bg.png");
             background-repeat: no-repeat;
             background-attachment: fixed;  /*关键*/
             background-position: center;
@@ -350,7 +350,7 @@ export default {
             // margin: 0 auto;
             .form {
                 width: 90%;
-                background-color: #AE8BF5;
+                background-color: #05D2FA;
                 margin: 0 auto;
                 border-radius: 20px;
                 .box {
