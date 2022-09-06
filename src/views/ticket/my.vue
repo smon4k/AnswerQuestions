@@ -19,81 +19,99 @@
                     <van-tab :title="$t('question:bought')">
                         <div v-for="(item,index) in list" :key="index">
                             <van-cell-group inset v-if="item.is_ransom == 1">
-                                <img src="@/assets/answer/list-bg.png" alt="" class="list-bg">
-                                    <van-cell title="" value="" :label="item.time">
-                                        <template #icon>ID: {{item.id}}</template>
-                                        <template #title>
-                                            <div>{{ item.name }}</div>
+                                <div class="list-bg"></div>
+                                <!-- <img src="@/assets/answer/list-bg.png" alt="" class="list-bg"> -->
+                                    <van-cell title="" value="" label="" class="top-title">
+                                        <template #icon>
+                                            <van-row>
+                                                <van-col span="24" align="left">
+                                                    <span style="font-weight: 800;">ID:{{item.id}}</span>
+                                                    &nbsp;
+                                                    <span style="color:#FDD95B;font-style:italic;font-weight: 800;">{{ item.name }}</span>
+                                                </van-col>
+                                                <van-col span="24" align="left">{{ item.time }}</van-col>
+                                            </van-row>
                                         </template>
+                                        <!-- <template #title>
+                                            <div>{{ item.name }}</div>
+                                        </template> -->
                                         <template #right-icon>
                                             <div v-if="item.is_activation" style="align-items: center;display: flex;">
                                                 <!-- 开启门票 -->
-                                                <van-button v-if="item.is_start == 0 && item.is_ransom == 1" :disabled="!item.is_activation" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button>
+                                                <img v-if="item.is_start == 0 && item.is_ransom == 1" src="@/assets/answer/start-ticket.png" alt="" width="50" @click="startTicket(item)">
+                                                <!-- <van-button v-if="item.is_start == 0 && item.is_ransom == 1" :disabled="!item.is_activation" class="ticket-button" type="primary" @click="startTicket(item)" style="height:20px;">{{ $t('question:startTicket') }}</van-button> -->
                                                 <!-- 已赎回 -->
-                                                <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
+                                                <!-- <van-tag plain v-else-if="item.is_ransom == 2" type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag> -->
                                                 <!-- 使用中 -->
-                                                <img v-else src="@/assets/answer/using.png" alt="" width="50">
+                                                <img v-else src="@/assets/answer/using.png" alt="" width="40">
                                                 <!-- <van-tag plain v-else type="primary" style="height:20px">{{ $t('question:using') }}</van-tag> -->
-                                                &nbsp;
-                                                <van-tag plain color="#969799" text-color="#969799" style="height:20px">
+                                                <!-- &nbsp; -->
+                                                <!-- 未作答 -->
+                                                <img v-if="item.is_answer == 1" src="@/assets/answer/no-answer.png" alt="" width="50">
+                                                <!-- 已作答 -->
+                                                <img v-else src="@/assets/answer/answered.png" alt="" width="53">
+                                                <!-- <van-tag plain color="#969799" text-color="#969799" style="height:20px"> -->
                                                     <!-- 未作答 -->
-                                                    <span v-if="item.is_answer == 1">{{ $t('question:noAnswer') }}</span>
+                                                    <!-- <span v-if="item.is_answer == 1">{{ $t('question:noAnswer') }}</span> -->
                                                     <!-- 已作答 -->
-                                                    <span v-if="item.is_answer == 3">{{ $t('question:answered') }}</span>
-                                                </van-tag>
+                                                    <!-- <span v-if="item.is_answer == 3">{{ $t('question:answered') }}</span> -->
+                                                <!-- </van-tag> -->
                                             </div>
                                             <div v-else>
                                                 <!-- 待激活 -->
-                                                <van-tag plain type="primary" style="height:20px" color="#7232dd">{{ $t('question:toBeActivated') }}</van-tag>
-                                                <br>
-                                                <!-- 24小时激活 -->
                                                 <span>{{ $t('question:hoursActivation', {time: item.activation_time}) }}</span>
+                                                <img src="@/assets/answer/to-be-activated.png" alt="" width="50" style="vertical-align: middle;">
+                                                <!-- <van-tag plain type="primary" style="height:20px" color="#7232dd">{{ $t('question:toBeActivated') }}</van-tag> -->
+                                                <!-- <br> -->
+                                                <!-- 24小时激活 -->
                                             </div>
                                             <!-- <van-switch v-model="ticketStatus" size="24" /> -->
                                         </template>
                                     </van-cell>
-                                    <van-cell>
+                                    <van-cell class="center-content">
                                         <template #title>
                                                 <div>
-                                                    <van-row>
+                                                    <van-row class="item">
                                                         <van-col span="12">
                                                             <span>{{$t('question:nominalInterestRate')}}</span> 
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{ toFixed(item.annualized, 2) }}%</span>
                                                         </van-col>
                                                         <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
                                                         <van-col span="12">
                                                             <span>{{$t('question:realInterestRate')}}</span>
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{ getRealInterestRate(item) }}</span>
                                                         </van-col>
                                                         <van-col span="12">
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{$t('question:denomination')}}</span>
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{ toFixed(item.denomination, 2)}} USDT</span>
                                                         </van-col>
                                                         <van-col span="12">
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{$t('question:buyPrice')}}</span>
-                                                            <br>
+                                                            <!-- <br> -->
                                                             <span>{{ toFixed(item.price, 2)}} USDT</span>
                                                         </van-col>
                                                     </van-row>
                                                 </div>
                                                 <!-- <van-divider /> -->
-                                                <div>
-                                                    <van-row>
-                                                        <!-- <van-col span="12">
-                                                        </van-col> -->
-                                                        <van-col span="24" align="right">
-                                                            <van-button v-if="item.is_ransom == 1" class="redeemed-button" round type="info" :disabled="item.insurance_amount <= 0" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
-                                                            <van-button v-else class="redeemed-button-disabled" disabled round type="info">{{ $t('question:redeemed') }}</van-button>
-                                                            <van-button class="view-rewards" round type="info" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
-                                                        </van-col>
-                                                    </van-row>
-                                                </div>
                                             </template>
+                                    </van-cell>
+                                    <van-cell class="bottom-button">
+                                        <template #title>
+                                            <div>
+                                                <van-row>
+                                                    <van-col span="24" align="right">
+                                                        <van-button v-if="item.is_ransom == 1" class="redeemed-button" type="primary" :disabled="item.insurance_amount <= 0" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
+                                                        <van-button v-else class="redeemed-button-disabled" disabled type="primary">{{ $t('question:redeemed') }}</van-button>
+                                                        <van-button class="view-rewards" type="primary" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
+                                                    </van-col>
+                                                </van-row>
+                                            </div>
+                                        </template>
                                     </van-cell>
                             </van-cell-group>
                         </div>
@@ -101,38 +119,45 @@
                     <van-tab :title="$t('question:redeemed')">
                         <div v-for="(item,index) in list" :key="index">
                             <van-cell-group inset v-if="item.is_ransom == 2" >
-                                    <van-cell title="" value="" :label="item.time">
-                                        <template #icon>ID: {{item.id}}</template>
-                                        <template #title>
-                                            <div>{{ item.name }}</div>
+                                <div class="list-bg"></div>
+                                    <van-cell title="">
+                                        <template #icon>
+                                            <van-row>
+                                                <van-col span="24" align="left">
+                                                    <span style="font-weight: 800;">ID:{{item.id}}</span>
+                                                    &nbsp;
+                                                    <span style="color:#FDD95B;font-style:italic;font-weight: 800;">{{ item.name }}</span>
+                                                </van-col>
+                                                <van-col span="24" align="left">{{ item.time }}</van-col>
+                                            </van-row>
                                         </template>
-                                        <template #right-icon>
+                                        <!-- <template #right-icon>
                                             <van-tag plain type="primary" style="height:20px" color="#7232dd">{{ $t('question:redeemed') }}</van-tag>
-                                        </template>
+                                        </template> -->
                                     </van-cell>
-                                    <van-cell>
+                                    <van-cell class="center-content">
                                         <template #title>
                                                 <div>
                                                     <van-row>
                                                         <!-- <van-col span="8">{{$t('question:annualized')}}</van-col> -->
                                                         <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
-                                                        <van-col span="24">{{$t('question:denomination')}}</van-col>
+                                                        <van-col span="24">{{$t('question:denomination')}} {{ toFixed(item.price, 2)}} USDT</van-col>
                                                     </van-row>
                                                     <van-row>
                                                         <!-- <van-col span="8">{{ item.annualized }}</van-col> -->
                                                         <!-- <van-col span="8">{{ toFixed(item.capped, 2)}} SCT</van-col> -->
-                                                        <van-col span="24">{{ toFixed(item.price, 2)}} USDT</van-col>
+                                                        <!-- <van-col span="24">{{ toFixed(item.price, 2)}} USDT</van-col> -->
                                                     </van-row>
                                                 </div>
-                                                <van-divider />
+                                            </template>
+                                    </van-cell>
+                                    <van-cell class="bottom-button">
+                                        <template #title>
                                                 <div>
                                                     <van-row>
-                                                        <van-col span="12">
-                                                            <van-button v-if="item.is_ransom == 1" class="ticket-button" round type="info" @click="startRansom(item)">{{ $t('question:redemption') }}</van-button>
-                                                            <van-button v-else class="ticket-button" disabled round type="info">{{ $t('question:redeemed') }}</van-button>
-                                                        </van-col>
-                                                        <van-col span="12">
-                                                            <van-button class="ticket-button" round type="info" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
+                                                        <van-col span="24" align="right">
+                                                            <van-button class="redeemed-button-disabled" disabled type="primary">{{ $t('question:redeemed') }}</van-button>
+                                                            <van-button class="view-rewards" type="primary" @click="showTicketAward(item)">{{ $t('question:viewRewards') }}</van-button>
                                                         </van-col>
                                                     </van-row>
                                                 </div>
@@ -366,10 +391,6 @@ export default {
                 height: 100%;
                 z-index: -10;
                 position: fixed;
-                filter: blur(2px);
-            }
-            .van-tab {
-                color: #fff;
             }
             .van-nav-bar {
                 background-color: transparent;
@@ -385,6 +406,12 @@ export default {
             }
             .van-tabs__nav {
                 background-color: transparent;
+                .van-tab {
+                    // color: #fff;
+                }
+                .van-tabs__line {
+                    background-color: #FDD95B !important;
+                }
                 .van-tab--active {
                     color: #fff;
                 }
@@ -396,10 +423,63 @@ export default {
             // min-height: 100vh;
             .main {
                 padding-bottom: 60px;
+                .van-cell-group--inset {
+                    height: 250px;
+                    margin-top: 10px;
+                    border: 2px solid #fff;
+                    border-radius: 20px;
+                    .van-cell {
+                        // background-color: #05D2FA;
+                        background-color: transparent;
+                        text-align: center;
+                        color: #fff;
+                        .van-cell__value {
+                            display: none;
+                        }
+                        .van-cell__label {
+                            color: #fff;
+                        }
+                    }
+                    .van-cell::after {
+                        // border-bottom: 0;
+                    }
+                }
+                .van-button--primary {
+                    border: 0;
+                }
                 .list-bg {
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                     position: absolute;
                     width: 100%;
                     height: 100%;
+                }
+                .top-title {
+                    height: 63px;
+                    .van-cell__title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        flex-direction: column;
+                        .van-row {
+                            line-height: 45px;
+                        }
+                    }
+                }
+                .center-content {
+                    height: 110px;
+                    .van-cell__title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        flex-direction: column;
+                        .van-row {
+                            line-height: 45px;
+                        }
+                    }
+                }
+                .bottom-button {
+                    position: absolute;
+                    bottom: 8px;
                 }
                 .ticket-button {
                     width: 90px;
@@ -439,24 +519,6 @@ export default {
                     border-radius: 20px;
                     background-color: #8C1AF5;
                     border: 0;
-                }
-                .van-cell-group--inset {
-                    margin-top: 10px;
-                    .van-cell {
-                        // background-color: #05D2FA;
-                        background-color: transparent;
-                        text-align: center;
-                        color: #fff;
-                        .van-cell__value {
-                            display: none;
-                        }
-                        .van-cell__label {
-                            color: #fff;
-                        }
-                    }
-                    .van-cell::after {
-                        border-bottom: 0;
-                    }
                 }
                 .van-tag--primary.van-tag--plain {
                     color: #8C1AF5;

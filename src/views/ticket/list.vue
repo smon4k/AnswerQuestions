@@ -17,12 +17,14 @@
             <van-tabs v-model="cardActive">
                 <van-tab :title="$t('question:buyTickets')">
                     <van-cell-group inset v-for="(item,index) in tableData" :key="index">
-                        <img src="@/assets/answer/list-bg.png" alt="" class="list-bg">
-                        <van-cell class="title">
+                        <div class="list-bg"></div>
+                        <!-- <img src="@/assets/answer/list-bg.png" alt="" > -->
+                        <van-cell class="top-title">
                             <template #title>
-                                <span class="custom-title">{{ item.name }}</span>
+                                <span style="color:#FDD95B;font-style:italic;font-weight: 800;">{{ item.name }}</span>
                                 <!-- <van-tag type="danger">标签</van-tag> -->
-                                <div class="tag" v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">限时折扣</div>
+                                <!-- 限时折扣 -->
+                                <div class="tag" v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">{{ $t('question:LimitDiscounts') }}</div>
                             </template>
                         </van-cell>
                         <van-cell>
@@ -31,36 +33,34 @@
                                     <van-row>
                                         <van-col span="12">
                                             <span>{{ $t('question:denomination') }}</span>
-                                            <br>
+                                            <!-- <br> -->
                                             <span>{{ toFixed(item.denomination, 2) }} USDT</span>
                                         </van-col>
                                         <van-col span="12">
                                             <span>{{ $t('question:buyPrice') }}</span>
-                                            <br>
+                                            <!-- <br> -->
                                             <span>{{ toFixed(item.price, 2) }} USDT</span>
                                         </van-col>
                                     </van-row>
+                                    <van-row>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:nominalInterestRate') }}</span>
+                                            <!-- <br> -->
+                                            <span>{{ toFixed(item.annualized, 2) }} %</span>
+                                        </van-col>
+                                        <van-col span="12">
+                                            <span>{{ $t('question:realInterestRate') }}</span>
+                                            <!-- <br> -->
+                                            <span>{{ getRealInterestRate(item) }}</span>
+                                        </van-col>
+                                    </van-row>
                                 </div>
-                                <br>
-                                <!-- <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" /> -->
-                                <van-row>
-                                    <van-col span="12">
-                                        <span>{{ $t('question:nominalInterestRate') }}</span>
-                                        <br>
-                                        <span>{{ toFixed(item.annualized, 2) }} %</span>
-                                    </van-col>
-                                    <van-col span="12">
-                                        <span>{{ $t('question:realInterestRate') }}</span>
-                                        <br>
-                                        <span>{{ getRealInterestRate(item) }}</span>
-                                    </van-col>
-                                </van-row>
 
                                 <!-- 折扣价 -->
                                  <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
                                     <van-divider style="width:80%;margin:0 auto;height:10px;" />
                                     <!-- <br> -->
-                                    <van-row>
+                                    <van-row style="padding-top:15px;">
                                         <van-col span="12">
                                             <span>{{ $t('question:DiscountStartTime') }}</span>
                                             <br>
@@ -72,8 +72,8 @@
                                             <span>{{ item.end_time }}</span>
                                         </van-col>
                                     </van-row>
-                                    <van-divider style="width:80%;margin:0 auto;height:10px;border-color:#A79BA9;" />
-                                    <van-row>
+                                    <br>
+                                    <van-row style="padding-bottomo:15px;">
                                         <van-col span="12">
                                             <span>{{ $t('question:DiscountPrice') }}</span>
                                             <br>
@@ -250,10 +250,10 @@ export default {
                 height: 100%;
                 z-index: -10;
                 position: fixed;
-                filter: blur(2px);
+                // filter: blur(2px);
             }
             .van-tab {
-                color: #fff;
+                // color: #fff;
             }
             .van-nav-bar {
                 background-color: transparent;
@@ -279,6 +279,9 @@ export default {
                 .van-tab--active {
                     color: #fff;
                 }
+                .van-tabs__line {
+                    background-color: #FDD95B !important;
+                }
             }
             .van-empty__description {
                 color: #fff;
@@ -295,25 +298,18 @@ export default {
                 overflow: auto;
                 // padding-bottom: 60px;
                 .list-bg {
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                     position: absolute;
                     width: 100%;
                     height: 100%;
                 }
-                .title {
-                    height: 63px;
-                }
-                .buy-button {
-                    width: 100px;
-                    height: 30px;
-                    font-size: 10px;
-                    border-radius: 20px;
-                    background-color: #8C1AF5;
-                    border: 0;
-                }
                 .van-cell-group--inset {
                     margin-top: 10px;
+                    border: 2px solid #fff;
+                    border-radius: 20px;
                     .van-cell {
                         text-align: center;
+                        // background: linear-gradient(#00C3E9, #2D50D2);
                         background-color: transparent;
                         color: #fff;
                         border-bottom: 0;
@@ -322,8 +318,53 @@ export default {
                         }
                     }
                     .van-cell::after {
-                        border-bottom: 0;
+                        // border-bottom: 0;
                     }
+                }
+                .custom-title {
+                    line-height: 60px;
+                }
+                .top-title {
+                    height: 63px;
+                    .van-cell__title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        flex-direction: column;
+                        .van-row {
+                            line-height: 45px;
+                        }
+                    }
+                }
+                .center-content {
+                    height: 134px;   
+                    .van-cell__title {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-around;
+                        flex-direction: column;
+                        .van-row {
+                            line-height: 45px;
+                        }
+                    }
+                }
+                .bottom-button {
+                    position: absolute;
+                    bottom: 15px;
+                }
+
+                .buy-button {
+                    width: 90px;
+                    height: 40px;
+                    background: url("../../assets/answer/redeemed-button.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    // width: 100px;
+                    // height: 30px;
+                    // font-size: 10px;
+                    // border-radius: 20px;
+                    // background-color: #8C1AF5;
+                    border: 0;
                 }
             }
             .tag{

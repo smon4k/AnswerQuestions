@@ -1,8 +1,9 @@
 <template>
     <div class="container">
         <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
+        <!-- 银行 -->
         <van-nav-bar
-            title="银行"
+            :title="$t('question:bank')"
             left-text=""
             right-text=""
             left-arrow
@@ -33,13 +34,13 @@
         <van-tabs type="card" v-model="tabActiveOne">
             <van-tab :title="$t('question:charging')">
                 <van-tabs v-model="tabActiveTwo">
-                    <van-tab :title="'USDT' + $t('question:charging')">
+                    <van-tab :title="'USDT'">
                         <VanUsdt />
                     </van-tab>
-                    <van-tab :title="'SCT' + $t('question:charging')">
+                    <van-tab :title="'SCT'">
                         <VanSct />
                     </van-tab>
-                    <van-tab :title="'SST' + $t('question:charging')">
+                    <van-tab :title="'SST'">
                         <VanSst />
                     </van-tab>
                 </van-tabs>
@@ -228,7 +229,7 @@ export default {
             height: 100%;
             z-index: -10;
             position: fixed;
-            filter: blur(2px);
+            // filter: blur(2px);
         }
         .generalStatistics {
             position: relative;

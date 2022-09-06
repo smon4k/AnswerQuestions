@@ -37,15 +37,17 @@
                 <van-row class="container" style="margin-top:20px;">
                     <van-col :span="24">
                         <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
-                            <van-tab title="存入" name="1" :disabled="trading">
+                            <!-- 存入 -->
+                            <van-tab :title="$t('question:deposit')" name="1" :disabled="trading">
                                 <van-row class="balance">
                                     <van-col :span="24">
                                         <div>
-                                            <span>平台余额：{{ keepDecimalNotRounding(Number(localBalance) + Number(walletBalance), 4) }} SST</span>
+                                            <!-- 平台余额： -->
+                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
                                             <br />
-                                            <span>钱包余额：{{ toFixed(Number(SSTBalance), 4) }} SST</span>
+                                            <!-- 钱包余额： -->
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
-                                            <!-- <span v-else>GS Balance：<el-skeleton-item variant="text" style="width: 5%;" /></span> -->
                                         </div>
                                     </van-col>
                                     <!-- <van-col :span="24">
@@ -67,7 +69,7 @@
                                                 type="number" 
                                                 label="SST:" 
                                                 v-model="depositForm.amount" 
-                                                placeholder="请输入充值金额" 
+                                                :placeholder="$t('question:PleaseRechargeAmount')" 
                                                 onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
                                                 :rules="[{ validator: checkDepositAmount, message: '' }]"
                                                 label-width="50"
@@ -99,21 +101,26 @@
                                                 </van-col>
                                             </van-row>
                                             <div class="submit-name">
-                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
-                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>存入</van-button>
+                                                <!-- 批准 -->
+                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
+                                                <!-- 存入 -->
+                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>{{ $t('question:deposit') }}</van-button>
                                                 <!-- <van-button @click="resetForm('depositForm')">Cancel</van-button> -->
                                             </div>
                                         </van-form>
                                     </van-col>
                                 </van-row>
                             </van-tab>
-                            <van-tab title="提取" name="2" :disabled="trading">
+                            <!-- 提取 -->
+                            <van-tab :title="$t('question:extract')" name="2" :disabled="trading">
                                 <van-row class="balance">
                                     <van-col :span="24">
                                         <div>
-                                            <span>平台余额：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} SST</span>
+                                            <!-- 平台余额： -->
+                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
                                             <br />
-                                            <span>钱包余额：{{ toFixed(Number(SSTBalance), 4) }} SST</span>
+                                            <!-- 钱包余额： -->
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
@@ -134,7 +141,7 @@
                                                 label="SST:" 
                                                 type="number" 
                                                 v-model="withdrawForm.amount" 
-                                                placeholder="请输入金额" 
+                                                :placeholder="$t('question:PleaseAmount')" 
                                                 min="0" 
                                                 :max="maxWithdrawableBalance()" 
                                                 onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
@@ -168,8 +175,10 @@
                                                 </van-col>
                                             </van-row>
                                             <div class="submit-name">
-                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">批准</van-button>
-                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>提取</van-button>
+                                                <!-- 批准 -->
+                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
+                                                <!-- 提取 -->
+                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>{{ $t('question:extract') }}</van-button>
                                                 <!-- <van-button @click="resetForm('withdrawForm')">Cancel</van-button> -->
                                             </div>
                                         </van-form>
@@ -711,7 +720,7 @@ export default {
             height: 100%;
             z-index: -10;
             position: fixed;
-            filter: blur(2px);
+            // filter: blur(2px);
         }
         .generalStatistics {
             position: relative;
@@ -779,7 +788,7 @@ export default {
         .container {
             color: #fff;
             border-radius: 20px !important;
-            background-color: #05D2FA !important;
+            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
             width: 80%;
             height: 50vh;
             padding: 20px;
@@ -790,7 +799,7 @@ export default {
                 margin-top: 15px;
             }
             .van-tabs__nav {
-                background-color: #05D2FA;
+                // background-color: #05D2FA;
             }
             .van-tabs__item {
                 height: 60px;

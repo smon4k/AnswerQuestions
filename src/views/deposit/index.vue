@@ -12,25 +12,29 @@
             <el-card class="box-card">
                 <div slot="header" class="clearfix">
                     <img src="@/assets/sct.png" width="30" height="30" alt="">
-                    <span>SCT 活期理财</span>
+                    <span>SCT {{ $t('question:CurrentFinancing') }}</span>
                     <!-- <el-button style="float: right; padding: 3px 0;color:#fff;" type="text" @click="roterMyDeposit()">我的存币</el-button> -->
                 </div>
                 <div class="buy-box">
                     <el-row>
+                        <!-- 年化收益率 -->
                         <el-col :span="12" align="center">
-                            <p class="annualized-income desc">年化收益率</p>
+                            <p class="annualized-income desc">{{ $t('question:AvailableBalance') }}</p>
                             <p class="balance">{{ toFixed(annualized_income || 0, 4) }}%</p>
                         </el-col>
+                        <!-- 可用余额 -->
                         <el-col :span="12" align="center">
-                            <p class="annualized-income desc">可用余额</p>
+                            <p class="annualized-income desc">{{ $t('question:AnnualizedRate') }}</p>
                             <p class="balance">{{ toFixed(balance || 0, 4) }} SCT</p>
                         </el-col>
+                        <!-- 存款余额 -->
                         <el-col :span="12" align="center">
-                            <p class="annualized-income desc">存款余额</p>
+                            <p class="annualized-income desc">{{ $t('question:Deposits') }}</p>
                             <p class="balance">{{ toFixed(total_invest || 0, 4) }} SCT</p>
                         </el-col>
+                        <!-- 利息 -->
                         <el-col :span="12" align="center">
-                            <p class="annualized-income desc">利息</p>
+                            <p class="annualized-income desc">{{ $t('question:Interest') }}</p>
                             <p class="balance">{{ toFixed(interest || 0, 4) }}</p>
                         </el-col>
                     </el-row>
@@ -58,14 +62,17 @@
                             </el-col>
                         </div> -->
                         <el-col :span="24">
-                            <el-input v-model="shareValue" placeholder="请输入SCT数量">
-                                <el-select v-model="type" slot="prepend" placeholder="请选择">
-                                    <el-option label="存款" value="1"></el-option>
-                                    <el-option label="赎回" value="2"></el-option>
+                            <!-- 请输入SCT数量 -->
+                            <el-input v-model="shareValue" :placeholder="$t('question:PleaseSCTQuantity')">
+                                <el-select v-model="type" slot="prepend" :placeholder="$t('question:PleaseSelect')">
+                                    <el-option :label="$t('question:deposit')" value="1"></el-option>
+                                    <el-option :label="$t('question:redemption')" value="2"></el-option>
                                 </el-select>
                                 <template slot="append">
-                                    <el-button v-if="type == 1" type="primary" @click="allfunBetClick()">全投</el-button>
-                                    <el-button v-else type="primary" @click="allfunRedClick()">全部</el-button>
+                                    <!-- 全投 -->
+                                    <el-button v-if="type == 1" type="primary" @click="allfunBetClick()">{{ $t('question:FullThrow') }}</el-button>
+                                    <!-- 全部 -->
+                                    <el-button v-else type="primary" @click="allfunRedClick()">{{ $t('question:All') }}</el-button>
                                     <!-- <el-button type="primary" @click="allfunRedClick()">全部</el-button> -->
                                 </template>
                             </el-input>
@@ -76,8 +83,10 @@
                             <a href="/page/agreement.html#/?agreement=financing_market_stakingprotocol" target="_blank">《活期宝产品服务协议》</a>
                         </el-col> -->
                         <el-col :span="24">
-                            <el-button v-if="type == 1" class="invest-but" type="primary" :loading="loading" @click="startInvestNow()" :disabled="is_bet">立即投资</el-button>
-                            <el-button v-else class="invest-but" type="primary" :loading="loading" @click="startInvestNow()">立即赎回</el-button>
+                            <!-- 立即投资 -->
+                            <el-button v-if="type == 1" class="invest-but" type="primary" :loading="loading" @click="startInvestNow()" :disabled="is_bet">{{ $t('question:InvestNow') }}</el-button>
+                            <!-- 立即赎回 -->
+                            <el-button v-else class="invest-but" type="primary" :loading="loading" @click="startInvestNow()">{{ $t('question:RedeemImmediately') }}</el-button>
                         </el-col>
                     </el-row>
                 </div>

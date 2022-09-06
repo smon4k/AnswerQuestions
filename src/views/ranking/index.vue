@@ -10,7 +10,8 @@
         />
         <div class="main">
             <div class="generalStatistics">
-                <img src="@/assets/answer/ranking.png" class="image">
+                <div class="image"></div>
+                <!-- <img src="@/assets/answer/ranking.png" class="image"> -->
                 <div class="box">
                     <van-row>
                         <van-col span="12" align="center">
@@ -356,11 +357,14 @@ export default {
                     border-radius: 10px;
                     font-size: 14px;
                     .image {
+                        background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                         // padding: 0 3%;
                         position: relative;
                         width: 100%;
                         // height: 100%;
                         height: 150px;
+                        border: 2px solid #fff;
+                        border-radius: 20px;
                     }
                     .box {
                         width: 100%;
@@ -370,7 +374,7 @@ export default {
                         left: 50%;
                         transform: translate(-50%,-50%);
                         color: #fff;
-                        font-weight: 500;
+                        font-weight: 800;
                         .van-divider {
                             margin: 10px 0;;
                         }
@@ -388,7 +392,9 @@ export default {
                     margin-top: 10px;
                     border-radius: 10px;
                     overflow: auto;
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                     // padding-bottom: 50px;
+                    border: 2px solid #fff;
                     .refresh {
                         // height: 100vh;
                         // padding-bottom: 50px;
@@ -413,6 +419,9 @@ export default {
                         background-color: #ebedf0;
                         padding-left: 20px;
                     }
+                    .sort .active {
+                        border-bottom: 2px solid #FDD95B;
+                    }
                     .attent-list {
                         width: 90%;
                         font-size: 13px;
@@ -423,13 +432,14 @@ export default {
                         .attent-item {
                             padding: 10px;
                             margin-bottom: 10px;
-                            margin-top: 10px;
+                            margin-top: 20px;
                             // padding-right: 15px;
                             // display: flex;
                             border-radius: 15px;
                             flex-direction: row;
-                            background: #05D2FA; 
-                            color: #fff;
+                            background: linear-gradient(#E3F7FF, #BFECFF); /* 标准语法*/
+                            // background: #05D2FA; 
+                            color: #002392;
                             border-bottom: 0.5px solid #969799;
                             .list-item {
                                 .date {
@@ -448,6 +458,7 @@ export default {
                                         width: 60px;
                                         height: 60px;
                                         border-radius: 100%;
+                                        border: 3px solid #76D6FF;
                                     }
                                 }
                             }
@@ -456,6 +467,9 @@ export default {
                                 margin: 5px 0;
                             }
                         }
+                    }
+                    .van-list__finished-text {
+                        color: #75B0EF;
                     }
                     .sort {
                         padding-top: 10px;

@@ -2,10 +2,14 @@
   <div class="container">
     <div class="main" :style="{ backgroundSize: isMobel ? '100% 100%' : '',position: isMobel ? 'fixed' : 'relative' }">
         <div class="title">
-            <div class="title01">{{ $t("question:oneStopName") }}</div>
+            <div class="title01">
+                <!-- <span>{{ $t("question:oneStopName") }}</span> -->
+                <img src="@/assets/answer/title.png" width="130">
+            </div>
         </div>
         <div class="user">
-            <img src="@/assets/answer/user-top.png" class="image">
+            <div class="image"></div>
+            <!-- <img src="@/assets/answer/user-top.png" class="image"> -->
             <div class="avatar" >
                 <div @click="getUserClick()">
                     <van-image width="70" height="70" :src="avatar" style="border: 3px solid #fff;"></van-image>
@@ -313,7 +317,11 @@ export default {
         width: 90%;
         top: 20px;
         margin: 0 auto;
+        border: 2px solid #fff;
+        border-radius: 20px;
         .image {
+            border-radius: 20px;
+            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
             // padding: 0 3%;
             position: relative;
             width: 100%;
@@ -322,7 +330,7 @@ export default {
         }
         .avatar {
             position: absolute;
-            top: 50%;
+            top: 46%;
             left: 20%;
             right: 0;
             // margin: auto;
@@ -363,7 +371,7 @@ export default {
         }
         .balance {
             position: absolute;
-            top: 20%;
+            top: 10%;
             left: 40%;
             bottom: 0;
             margin: auto;
