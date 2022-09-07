@@ -1,17 +1,37 @@
 <template>
     <div class="app-container">
         <van-tabbar v-model="active" route @change="getRouterClick">
-            <van-tabbar-item style="cursor: pointer;" replace to="/home">{{ $t('nav:home') }}</van-tabbar-item>
-            <van-tabbar-item style="cursor: pointer;" replace to="/ranking">{{ $t('nav:performance') }}</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/home">
+                <span>{{ $t('nav:home') }}</span>
+                <template #icon>
+                    <img src="@/assets/answer/nav-home.png" />
+                </template>
+            </van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ranking">
+                <span>{{ $t('nav:performance') }}</span>
+                <template #icon>
+                    <img src="@/assets/answer/nav-merits.png" />
+                </template>
+            </van-tabbar-item>
             <!-- <van-tabbar-item replace to="/home/follow">关注</van-tabbar-item> -->
             <!-- <van-tabbar-item style="cursor: pointer;" replace>关注</van-tabbar-item> -->
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/release">
                 <img src="@/assets/add.png" alt="" width="30">
             </van-tabbar-item> -->
             <!-- <van-tabbar-item replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">{{ $t('nav:tickets') }}</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/ticket/list">
+                <span>{{ $t('nav:tickets') }}</span>
+                <template #icon>
+                    <img src="@/assets/answer/nav-ticket.png" />
+                </template>
+            </van-tabbar-item>
             <!-- <van-tabbar-item style="cursor: pointer;" replace to="/news">消息</van-tabbar-item> -->
-            <van-tabbar-item style="cursor: pointer;" replace to="/user">{{ $t('nav:my') }}</van-tabbar-item>
+            <van-tabbar-item style="cursor: pointer;" replace to="/user">
+                <span>{{ $t('nav:my') }}</span>
+                <template #icon>
+                    <img src="@/assets/answer/nav-my.png" />
+                </template>
+            </van-tabbar-item>
         </van-tabbar>
     </div>
 </template>
@@ -59,18 +79,23 @@ export default {
                 right: 0;
                 margin: auto;
                 max-width: 750px;
-                background-color: #00000040;
+                background-color: #64B8FC;
+                height: 60px;
             }
             .van-tabbar-item {
                 color: #fff;
                 .van-tabbar-item__text {
-                    font-size: 18px;
+                    font-size: 15px;
+                }
+                .van-tabbar-item__icon img {
+                    width: 30px;
+                    height: 30px;
                 }
             }
             .van-tabbar-item--active {
                 background-color: transparent;
                 .van-tabbar-item__text {
-                    font-size: 20px;
+                    font-size: 15px;
                     font-weight: 800;
                     color: #FFD879;
                 }

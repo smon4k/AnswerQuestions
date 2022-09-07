@@ -52,7 +52,9 @@ import {
   Card,
   Popover,
   Dialog,
-  Toast
+  Toast,
+  RadioGroup, 
+  Radio
 } from 'vant';
 Vue.use(Button);
 Vue.use(Col);
@@ -84,6 +86,8 @@ Vue.use(Card);
 Vue.use(Popover);
 Vue.use(Dialog);
 Vue.use(Toast);
+Vue.use(Radio);
+Vue.use(RadioGroup);
 
 import {
   Icon as ElIcon,
@@ -108,7 +112,7 @@ import {
   DescriptionsItem as ElDescriptionsItem,
   Empty as ElEmpty,
   Select as ElSelect,
-  Option as ElOption,
+  Option as ElOption
 } from 'element-ui';
 Vue.use(ElIcon);
 Vue.use(ElRow);

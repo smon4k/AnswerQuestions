@@ -186,7 +186,7 @@ export default {
             .el-descriptions {
                 margin-bottom: 20px;
                 .el-descriptions__body {
-                    background-color: #AE8BF5;
+                    background-color: #05D2FA;
                     padding: 20px;
                     border-radius: 20px;
                     .el-descriptions-item__container {

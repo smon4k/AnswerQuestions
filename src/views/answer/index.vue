@@ -409,7 +409,7 @@ export default {
                 height: 100%;
                 z-index: -10;
                 position: fixed;
-                filter: blur(2px);
+                // filter: blur(2px);
             }
           .main {
               .submit-btn {

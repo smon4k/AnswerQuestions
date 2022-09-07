@@ -389,7 +389,7 @@ export default {
                 height: 100%;
                 z-index: -10;
                 position: fixed;
-                filter: blur(2px);
+                // filter: blur(2px);
             }
              .van-nav-bar {
                 background-color: transparent;
@@ -417,6 +417,9 @@ export default {
                     border: 0;
                 }
                 .van-cell-group--inset {
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+                    border: 2px solid #fff;
+                    border-radius: 20px;
                     margin-top: 10px;
                     .insurance_cell_group {
                         background-color: unset !important;
@@ -428,7 +431,7 @@ export default {
                         }
                     }
                     .van-cell {
-                        background-color: #05D2FA;
+                        background-color: transparent;
                         color: #fff;
                         // padding: 20px;
                         text-align: center;

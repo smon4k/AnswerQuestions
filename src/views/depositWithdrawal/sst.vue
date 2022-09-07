@@ -46,7 +46,7 @@
                                             <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
                                             <br />
                                             <!-- 钱包余额： -->
-                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SSTBalance), 4) }} USDT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
@@ -120,7 +120,7 @@
                                             <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
                                             <br />
                                             <!-- 钱包余额： -->
-                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(usdtBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SSTBalance), 4) }} USDT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
@@ -553,7 +553,7 @@ export default {
     },
     allWalletBlanceFun() { //全部钱包余额
         if(this.SSTBalance > 0) {
-            this.depositForm.amount = Math.trunc(this.usdtBalance);
+            this.depositForm.amount = Math.trunc(this.SSTBalance);
             return true;
         }
         return false;

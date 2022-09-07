@@ -388,17 +388,18 @@ export default {
             } else {
                 inputSerchData = this.swapSearchProps(
                     this.swapPools,
-                inputCurrency,
-                "tokenAddress"
-            );
+                    inputCurrency,
+                    "tokenAddress"
+                );
             }
         // console.log(inputSerchData);
         } else {
-            inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
-            changeURLPar(window.location.href, "inputCurrency", publicAddress.DEFANT_CURRENCY);
-            this.$router.push({
-                query:merge(this.$route.query,{'inputCurrency':Address.BUSDT})
-            })
+            // inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
+            inputSerchData = this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
+            // changeURLPar(window.location.href, "inputCurrency", publicAddress.DEFANT_CURRENCY);
+            // this.$router.push({
+            //     query:merge(this.$route.query,{'inputCurrency':Address.BUSDT})
+            // })
         }
         if (inputSerchData && inputSerchData[0]) {
             input = inputSerchData[0].poolId;
@@ -413,11 +414,11 @@ export default {
                 outputSerchData = this.swapSearchProps(this.swapPools, outputCurrency,"tokenAddress");
             }
         } else {
-            outputSerchData = this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
-            changeURLPar(window.location.href, "outputCurrency", Address.BUSDT);
-            this.$router.push({
-                query:merge(this.$route.query,{'outputCurrency':publicAddress.DEFANT_CURRENCY})
-            })
+            // outputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
+            // changeURLPar(window.location.href, "outputCurrency", Address.BUSDT);
+            // this.$router.push({
+            //     query:merge(this.$route.query,{'outputCurrency':publicAddress.DEFANT_CURRENCY})
+            // })
         }
         if (outputSerchData && outputSerchData[0]) {
             ouput = outputSerchData[0].poolId;

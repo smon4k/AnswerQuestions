@@ -3,9 +3,9 @@
         <div class="main" :style="{backgroundSize:isMobel ? '100% 100%' : ''}">
             <div class="score-page">
                 <!-- <p class="line1">您答对了{{score / 20}}题</p> -->
-                <p class="line1">{{ $t('question:answerResult-01', {num: score / 20}) }}</p>
-                <p class="line2">{{ $t('question:answerResult-02', {num: score }) }}</p>
-                <p class="line2">{{ $t('question:answerResult-03', {num: times }) }}</p>
+                <vue-arc-text class="line1" ref="arctext" :text="$t('question:answerResult-01', {num: score / 20})" :arc="300" :direction="1"></vue-arc-text>
+                <vue-arc-text class="line2" ref="arctext" :text="$t('question:answerResult-02', {num: score})" :arc="300" :direction="1"></vue-arc-text>
+                <p class="line3">{{ $t('question:answerResult-03', {num: times }) }}</p>
             </div>
             <div class="score-income">
                 <!-- <span>本次答题总收益{{ capped_num }} SCT，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}SCT</span> -->
@@ -15,16 +15,19 @@
             </div>
             <br>
             <div class="resurrection" v-if="score < 100 && is_possible_resurrection"> 
-                <div>{{ toFixed(consumeNumber, 2) }} SCT {{ $t('question:buyToRevive') }}</div>
-                <!-- <van-row>
-                    <van-col :span="12"></van-col>
-                    <van-col :span="12"><div class="grid-content bg-purple-light"></div></van-col>
-                </van-row> -->
-                <div class="buy-button">
-                    <van-button class="buy" type="primary" round @click="buyResurrection()">{{ $t('question:buy') }}</van-button>
-                    <van-button type="info" round @click="giveUpResurrection()">{{ $t('question:abandon') }}</van-button>
+                <div class="content">
+                    <!-- <img src="@/assets/answer/esurgence-bg.png" class="image"> -->
+                    <div>{{ toFixed(consumeNumber, 2) }}SCT{{ $t('question:buyToRevive') }}</div>
+                    <!-- <van-row>
+                        <van-col :span="12"></van-col>
+                        <van-col :span="12"><div class="grid-content bg-purple-light"></div></van-col>
+                    </van-row> -->
+                    <div class="buy-button">
+                        <van-button class="abandon" type="info" @click="giveUpResurrection()">{{ $t('question:abandon') }}</van-button>
+                        <van-button class="buy" type="primary" @click="buyResurrection()">{{ $t('question:buy') }}</van-button>
+                    </div>
+                    <!-- <div class="buy-button"></div> -->
                 </div>
-                <!-- <div class="buy-button"></div> -->
             </div>
         </div>
     </div>
@@ -33,6 +36,7 @@
 import { mapState } from "vuex";
 import { Dialog } from 'vant';
 import { get, post } from "@/common/axios.js";
+import VueArcText from '@/utils/vue-arc-text.js';
 export default {
     name: 'home',
     data() {
@@ -88,7 +92,7 @@ export default {
         }
     },
     components: {
-
+        VueArcText
     },
     methods: {
         startAnswer() { //跳转我的订单也
@@ -142,7 +146,7 @@ export default {
     .container {
         /deep/ {
             .main {
-                background-image: url("../../assets/answer/home-bg.png");
+                background-image: url("../../assets/answer/result-bg.png");
                 background-repeat: no-repeat;
                 background-attachment: fixed;  /*关键*/
                 background-position: center;
@@ -154,29 +158,46 @@ export default {
                 position: fixed;
                 .score-page {
                     line-height: 10px;
+                    margin-top: 100px;
                     // width: 100%;
                     // height: 100%;
                     // overflow: hidden;
                     // background: #fff url(../assets/home-bg.png) no-repeat center center/auto 100%;
+                    span {
+                        text-shadow: -3px 4px 0 #2230BE;
+                        font-weight: 800;
+                        color: #fff;
+                        // font-size: 50px;
+                        text-align: center;
+                        font-size: 40px;
+                        // transform-origin: center 5em !important;
+                    }
+                    // .line1,.line2 {
+                    //     text-shadow: -3px 4px 0 #2230BE;
+                    //     font-weight: 800;
+                    // }
                     p {
                         color: #fff;
-                        font-size: 27px;
+                        font-size: 40px;
                         text-align: center;
                         // padding: 5px 0;
-                        text-shadow: 2px 2px 2px #005ece;
-                        font-weight: bold;
+                        // text-shadow: 1px 1px #005ece,2px 2px 005ece,3px 3px #005ece,4px 4px #005ece,5px 5px #005ece,6px 6px #005ece;
                     }
                     .line3 {
                         font-size: 20px;
                         font-weight: normal;
-                        text-shadow: 1px 1px 0 #005ece;
+                        color: #fff;
+                        font-weight: 800;
+                        margin-top: 50px;
+                        font-family: 'YS-HelloFont-BangBangTi';
+                        text-shadow: -1px -1px 0 #F4DF6C, 1px 1px 0 #F4DF6C;
                     }
-                    .line1 {
-                        margin-top: 100px;
+                    .line2 {
+                        margin-top: 60px;
                     }
                 }
                 .score-income {
-                    line-height: 20px;
+                    line-height: 30px;
                     text-align: center;
                     width: 80%;
                     margin: 0 auto;
@@ -190,12 +211,35 @@ export default {
                     margin: 0 auto;
                     color: #fff;
                     font-size: 18px;
-                    width: 80%;
+                    width: 70%;
+                    height: 130px;
+                    background: url("../../assets/answer/esurgence-bg.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    position: relative;
+                    .content {
+                        position: relative;
+                        top: 50%;
+                        left: 50%;
+                        right: 0;
+                        transform: translate(-50%, -50%);
+                    }
                     .buy-button {
                         margin-top: 10px;
                         .buy {
-                            background-color: #8C1AF5;
+                            background: url("../../assets/answer/buy-bt-bg.png") no-repeat center;
+                            background-size: contain;
+                            text-align: center;
+                            // background-color: #8C1AF5;
                             border: 0;
+                            font-weight: 800;
+                        }
+                        .abandon {
+                            width: 80px;
+                            background-color: #3DBBE8;
+                            border-radius: 5px;
+                            color: #185DDA;
+                            font-weight: 800;
                         }
                         button {
                             width: 100px;

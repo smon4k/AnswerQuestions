@@ -418,12 +418,12 @@ export default {
               this.$emit('childApprovedArrStatus', false, 'INPUT');
             }
             // const inputCurrency = getUrlParams('inputCurrency');
-            const inputCurrency = this.$route.query.inputCurrency;
-            if (inputCurrency && inputCurrency !== undefined) {
-                replaceParamVal("inputCurrency", addressStr);
-            } else {
-                changeURLPar(window.location.href, "inputCurrency", addressStr);
-            }
+            // const inputCurrency = this.$route.query.inputCurrency;
+            // if (inputCurrency && inputCurrency !== undefined) {
+            //     replaceParamVal("inputCurrency", addressStr);
+            // } else {
+            //     changeURLPar(window.location.href, "inputCurrency", addressStr);
+            // }
             if (this.valuationState === 'INPUT' && this.exchangeMoney.OUTPUT > 0) {
                 const toValue = this.exchangeMoney.OUTPUT * row.price;
                 this.exchangeMoney.INPUT = toValue;
@@ -439,12 +439,12 @@ export default {
               this.$emit('childApprovedArrStatus', false, 'OUTPUT');
             }
             // const inputCurrency = getUrlParams('outputCurrency');
-            const inputCurrency = this.$route.query.outputCurrency;
-            if (inputCurrency && inputCurrency !== undefined) {
-                replaceParamVal("outputCurrency", addressStr);
-            } else {
-                changeURLPar(window.location.href, "outputCurrency", addressStr);
-            }
+            // const inputCurrency = this.$route.query.outputCurrency;
+            // if (inputCurrency && inputCurrency !== undefined) {
+            //     replaceParamVal("outputCurrency", addressStr);
+            // } else {
+            //     changeURLPar(window.location.href, "outputCurrency", addressStr);
+            // }
             if (this.valuationState === 'OUTPUT' && this.exchangeMoney.INPUT > 0) {
                 const toValue = this.exchangeMoney.INPUT * row.price;
                 this.exchangeMoney.OUTPUT = toValue;
