@@ -835,6 +835,7 @@ export default {
                 background-image: url("../../assets/answer/input-bg.png");
                 background-size: 100%;
                 background-repeat: round;
+                width: 100%;
                 height: 50px;
                 line-height: 30px;
                 background-color: transparent;
@@ -878,6 +879,7 @@ export default {
                 // padding: 0;
             }
             .balance {
+                font-size: 14px;
                 text-align: left;
                 height: 30px;
                 line-height: 30px;
@@ -892,6 +894,7 @@ export default {
             .button-amount {
                 line-height: 50px;
                 .amount-button {
+                    width: 80px;
                     background: url("../../assets/answer/amount-bg.png") no-repeat center;
                     background-size: contain;
                     text-align: center;

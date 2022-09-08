@@ -781,6 +781,9 @@ export default {
           appearance: textfield;
           @include mainFont($color-mainFont-light);
         }
+        .el-input__inner::placeholder {
+          color: #fff;
+        }
       }
     }
     .input-max {

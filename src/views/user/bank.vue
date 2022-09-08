@@ -17,17 +17,17 @@
                     <van-col span="8" align="center">
                         <img src="@/assets/usdt.png" alt="" width="25">
                         <br>
-                        <span>{{ toFixed(USDTPlatformBalance, 4) }} USDT</span>
+                        <span>{{ toFixed(USDTPlatformBalance, 2) }} USDT</span>
                     </van-col>
                     <van-col span="8" align="center">
                         <img src="@/assets/sct.png" alt="" width="25">
                         <br>
-                        <span>{{ toFixed(SCTPlatformBalance, 4) }} SCT</span>
+                        <span>{{ toFixed(SCTPlatformBalance, 2) }} SCT</span>
                     </van-col>
                     <van-col span="8" align="center">
                         <img src="@/assets/sst.png" alt="" width="25">
                         <br>
-                        <span>{{ toFixed(SSTPlatformBalance, 4) }} SST</span>
+                        <span>{{ toFixed(SSTPlatformBalance, 2) }} SST</span>
                     </van-col>
                 </van-row>
             </div>
