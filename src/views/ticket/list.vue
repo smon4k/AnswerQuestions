@@ -330,7 +330,7 @@ export default {
                     }
                     .right {
                         font-size: 14px;
-                        margin-left: 10px;
+                        // margin-left: 10px;
                         color: #fff; 
                     } 
                 }
@@ -342,7 +342,7 @@ export default {
                     }
                     .right {
                         font-size: 14px;
-                        margin-left: 10px;
+                        // margin-left: 10px;
                         color: #fff; 
                     }
                 }
