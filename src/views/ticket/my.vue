@@ -72,28 +72,28 @@
                                         <template #title>
                                                 <div>
                                                     <van-row class="item">
-                                                        <van-col span="12">
-                                                            <span>{{$t('question:nominalInterestRate')}}</span> 
+                                                        <van-col span="12" align="left">
+                                                            <span class="left">{{$t('question:nominalInterestRate')}}</span> 
                                                             <!-- <br> -->
-                                                            <span>{{ toFixed(item.annualized, 2) }}%</span>
+                                                            <span class="right">{{ toFixed(item.annualized, 2) }}%</span>
                                                         </van-col>
                                                         <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
-                                                        <van-col span="12">
-                                                            <span>{{$t('question:realInterestRate')}}</span>
+                                                        <van-col span="12" align="right">
+                                                            <span class="left">{{$t('question:realInterestRate')}}</span>
                                                             <!-- <br> -->
-                                                            <span>{{ getRealInterestRate(item) }}</span>
+                                                            <span class="right">{{ getRealInterestRate(item) }}</span>
                                                         </van-col>
-                                                        <van-col span="12">
+                                                        <van-col span="12" align="left">
                                                             <!-- <br> -->
-                                                            <span>{{$t('question:denomination')}}</span>
+                                                            <span class="left">{{$t('question:denomination')}}</span>
                                                             <!-- <br> -->
-                                                            <span>{{ toFixed(item.denomination, 2)}} USDT</span>
+                                                            <span class="right">{{ toFixed(item.denomination, 2)}} USDT</span>
                                                         </van-col>
-                                                        <van-col span="12">
+                                                        <van-col span="12" align="right">
                                                             <!-- <br> -->
-                                                            <span>{{$t('question:buyPrice')}}</span>
+                                                            <span class="left">{{$t('question:buyPrice')}}</span>
                                                             <!-- <br> -->
-                                                            <span>{{ toFixed(item.price, 2)}} USDT</span>
+                                                            <span class="right">{{ toFixed(item.price, 2)}} USDT</span>
                                                         </van-col>
                                                     </van-row>
                                                 </div>
@@ -431,7 +431,7 @@ export default {
                     .van-cell {
                         // background-color: #05D2FA;
                         background-color: transparent;
-                        text-align: center;
+                        // text-align: center;
                         color: #fff;
                         .van-cell__value {
                             display: none;
@@ -475,6 +475,16 @@ export default {
                         .van-row {
                             line-height: 45px;
                         }
+                    }
+                    .left {
+                        font-size: 16px;
+                        // text-shadow: 1px 1px 0 #146092;
+                        color: #f8f5ea; 
+                    }
+                    .right {
+                        font-size: 14px;
+                        margin-left: 10px;
+                        color: #fff; 
                     }
                 }
                 .bottom-button {

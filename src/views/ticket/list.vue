@@ -31,24 +31,24 @@
                             <template #title>
                                 <div class="custom-title">
                                     <van-row>
-                                        <van-col span="12">
+                                        <van-col span="12" align=”left“>
                                             <span class="left">{{ $t('question:denomination') }}</span>
                                             <!-- <br> -->
                                             <span class="right">{{ toFixed(item.denomination, 2) }} USDT</span>
                                         </van-col>
-                                        <van-col span="12">
+                                        <van-col span="12" align="right">
                                             <span class="left">{{ $t('question:buyPrice') }}</span>
                                             <!-- <br> -->
                                             <span class="right">{{ toFixed(item.price, 2) }} USDT</span>
                                         </van-col>
                                     </van-row>
                                     <van-row>
-                                        <van-col span="12">
+                                        <van-col span="12" align=”left“>
                                             <span class="left">{{ $t('question:nominalInterestRate') }}</span>
                                             <!-- <br> -->
                                             <span class="right">{{ toFixed(item.annualized, 2) }} %</span>
                                         </van-col>
-                                        <van-col span="12">
+                                        <van-col span="12" align="right">
                                             <span class="left">{{ $t('question:realInterestRate') }}</span>
                                             <!-- <br> -->
                                             <span class="right">{{ getRealInterestRate(item) }}</span>
@@ -57,16 +57,16 @@
                                 </div>
 
                                 <!-- 折扣价 -->
-                                 <div v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
-                                    <van-divider style="width:80%;margin:0 auto;height:10px;" />
+                                 <div class="custom-discount-title" v-if="item.is_discount && (item.discount_status == 2 || item.discount_status == 1)">
+                                    <van-divider style="width:100%;margin:0 auto;height:10px;" />
                                     <!-- <br> -->
                                     <van-row style="padding-top:15px;">
-                                        <van-col span="12">
+                                        <van-col span="12" align=”left“>
                                             <span class="left">{{ $t('question:DiscountStartTime') }}</span>
                                             <br>
                                             <span class="right">{{ item.start_time }}</span>
                                         </van-col>
-                                        <van-col span="12">
+                                        <van-col span="12" align="right">
                                             <span class="left">{{ $t('question:DiscountEndTime') }}</span>
                                             <br>
                                             <span class="right">{{ item.end_time }}</span>
@@ -74,14 +74,14 @@
                                     </van-row>
                                     <br>
                                     <van-row style="padding-bottomo:15px;">
-                                        <van-col span="12">
+                                        <van-col span="12" align=”left“>
                                             <span class="left">{{ $t('question:DiscountPrice') }}</span>
-                                            <br>
+                                            <!-- <br> -->
                                             <span class="right">{{ toFixed(item.discount_price, 2) }} USDT</span>
                                         </van-col>
-                                        <van-col span="12">
+                                        <van-col span="12" align="right">
                                             <span class="left">{{ $t('question:Discount') }}</span>
-                                            <br>
+                                            <!-- <br> -->
                                             <span class="right">{{ toFixed(item.discount, 2) }} 折</span>
                                         </van-col>
                                     </van-row>
@@ -308,7 +308,7 @@ export default {
                     border: 2px solid #fff;
                     border-radius: 20px;
                     .van-cell {
-                        text-align: center;
+                        // text-align: center;
                         // background: linear-gradient(#00C3E9, #2D50D2);
                         background-color: transparent;
                         color: #fff;
@@ -324,14 +324,27 @@ export default {
                 .custom-title {
                     line-height: 60px;
                     .left {
-                        text-shadow: 1px 1px 0 #146092;
-                        color: #FFFDF5; 
+                        font-size: 16px;
+                        // text-shadow: 1px 1px 0 #146092;
+                        color: #f8f5ea; 
                     }
                     .right {
+                        font-size: 14px;
+                        margin-left: 10px;
+                        color: #fff; 
+                    } 
+                }
+                .custom-discount-title {
+                    .left {
+                        font-size: 16px;
+                        // text-shadow: 1px 1px 0 #146092;
+                        color: #f8f5ea; 
+                    }
+                    .right {
+                        font-size: 14px;
                         margin-left: 10px;
                         color: #fff; 
                     }
-                    
                 }
                 .top-title {
                     height: 63px;
