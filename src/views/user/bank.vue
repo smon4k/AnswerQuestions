@@ -10,7 +10,8 @@
             @click-left="onReturnLeft"
         />
         <div class="generalStatistics">
-            <img src="@/assets/answer/ranking.png" class="image">
+            <div class="image"></div>
+            <!-- <img src="@/assets/answer/ranking.png" class="image"> -->
             <div class="box">
                 <van-row>
                     <van-col span="8" align="center">
@@ -31,9 +32,9 @@
                 </van-row>
             </div>
         </div>
-        <van-tabs type="card" v-model="tabActiveOne">
+        <van-tabs type="card" v-model="tabActiveOne" class="tabs">
             <van-tab :title="$t('question:charging')">
-                <van-tabs v-model="tabActiveTwo">
+                <van-tabs v-model="tabActiveTwo" class="tab">
                     <van-tab :title="'USDT'">
                         <VanUsdt />
                     </van-tab>
@@ -240,11 +241,13 @@ export default {
             margin-top: 10px;
             font-size: 14px;
             .image {
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                 // padding: 0 3%;
                 position: relative;
-                width: 100%;
+                // width: 100%;
                 // height: 100%;
                 height: 80px;
+                border: 2px solid #fff;
                 border-radius: 20px;
             }
             .box {
@@ -270,26 +273,50 @@ export default {
                 }
             }
             .van-nav-bar__title {
-                color: #fff;;
+                color: #fff;
             }
         }
-        .van-tab {
-            color: #7f8285;
-        }
-        .van-tabs__nav--card {
-            border: 1px solid #05D2FA;
-            .van-tab--active {
-                color: #fff;
-                background-color: #05D2FA;
+        .tabs {
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 20px;
+            .tab {
+                width: 90%;
+                margin: 0 auto;
+                margin-top: 20px;
+                border-radius: 15px;
+                border: 2px solid #fff;
+                background: linear-gradient(#00C3E9, #2D50D2);
             }
             .van-tab {
-                border-right: 1px solid #05D2FA;
-            }
-        }
-        .van-tabs__nav {
-            background-color: transparent;
-            .van-tab--active {
                 color: #fff;
+            }
+            .van-tabs__nav--card {
+                border: 1px solid #8ED4FB;
+                border-radius: 15px;
+                .van-tab--active {
+                    color: #fff;
+                    background-color: #8ED4FB;
+                    // border: 2px solid #8ED4FB;
+                    border-radius: 15px;
+                }
+                .van-tab {
+                    color: #066CA3;
+                    font-weight: 800;
+                    // border-left: 1px solid #8ED4FB;
+                    border-right: 0;
+                }
+            }
+            .van-tabs__nav {
+                width: 90%;
+                margin: 0 auto;
+                background-color: transparent;
+                .van-tab--active {
+                    color: #fff;
+                }
+                .van-tabs__line {
+                    background-color: #F8DA37;
+                }
             }
         }
         div {

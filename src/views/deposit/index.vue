@@ -63,7 +63,7 @@
                         </div> -->
                         <el-col :span="24">
                             <!-- 请输入SCT数量 -->
-                            <el-input v-model="shareValue" :placeholder="$t('question:PleaseSCTQuantity')">
+                            <el-input v-model="shareValue" :placeholder="$t('question:PleaseSCTQuantity')" class="input">
                                 <el-select v-model="type" slot="prepend" :placeholder="$t('question:PleaseSelect')">
                                     <el-option :label="$t('question:deposit')" value="1"></el-option>
                                     <el-option :label="$t('question:redemption')" value="2"></el-option>
@@ -320,9 +320,10 @@ export default {
                 margin-top: 20px;
                 .box-card {
                     color: #fff;
-                    background-color: #05D2FA;
-                    border-radius: 24px;
-                    border-color: #05D2FA;
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+                    // background-color: #05D2FA;
+                    border: 2px solid #fff;
+                    border-radius: 20px;
                     .clearfix {
                         img {
                           vertical-align: middle;  
@@ -356,8 +357,18 @@ export default {
                         .content {
                             text-align: center;
                             margin: 0 auto;
+                            .input {
+                                // background-image: url("../../assets/answer/input-bg.png");
+                                // background-size: 100%;
+                                // background-repeat: no-repeat;
+                                // height: 50px;
+                                border-radius: 10px;
+                                background-color: #8ED4FB;
+                            }
                             .el-input__inner {
-                                height: 60px;
+                                background-color: transparent;
+                                height: 50px;
+                                color: #fff;
                                 // border-top-left-radius: 30px;
                                 // border-bottom-left-radius: 30px;
                             }
@@ -379,20 +390,31 @@ export default {
                                 font-weight: 600;
                                 height: 48px;
                                 width: 80%;
-                                border-radius: 30px;
-                                background-color: #8C1AF5;
-                                border-color: #8C1AF5;
+                                background: url("../../assets/answer/bank-submit.png") no-repeat center;
+                                background-size: contain;
+                                text-align: center;
+                                // border-radius: 30px;
+                                // background-color: #8C1AF5;
+                                border-color: transparent;
                             }
                             .el-input-group__prepend {
+                                background-color: transparent;
                                 width: 35px;
-                                // border-radius: 30px;
+                                border-radius: 10px;
                                 border-top-right-radius: 0;
                                 border-bottom-right-radius: 0;
                             }
                             .el-input-group__append {
-                                // border-radius: 30px;
+                                color: #fff;
+                                background-color: transparent;
+                                border-radius: 10px;
                                 border-top-left-radius: 0;
                                 border-bottom-left-radius: 0;
+                            }
+                            .el-select {
+                                .el-input .el-select__caret {
+                                    color: #fff;
+                                }
                             }
                         }
                         .balance {

@@ -34,7 +34,7 @@
             <van-tab title="USDT充提" to="/usdt"></van-tab>
             <van-tab title="SCT充提" to="/sct"></van-tab>
             <van-tab title="SST充提"> -->
-                <van-row class="container" style="margin-top:20px;">
+                <van-row class="container">
                     <van-col :span="24">
                         <van-tabs v-model="activeName" @click="handleClick" :stretch="true">
                             <!-- 存入 -->
@@ -73,6 +73,7 @@
                                                 onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
                                                 :rules="[{ validator: checkDepositAmount, message: '' }]"
                                                 label-width="50"
+                                                class="input-field"
                                             >
                                             <!-- <template #label>
                                                 <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
@@ -80,31 +81,31 @@
                                             </van-field>
                                             <van-row class="button-amount">
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(100)">100</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(200)">200</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(500)">500</van-button>
                                                 </van-col>
                                             </van-row>
                                             <van-row class="button-amount">
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(1000)">1000</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(2000)">2000</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(50000)">50000</van-button>
                                                 </van-col>
                                             </van-row>
                                             <div class="submit-name">
                                                 <!-- 批准 -->
-                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
+                                                <van-button class="button" type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
                                                 <!-- 存入 -->
-                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>{{ $t('question:deposit') }}</van-button>
+                                                <van-button class="button" type="primary" :loading="trading" :disabled="trading || isStatus || isWithdraw" @click="submitForm('depositForm')" v-else>{{ $t('question:deposit') }}</van-button>
                                                 <!-- <van-button @click="resetForm('depositForm')">Cancel</van-button> -->
                                             </div>
                                         </van-form>
@@ -147,6 +148,7 @@
                                                 onkeypress="return(/[\d]/.test(String.fromCharCode(event.keyCode)))" 
                                                 :rules="[{ validator: checkWithdrawalAmount, message: '' }]"
                                                 label-width="50"
+                                                class="input-field"
                                             >
                                                 <!-- <template #label>
                                                     <div @click="selectCurrencyClick()">{{ currencyName }} <van-icon name="arrow-down" /></div>
@@ -154,31 +156,31 @@
                                             </van-field>
                                             <van-row class="button-amount">
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(100)">100</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(100)">100</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(200)">200</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(200)">200</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(500)">500</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(500)">500</van-button>
                                                 </van-col>
                                             </van-row>
                                             <van-row class="button-amount">
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(1000)">1000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(1000)">1000</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(2000)">2000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(2000)">2000</van-button>
                                                 </van-col>
                                                 <van-col :span="8">
-                                                    <van-button type="primary" plain @click="buttonAmount(50000)">50000</van-button>
+                                                    <van-button class="amount-button" type="primary" plain @click="buttonAmount(50000)">50000</van-button>
                                                 </van-col>
                                             </van-row>
                                             <div class="submit-name">
                                                 <!-- 批准 -->
-                                                <van-button type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
+                                                <van-button class="button" type="primary" :loading="trading" :disabled="trading" @click="startApprove" v-if="!approve">{{ $t('question:approve') }}</van-button>
                                                 <!-- 提取 -->
-                                                <van-button type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>{{ $t('question:extract') }}</van-button>
+                                                <van-button class="button" type="primary" :loading="trading" :disabled="trading || isStatus || isGame || isWithdraw" @click="submitForm('withdrawForm')" v-else>{{ $t('question:extract') }}</van-button>
                                                 <!-- <van-button @click="resetForm('withdrawForm')">Cancel</van-button> -->
                                             </div>
                                         </van-form>
@@ -788,10 +790,10 @@ export default {
         .container {
             color: #fff;
             border-radius: 20px !important;
-            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+            // background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
             width: 80%;
             height: 50vh;
-            padding: 20px;
+            // padding: 20px;
             text-align: center;
             margin: 0 auto;
             // margin-top: 35px;
@@ -826,17 +828,32 @@ export default {
                 color: #fff;
                 // @include mainFont($color-mainFont-light);
             }
+            .input-field {
+                background-image: url("../../assets/answer/input-bg.png");
+                background-size: 100%;
+                background-repeat: no-repeat;
+                height: 50px;
+                line-height: 30px;
+                background-color: transparent;
+            }
+            .input-field::after {
+                border-bottom: 1px solid transparent;
+            }
             .van-field {
                 // background-color: #333257;
                 // color: #fff;
                 // border: 1px solid #333257;
                 // padding: 0 10px;
                 font-size: 16px;
-                border-radius: 20px;
+                // border-radius: 20px;
                 .van-field__label {
                     width: 50px;
                     margin-right: 0;
+                    color: #fff;
                     // text-align: right;
+                }
+                .van-field__control {
+                    color: #fff;
                 }
             }
             .van-input__inner {
@@ -871,6 +888,12 @@ export default {
             }
             .button-amount {
                 line-height: 50px;
+                .amount-button {
+                    background: url("../../assets/answer/amount-bg.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    color: #fff;
+                }
                 .van-button--primary.is-plain {
                     background: #8481e0;
                     color: #fff;
@@ -879,19 +902,32 @@ export default {
                     border-radius: 5px;
                 }
                 .van-button::after {
-                    background-color: #409EFF !important;
+                    height: 60px;
+                    background: url("../../assets/answer/amount-bg-xz.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
                 }
                 .van-button:focus,.van-button:hover {
-                    background-color: #8C1AF5 !important;
+                    height: 60px;
+                    background: url("../../assets/answer/amount-bg-xz.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
                     color: #fff;
                 }
             }
             .submit-name {
                 margin-top: 20px;
+                .button {
+                    background: url("../../assets/answer/bank-submit.png") no-repeat center;
+                    background-size: contain;
+                    text-align: center;
+                    color: #fff;
+                    font-weight: 800;
+                }
                 .van-button--primary {
                     width: 200px;
                     border-radius: 5px;
-                    background-color: #8C1AF5;
+                    // background-color: #8C1AF5;
                     border: 0;
                 }
                 .van-button--primary.is-disabled {

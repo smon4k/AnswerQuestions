@@ -180,7 +180,7 @@ export default {
                     width: 90%;
                     margin: 0 auto;
                     .el-descriptions__body {
-                        background-color: #05D2FA;
+                        background: linear-gradient(#00C3E9, #2D50D2);
                         padding: 20px;
                         border-radius: 20px;
                         color: #fff;

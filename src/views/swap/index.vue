@@ -721,9 +721,10 @@ export default {
     // border: 1px solid #0096ff;
     /deep/ {
       .el-card {
-        background-color: #05D2FA;
-        border-radius: 24px;
-        border-color: #05D2FA;
+        background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+        // background-color: #05D2FA;
+        border: 2px solid #fff;
+        border-radius: 20px;
       }
       .el-card__body {
         padding: 10px;
@@ -753,7 +754,8 @@ export default {
         margin-right: 23px;
         position: relative;
         overflow: hidden;
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
         height: 48px;
         border: none;
         border-radius: 19px;
@@ -791,7 +793,7 @@ export default {
     cursor: default;
     margin: 0 auto;
     // padding: 15px;
-    background-color: #05D2FA;
+    background-color: #8ED4FB;
     color: #fff;
     .item-bottom-box {
       padding: 15px;

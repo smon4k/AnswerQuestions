@@ -755,12 +755,12 @@ export default {
 @import '@/styles/color.scss';
 .container {
   .input-box {
-    background-color: #8C1AF5;
+    background-color: #8ED4FB;
     min-height: 60px;
     line-height: 30px;
     border-radius: 16px;
     margin-top: 6px;
-    padding: 16px;
+    padding: 10px;
     .input-input {
       /deep/ {
         .el-input__inner {
@@ -844,7 +844,7 @@ export default {
         max-width: 420px;
         min-height: 70vh;
         border-radius: 32px;
-        background-color: #AE8BF5;
+        background-color: #8ED4FB;
         // @include sideBarSwapInputBgc($claimCardSwapInput-light);
         margin: 0 auto;
         // margin-left: 45%;
@@ -854,7 +854,7 @@ export default {
         // float: left;
       }
       .el-table {
-        background-color: #AE8BF5;
+        background-color: #8ED4FB;
       }
       .el-table__row {
         background-color: #dbcafc;
@@ -871,7 +871,7 @@ export default {
       .el-table__body-wrapper {
         // border-radius: 15px;
         // background-color: #AE8BF5;
-        background-color: #AE8BF5;
+        background-color: #8ED4FB;
         // @include sideBarSwapInputBgc($claimCardSwapInput-light);
       }
       .el-table--enable-row-hover .el-table__body tr:hover>td {
