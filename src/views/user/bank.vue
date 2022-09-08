@@ -292,7 +292,7 @@ export default {
                 color: #fff;
             }
             .van-tabs__nav--card {
-                border: 1px solid #8ED4FB;
+                border: 2px solid #8ED4FB;
                 border-radius: 15px;
                 .van-tab--active {
                     color: #fff;
