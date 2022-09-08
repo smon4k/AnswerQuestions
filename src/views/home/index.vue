@@ -117,7 +117,7 @@ export default {
         usdt_balance: 0,
         sct_balance: 0,
         sst_balance: 0,
-        loadingShow: true,
+        loadingShow: false,
     };
   },
   computed: {
@@ -144,6 +144,7 @@ export default {
       immediate: true,
       async handler(val) {
         if(val.userId > 0) {
+            this.loadingShow = true;
             // this.getCommentList(true);
             this.getUserInfo();
         }
