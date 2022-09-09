@@ -109,7 +109,7 @@ const webpackConfig = merge(baseWebpackConfig, {
         ignore: ['.*']
       }
     ]),
-    // new BundleAnalyzerPlugin(), //调试打包后的文件大小
+    new BundleAnalyzerPlugin(), //调试打包后的文件大小
   ]
 })
 

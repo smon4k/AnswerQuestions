@@ -32,24 +32,6 @@
                     </van-cell>
                 </div>
                 <div class="item-index">
-                    <van-cell is-link :title="$t('question:username')" @click="setUpInfo()">
-                        <div>{{username ? username : 'Unnamed'}}</div>
-                    </van-cell>
-                </div>
-                <!-- <div class="item-index">
-                    <van-cell is-link :title="$t('question:accountBinding')" @click="setUpInfo()"></van-cell>
-                </div> -->
-                <!-- <div class="item-index">
-                    <van-cell is-link :title="'USDT' + $t('question:Balance')" @click="getUsdtDepositWithdraw()">
-                        <div>{{ toFixed(usdt_balance, 4) }} USDT</div>
-                    </van-cell>
-                </div>
-                <div class="item-index">
-                    <van-cell is-link :title="'SCT' + $t('question:Balance')" @click="getSCTDepositWithdraw()">
-                        <div>{{ toFixed(sct_balance, 4) }} SCT</div>
-                    </van-cell>
-                </div> -->
-                <div class="item-index">
                     <van-cell is-link :title="$t('question:nickname')" @click="isNameShow = true">
                         <div>{{nickname ? nickname : $t('question:enterName')}}</div>
                     </van-cell>
@@ -67,6 +49,24 @@
                         <span class="hint">{{ $t('question:editNamePlease') }}</span>
                     </van-action-sheet>
                 </div>
+                <div class="item-index">
+                    <van-cell is-link :title="$t('question:username')" @click="setUpInfo()">
+                        <div>{{username ? username : 'Unnamed'}}</div>
+                    </van-cell>
+                </div>
+                <!-- <div class="item-index">
+                    <van-cell is-link :title="$t('question:accountBinding')" @click="setUpInfo()"></van-cell>
+                </div> -->
+                <!-- <div class="item-index">
+                    <van-cell is-link :title="'USDT' + $t('question:Balance')" @click="getUsdtDepositWithdraw()">
+                        <div>{{ toFixed(usdt_balance, 4) }} USDT</div>
+                    </van-cell>
+                </div>
+                <div class="item-index">
+                    <van-cell is-link :title="'SCT' + $t('question:Balance')" @click="getSCTDepositWithdraw()">
+                        <div>{{ toFixed(sct_balance, 4) }} SCT</div>
+                    </van-cell>
+                </div> -->
                 <div class="item-index">
                     <van-cell is-link :title="$t('question:language')" @click="isLanguageShow = true">
                         <div v-if="language === 'zh'">中文</div>
