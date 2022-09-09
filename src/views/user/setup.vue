@@ -46,7 +46,7 @@
                         <van-nav-bar
                             :title="$t('question:setPassword')"
                             :left-text="$t('question:Cancel')"
-                            right-text="$t('question:Save')"
+                            :right-text="$t('question:Save')"
                             @click-left="isPasswordShow = false"
                             @click-right="onClickSaveUserInfo('password', password)"
                         />
@@ -365,7 +365,8 @@ export default {
                 width: 90%;
                 height: 80vh;
                 margin: 0 auto;
-                background-color: #05D2FA;
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+                // background-color: #05D2FA;
                 margin-top: 30px;
                 border-radius: 20px;
                 .content {
@@ -395,11 +396,11 @@ export default {
                             height: 50px;
                             line-height: 30px;
                             vertical-align: middle;
-                            background-color: #05D2FA;
+                            background-color: transparent;
                             color: #fff;
                         }
                         .van-popup {
-                            background-color: #05D2FA;
+                            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                             .van-nav-bar__text {
                                 color: #fff;
                             }

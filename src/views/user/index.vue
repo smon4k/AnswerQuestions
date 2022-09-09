@@ -340,7 +340,7 @@ export default {
                 height: 100%;
                 z-index: -10;
                 position: fixed;
-                filter: blur(2px);
+                // filter: blur(2px);
             }
             .van-nav-bar {
                 background-color: transparent;
@@ -358,10 +358,11 @@ export default {
                 width: 90%;
                 height: 80vh;
                 margin: 0 auto;
-                background-color: #05D2FA;
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                 // background-color: #fff;
                 margin-top: 30px;
                 border-radius: 30px;
+                border: 2px solid #fff;
                 .content {
                     padding: 16px 16px 160px;
                 }
@@ -402,12 +403,12 @@ export default {
                         .van-uploader__upload {
                             width: 100px;
                             height: 100px;
-                            // border-radius: 100%;
+                            border-radius: 50%;
                         }
                         .van-uploader__preview-image {
                             width: 100px;
                             height: 100px;
-                            // border-radius: 100%;
+                            border-radius: 50%;
                         }
                         .van-uploader__input-wrapper {
                             position: unset;
@@ -434,9 +435,9 @@ export default {
                 }
                 .item {
                     .item-index {
-                        border-bottom: 1px solid #A79BA9;
+                        border-bottom: 1px solid #fff;
                         .van-cell {
-                            background-color: #05D2FA;
+                            background-color: transparent;
                             color: #fff;
                             .van-cell__value {
                                 color: #fff;;
@@ -448,7 +449,7 @@ export default {
                             vertical-align: middle;
                         }
                         .van-popup {
-                            background-color: #05D2FA;
+                            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                             .van-nav-bar__text {
                                 color: #fff;
                             }
