@@ -1,9 +1,14 @@
 <template>
 <div class="container">
     <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
+    <van-nav-bar
+        :title="$t('question:UsernameRegistration')"
+        left-text=""
+        right-text=""
+    />
     <div class="regist">
-        <div class="bg-radius"></div>
-        <div class="title">{{ $t('question:UsernameRegistration') }}</div>
+        <!-- <div class="bg-radius"></div>
+        <div class="title">{{ $t('question:UsernameRegistration') }}</div> -->
         <!-- <div class="subtitle">未注册的手机号验证后将自动注册</div> -->
         <van-form @submit="onSubmit" class="form">
             <div class="box">
@@ -37,9 +42,9 @@
                         class="phone"
                         v-model="username"
                         :name="$t('question:username')"
-                        :placeholder="$t('question:UsernameRegistration-01')"
+                        :placeholder="$t('question:pleaseEnterUsername')"
                         clearable
-                        :rules="[{ validator: usernameValidator, message: $t('question:PleaseEnterCorrectUsername') }]"
+                        :rules="[{ validator: usernameValidator, message: $t('question:UsernameRegistration-01') }]"
                     />
                 </div>
                 <div class="hint">{{ $t('question:UsernameRegistration-02') }}</div>
@@ -56,7 +61,7 @@
                     :rules="[{ validator: passwordValidator, message: $t('question:PleaseEnterCorrectPassword') }]"
                 />
                 </div>
-                <div class="hint">{{ $t('question:PasswordRegistration') }}</div>
+                <div class="hint">{{ $t('question:PasswordRegistration-01') }}</div>
                 <div class="li">
                     <van-field
                     class="code"
@@ -346,11 +351,11 @@ export default {
         }
         .regist{
             // text-align: left;
-            margin-top: 20px;
+            margin-top: 50px;
             // margin: 0 auto;
             .form {
                 width: 90%;
-                background-color: #05D2FA;
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                 margin: 0 auto;
                 border-radius: 20px;
                 .box {
@@ -442,7 +447,7 @@ export default {
                 pointer-events: none;
             }
             .loginButton.disableds{
-                background: #5394FF;
+                background: #00C3E9;
                 pointer-events: auto;
             }
             .tips{
@@ -456,8 +461,18 @@ export default {
                 }
             }
             .regist-button {
-                background-color: #8C1AF5;
+                width: 50%;
+                margin: 0 auto;
+                text-align: center;
+                background: url("../../assets/answer/view-rewards.png") no-repeat center;
+                // background-size: contain;
                 border: 0;
+            }
+            .link {
+                a {
+                    font-size: 13px;
+                    color: #fff;
+                }
             }
         }
     }

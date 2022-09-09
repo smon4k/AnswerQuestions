@@ -141,7 +141,7 @@ export default {
         immediate: true,
         handler(val) {
             if(this.isFirstEnter) { //第一次刷新页面获取一次
-                this.paramsUrlAddress();
+                // this.paramsUrlAddress();
             }
             if(val && val.length > 0) {
                 this.isFirstEnter = false;

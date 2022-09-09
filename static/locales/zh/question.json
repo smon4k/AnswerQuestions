@@ -77,6 +77,7 @@
     "buyNow": "立即购买",
     "redeemNow": "立即赎回",
     "logInRegister": "登录/注册",
+    "register": "注册",
     "username": "用户名",
     "accountBinding": "用户名绑定",
     "answerResult-01": "您答对了{{num}}题",

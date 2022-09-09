@@ -1,12 +1,17 @@
 <template>
   <div class="container">
     <div class="bg"  :style="{backgroundSize:isMobel ? '100% 100%' : ''}"></div>
+    <van-nav-bar
+        :title="$t('question:UsernameLogin')"
+        left-text=""
+        right-text=""
+    />
     <div class="regist">
       <!-- <div class="form-title">
           <img src="@/assets/sign-pic.png" alt="" class="logo">
       </div> -->
-      <div class="bg-radius"></div>
-      <div class="title">{{ $t('question:UsernameLogin') }}</div>
+      <!-- <div class="bg-radius"></div> -->
+      <!-- <div class="title">{{ $t('question:UsernameLogin') }}</div> -->
       <!-- <van-tabs class="tab-class" v-model="active" @click="tabsEvents">
         <van-tab title="账号登录"> -->
           <div class="form">
@@ -37,15 +42,7 @@
                 </div>
               </div>
             </van-form>
-            <van-button
-              type="default"
-              :class="[
-                'loginButton',
-                { disableds: username != '' && password != '' },
-              ]"
-              @click="loginEvent()"
-              >{{ $t('question:login') }}</van-button
-            >
+            <van-button type="default" :class="['loginButton', { disableds: username != '' && password != '' }]" @click="loginEvent()">{{ $t('question:Login') }}</van-button>
             <van-row class="link">
               <van-col span="20" align="right"><router-link to="/regist">{{ $t('question:NewUserRegistration') }}</router-link></van-col>
             </van-row>
@@ -67,15 +64,13 @@
             <img src="../assets/qq.png" alt="" srcset="">
             <img src="../assets/wechat.png" alt="" srcset="">
         </div> -->
-        <div class="tips">
-          {{ $t('question:SignInToAgree') }}<span @click="agreement"> {{ $t('question:UserAgreement') }} </span>{{ $t('question:and') }}<span
-            @click="privacy"
-          >
-            {{ $t('question:PrivacyPolicy') }}
-          </span>
-        </div>
-
+          <div class="tips">
+            {{ $t('question:SignInToAgree') }}
+            <span @click="agreement">{{ $t('question:UserAgreement') }} </span>
+            {{ $t('question:and') }}
+            <span @click="privacy">{{ $t('question:PrivacyPolicy') }}</span>
           </div>
+        </div>
     </div>
   </div>
 </template>
@@ -268,7 +263,8 @@ export default {
             height: 100%;
             z-index: -10;
             position: fixed;
-            filter: blur(2px);
+            overflow-x: hidden;
+            // filter: blur(2px);
         }
         .van-nav-bar {
             background-color: transparent;
@@ -283,9 +279,10 @@ export default {
             }
         }
       .regist {
+        margin-top: 50px;
         .form {
             width: 90%;
-            background-color: #05D2FA;
+            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
             margin: 0 auto;
             border-radius: 20px;
             padding-bottom: 20px;
@@ -390,16 +387,16 @@ export default {
         .loginButton {
           margin: 30px auto;
           display: block;
-          width: 70%;
+          width: 50%;
           height: 40px;
           border-radius: 25px;
-          background: #c0c0c0;
+          background: url("../../assets/answer/view-rewards.png") no-repeat center;
           color: #fff;
           text-align: center;
           pointer-events: none;
         }
         .loginButton.disableds {
-          background: #8C1AF5;
+          background: url("../../assets/answer/view-rewards.png") no-repeat center;
           border: 0;
           pointer-events: auto;
         }
@@ -410,17 +407,17 @@ export default {
           // bottom: 30px;
           margin-top: 30px;
           text-align: center;
-          width: 100%;
-          max-width: 500px;
+          width: 90%;
+          // max-width: 500px;
           color: #fff;
           span {
-            color: #5394ff;
+            color: #2D50D2;
           }
         }
         .link {
           a {
             font-size: 13px;
-            // color: #fff;
+            color: #fff;
           }
         }
       }

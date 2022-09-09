@@ -88,8 +88,8 @@ export const swapExactTokensForTokens = function (input, output, TK1_CONTRACT_AD
   const amountOutMin = web3.utils.toWei(minimumReceivedValue.toString(), "ether");
   const path = [TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR];
   // console.log(publicAddress);
-  let encodedABI = contract.methods.swapExactTokensForTokens(amountIn, amountOutMin, path, address, now).encodeABI();
-  // let encodedABI = contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(amountIn, amountOutMin, path, address, now).encodeABI();
+  // let encodedABI = contract.methods.swapExactTokensForTokens(amountIn, amountOutMin, path, address, now).encodeABI();
+  let encodedABI = contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(amountIn, amountOutMin, path, address, now).encodeABI();
   let timestamp = new Date().getTime().toString()
   __ownInstance__.$store.dispatch('createOrderForm' , {val:0 ,id:timestamp })
   return new Promise((resolve, reject) => {
@@ -158,7 +158,8 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
   const amountOutMin = web3.utils.toWei(minimumReceivedValue.toString(), "ether");
   const path = [TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR];
   // console.log(publicAddress);
-  let encodedABI = contract.methods.swapExactETHForTokens(amountOutMin, path, address, now).encodeABI();
+  // let encodedABI = contract.methods.swapExactETHForTokens(amountOutMin, path, address, now).encodeABI();
+  let encodedABI = contract.methods.swapExactTokensForTokensSupportingFeeOnTransferTokens(amountOutMin, path, address, now).encodeABI();
   let timestamp = new Date().getTime().toString()
   __ownInstance__.$store.dispatch('createOrderForm' , {val:0 ,id:timestamp })
   return new Promise((resolve, reject) => {
@@ -229,13 +230,15 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
   const now =  Math.round(Date.now()/1000) + 1800;
   const amountIn = web3.utils.toWei(input.toString(), "ether");
   const amountOut = web3.utils.toWei(output.toString(), "ether");
+  // const amountIn = web3.utils.toWei('1000', "ether");
+  // const amountOut = web3.utils.toWei('1', "ether");
   // let amountInMin = keepDecimalNotRounding(input * (1 - publicAddress.SLIPOINT), 18);
   // let amountOutMin = keepDecimalNotRounding(output * (1 - publicAddress.SLIPOINT), 18);
   const amountTokenMin = 0;
   const amountETHMin = 0;
   let args = [];
   let value = '';
-  // console.log(isContainETH);
+  // console.log(amountIn, amountOut);
   if(isContainETH) { //如果是ETH参与的话
     if(TK1_CONTRACT_ADDR == publicAddress.BNB_ADDR) {
       args = [

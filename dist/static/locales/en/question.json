@@ -76,6 +76,7 @@
     "buyNow": "Buy Now",
     "redeemNow": "Redeem Now",
     "logInRegister": "log In Register",
+    "register": "Register",
     "username": "username",
     "accountBinding": "account binding",
     "answerResult-01": "You got {{num}} questions right",

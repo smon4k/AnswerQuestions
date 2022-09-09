@@ -112,7 +112,8 @@ import {
   DescriptionsItem as ElDescriptionsItem,
   Empty as ElEmpty,
   Select as ElSelect,
-  Option as ElOption
+  Option as ElOption,
+  // Notification as ElNotification
 } from 'element-ui';
 Vue.use(ElIcon);
 Vue.use(ElRow);
@@ -137,6 +138,7 @@ Vue.use(ElDescriptionsItem);
 Vue.use(ElEmpty);
 Vue.use(ElSelect);
 Vue.use(ElOption);
+// Vue.use(ElNotification);
 Vue.prototype.$message = Message;
 // import 'vant/lib/index.css';
 
@@ -144,6 +146,7 @@ Vue.prototype.$message = Message;
 
 import axios from 'axios'
 Vue.prototype.axios = axios
+// Vue.prototype.$notify = ElNotification
 import axiosfn from './common/axios.js'; // 对ajax配置
 global.axios = axiosfn(axios, router); // 把axios放到全局
 

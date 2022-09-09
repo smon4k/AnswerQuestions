@@ -12,7 +12,7 @@
         <!-- <van-progress :width="70" color="#D7B078"  type="circle" :percentage="timerPercentage" :format="timerFormat"></van-progress> -->
         <van-circle
           style="width:70px"
-          color="#D7B078"
+          color="#F8DA37"
           stroke-linecap="butt"
           v-model="timerPercentage"
           :rate="100"
@@ -509,7 +509,7 @@ export default {
                       }
                     }
                     .active {
-                      background-color: #409EFF;
+                      background-color: #F8DA37;
                       color: #fff;
                     }
                   }

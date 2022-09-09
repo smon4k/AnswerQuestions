@@ -154,7 +154,7 @@ export async function getSwapPoolsTokensData(pool, publicAddress){
   let totalSupply = 0;
   let tokenBalanceUsd = 0;
   const Gwei1 = 1000000000;
-  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.CONTRACT_ADDRESS_V2);
+  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.CONTRACT_ADDRESS);
   if(pool.tokenAddress.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase()) { //如果是BNB的话 不需要批准
     allowance = 1;
     tokenBalance = await getBalance("0x0000000000000000000000000000000000000000", pool.tokenDecimals);
@@ -164,12 +164,12 @@ export async function getSwapPoolsTokensData(pool, publicAddress){
   }
   // const guruBalance = await getBalance('0xF1932eC9784B695520258F968b9575724af6eFa8', 18);
   // console.log(guruBalance);
-  reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
-  totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
-  const tokenBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerContractAddress, pool.tk0Address, pool.tk1Address);
-  if(tokenBalanceUsdRes > 0) {
-    tokenBalanceUsd = tokenBalanceUsdRes;
-  }
+  // reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
+  // totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
+  // const tokenBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk0Address, pool.tk1Address);
+  // if(tokenBalanceUsdRes > 0) {
+  //   tokenBalanceUsd = tokenBalanceUsdRes;
+  // }
   // console.log(tokenBalanceUsd);
   let reObj = {
     allowance: allowance,
@@ -254,18 +254,18 @@ export async function getLiquidityPoolsTokensData(pool, publicAddress){
   let tokenTwoBalanceUsd = 0;
   let nonce = 0;
   const Gwei1 = 1000000000;
-  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.routerContractAddress);
+  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.CONTRACT_ADDRESS);
   allowance = web3.utils.fromWei(allowanceRes, 'ether');
   tokenBalance = await getBalance(pool.tokenAddress, pool.tokenDecimals);
   // const guruBalance = await getBalance('0xF1932eC9784B695520258F968b9575724af6eFa8', 18);
   // console.log(guruBalance);
   reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
   totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
-  const tokenOneBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerContractAddress, pool.tk0Address, pool.tk1Address);
+  const tokenOneBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk0Address, pool.tk1Address);
   if(tokenOneBalanceUsdRes > 0) {
     tokenOneBalanceUsd = tokenOneBalanceUsdRes;
   }
-  const tokenTwoBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerContractAddress, pool.tk1Address, pool.tk0Address);
+  const tokenTwoBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk1Address, pool.tk0Address);
   if(tokenTwoBalanceUsdRes > 0) {
     tokenTwoBalanceUsd = tokenTwoBalanceUsdRes;
   }

@@ -48,10 +48,9 @@ export default {
                 console.log(val);
                 if(val){
                     this.$notify({
-                        type: 'primary',
-                        dangerouslyUseHTMLString:true,  
                         title: 'Trading...',
                         message: `${val} Processing`,
+                        type: 'primary',
                         duration: 6000
                     });
                 }
@@ -62,9 +61,10 @@ export default {
                 console.log(val);
                 if(val){
                     this.$notify({
-                        title: 'Success!',
-                        dangerouslyUseHTMLString:true,  
-                        message: `<a href="${this.domainHostAddress + '' + val}" target="_blank">View on Explorer</a>`,
+                        // title: 'Success!',
+                        // dangerouslyUseHTMLString:true,  
+                        // message: `<a href="${this.domainHostAddress + '' + val}" target="_blank">View on Explorer</a>`,
+                        message: 'Success',
                         type: 'success',
                         duration: 6000
                     });
@@ -78,7 +78,8 @@ export default {
                     this.$notify({
                         title: 'Failed!',
                         dangerouslyUseHTMLString:true,  
-                        message: this.errMessage || `<a href="${this.domainHostAddress + '' + val}" target="_blank">View on Explorer</a>`,
+                        // message: this.errMessage || `<a href="${this.domainHostAddress + '' + val}" target="_blank">View on Explorer</a>`,
+                        message: 'Error',
                         type: 'warning',
                         duration: 6000
                     });
