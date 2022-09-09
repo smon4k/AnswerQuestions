@@ -16,7 +16,7 @@ export const clickApprove = function (tokenAddress){
   const contractAddress = tokenAddress;
   const contract = new web3.eth.Contract(erc20ABI, contractAddress);
   const value = "10000000000000000000000000000000000000000000000000000000";
-  let encodedABI = contract.methods.approve(publicAddress.CONTRACT_ADDRESS_V2, value).encodeABI();
+  let encodedABI = contract.methods.approve(publicAddress.CONTRACT_ADDRESS, value).encodeABI();
 
   let timestamp = new Date().getTime().toString()
   __ownInstance__.$store.dispatch('createOrderForm' , {val:0 ,id:timestamp })
@@ -77,7 +77,7 @@ export const clickApprove = function (tokenAddress){
 export const swapExactTokensForTokens = function (input, output, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, minimumReceived=0){
   const address = __ownInstance__.$store.state.base.address;
   // const contractAddress = publicAddress.CONTRACT_ADDRESS;
-  const contractAddress = publicAddress.CONTRACT_ADDRESS_V2;
+  const contractAddress = publicAddress.CONTRACT_ADDRESS;
   // const contract = new web3.eth.Contract(swapABI, contractAddress);
   const contract = new web3.eth.Contract(swapRouterABI, contractAddress);
   const now =  Math.round(Date.now()/1000) + 1800;
