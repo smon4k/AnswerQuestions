@@ -32,26 +32,34 @@
                                 <div class="custom-title">
                                     <van-row>
                                         <van-col span="12" align=”left“>
-                                            <span class="left">{{ $t('question:denomination') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ toFixed(item.denomination, 2) }} USDT</span>
+                                            <van-row>
+                                                <van-col align="right" span="10" class="left">{{ $t('question:denomination') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.denomination, 2) }} USDT</van-col>
+                                            </van-row>
                                         </van-col>
-                                        <van-col span="12" align="right">
-                                            <span class="left">{{ $t('question:buyPrice') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ toFixed(item.price, 2) }} USDT</span>
+                                        <van-col span="12" align=”left“>
+                                            <van-row>
+                                                <van-col align="right" span="10" class="left">{{ $t('question:nominalInterestRate') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.annualized, 2) }} %</van-col>
+                                            </van-row>
                                         </van-col>
                                     </van-row>
                                     <van-row>
-                                        <van-col span="12" align=”left“>
-                                            <span class="left">{{ $t('question:nominalInterestRate') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ toFixed(item.annualized, 2) }} %</span>
-                                        </van-col>
                                         <van-col span="12" align="right">
-                                            <span class="left">{{ $t('question:realInterestRate') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ getRealInterestRate(item) }}</span>
+                                            <van-row>
+                                                <van-col align="right" span="10" class="left">{{ $t('question:buyPrice') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.price, 2) }} USDT</van-col>
+                                            </van-row>
+                                        </van-col>
+                                        <van-col span="12" align="left">
+                                            <van-row>
+                                                <van-col align="right" span="10" class="left">{{ $t('question:realInterestRate') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ getRealInterestRate(item) }}</van-col>
+                                            </van-row>
                                         </van-col>
                                     </van-row>
                                 </div>
@@ -61,35 +69,43 @@
                                     <van-divider style="width:100%;margin:0 auto;height:10px;" />
                                     <!-- <br> -->
                                     <van-row style="padding-top:15px;">
-                                        <van-col span="12" align=”left“>
-                                            <span class="left">{{ $t('question:DiscountStartTime') }}</span>
-                                            <br>
-                                            <span class="right">{{ item.start_time }}</span>
+                                        <van-col span="12" align="center">
+                                            <van-row>
+                                                <van-col align="center" class="left">{{ $t('question:DiscountStartTime') }}</van-col>
+                                                <br>
+                                                <van-col align="center" class="right">{{ item.start_time }}</van-col>
+                                            </van-row>
                                         </van-col>
-                                        <van-col span="12" align="right">
-                                            <span class="left">{{ $t('question:DiscountEndTime') }}</span>
-                                            <br>
-                                            <span class="right">{{ item.end_time }}</span>
+                                        <van-col span="12" align="center">
+                                            <van-row>
+                                                <van-col align="right" class="left">{{ $t('question:DiscountEndTime') }}</van-col>
+                                                <br>
+                                                <van-col align="right" class="right">{{ item.end_time }}</van-col>
+                                            </van-row>
                                         </van-col>
                                     </van-row>
                                     <br>
                                     <van-row style="padding-bottomo:15px;">
-                                        <van-col span="12" align=”left“>
-                                            <span class="left">{{ $t('question:DiscountPrice') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ toFixed(item.discount_price, 2) }} USDT</span>
+                                        <van-col span="12" align="left">
+                                            <van-row>
+                                                <van-col span="10" align="right" class="left">{{ $t('question:DiscountPrice') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col span="14" align="left" class="right">&nbsp;&nbsp;{{ toFixed(item.discount_price, 2) }} USDT</van-col>
+                                            </van-row>
                                         </van-col>
-                                        <van-col span="12" align="right">
-                                            <span class="left">{{ $t('question:Discount') }}</span>
-                                            <!-- <br> -->
-                                            <span class="right">{{ toFixed(item.discount, 2) }} 折</span>
+                                        <van-col span="12" align="left">
+                                            <van-row>
+                                                <van-col span="10" align="right" class="left">{{ $t('question:Discount') }}</van-col>
+                                                <!-- <br> -->
+                                                <van-col span="14" align="left" class="right">&nbsp;&nbsp;{{ toFixed(item.discount, 2) }} 折</van-col>
+                                            </van-row>
                                         </van-col>
                                     </van-row>
                                  </div>
                                 <!-- <div class="custom-title">{{$t('question:rewardCap')}}：{{ toFixed(item.capped, 2)}} SCT</div> -->
                             </template>
                         </van-cell>
-                        <van-cell>
+                        <van-cell align="right">
                             <template #title>
                                 <div>
                                     <van-button class="buy-button" type="primary" @click="startBuy(item)">{{$t('question:buy')}}</van-button>
@@ -324,14 +340,16 @@ export default {
                 .custom-title {
                     line-height: 60px;
                     .left {
-                        font-size: 16px;
+                        font-size: 15px;
                         // text-shadow: 1px 1px 0 #146092;
                         color: #f8f5ea; 
+                        // border: 1px solid red;
                     }
                     .right {
                         font-size: 14px;
-                        // margin-left: 10px;
+                        // margin-left: 1px;
                         color: #fff; 
+                        // border: 1px solid red;
                     } 
                 }
                 .custom-discount-title {
@@ -339,11 +357,13 @@ export default {
                         font-size: 16px;
                         // text-shadow: 1px 1px 0 #146092;
                         color: #f8f5ea; 
+                        // border: 1px solid red;
                     }
                     .right {
                         font-size: 14px;
                         // margin-left: 10px;
                         color: #fff; 
+                        // border: 1px solid red;
                     }
                 }
                 .top-title {

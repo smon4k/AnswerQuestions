@@ -73,27 +73,35 @@
                                                 <div>
                                                     <van-row class="item">
                                                         <van-col span="12" align="left">
-                                                            <span class="left">{{$t('question:nominalInterestRate')}}</span> 
-                                                            <!-- <br> -->
-                                                            <span class="right">{{ toFixed(item.annualized, 2) }}%</span>
+                                                            <van-row>
+                                                                <!-- <br> -->
+                                                                <van-col align="right" span="10" class="left">{{$t('question:denomination')}}</van-col>
+                                                                <!-- <br> -->
+                                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.denomination, 2)}} USDT</van-col>
+                                                            </van-row>
+                                                        </van-col>
+                                                        <van-col span="12" align="left">
+                                                            <van-row>
+                                                                <van-col align="right" span="10" class="left">{{$t('question:nominalInterestRate')}}</van-col> 
+                                                                <!-- <br> -->
+                                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.annualized, 2) }}%</van-col>
+                                                            </van-row>
                                                         </van-col>
                                                         <!-- <van-col span="8">{{$t('question:rewardCap')}}</van-col> -->
                                                         <van-col span="12" align="right">
-                                                            <span class="left">{{$t('question:realInterestRate')}}</span>
-                                                            <!-- <br> -->
-                                                            <span class="right">{{ getRealInterestRate(item) }}</span>
-                                                        </van-col>
-                                                        <van-col span="12" align="left">
-                                                            <!-- <br> -->
-                                                            <span class="left">{{$t('question:denomination')}}</span>
-                                                            <!-- <br> -->
-                                                            <span class="right">{{ toFixed(item.denomination, 2)}} USDT</span>
+                                                            <van-row>
+                                                                <!-- <br> -->
+                                                                <van-col align="right" span="10" class="left">{{$t('question:buyPrice')}}</van-col>
+                                                                <!-- <br> -->
+                                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ toFixed(item.price, 2)}} USDT</van-col>
+                                                            </van-row>
                                                         </van-col>
                                                         <van-col span="12" align="right">
-                                                            <!-- <br> -->
-                                                            <span class="left">{{$t('question:buyPrice')}}</span>
-                                                            <!-- <br> -->
-                                                            <span class="right">{{ toFixed(item.price, 2)}} USDT</span>
+                                                            <van-row>
+                                                                <van-col align="right" span="10" class="left">{{$t('question:realInterestRate')}}</van-col>
+                                                                <!-- <br> -->
+                                                                <van-col align="left" span="14" class="right">&nbsp;&nbsp;{{ getRealInterestRate(item) }}</van-col>
+                                                            </van-row>
                                                         </van-col>
                                                     </van-row>
                                                 </div>
