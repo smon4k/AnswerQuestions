@@ -42,6 +42,7 @@
                 :childExchangeArray="exchangeArray"
                 :swapPools="swapPools"
                 :key="timeRefusr"
+                :pageState="1"
             />
             <div class="priceName" v-show="exchangeArray.OUTPUT >= 0 && exchangeArray.INPUT >= 0">
                 <el-row class="priceNameContent">
@@ -141,7 +142,7 @@ export default {
         immediate: true,
         handler(val) {
             if(this.isFirstEnter) { //第一次刷新页面获取一次
-                // this.paramsUrlAddress();
+                this.paramsUrlAddress();
             }
             if(val && val.length > 0) {
                 this.isFirstEnter = false;
@@ -511,7 +512,8 @@ export default {
         margin: 0 auto;
         border: 1px solid #0096ff;
         .el-card {
-            background-color: #05D2FA;
+            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+            // background-color: #05D2FA;
             border-radius: 24px;
             border-color: #05D2FA;
         }

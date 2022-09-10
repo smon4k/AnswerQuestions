@@ -211,7 +211,7 @@
 import axios from 'axios'
 import { mapState } from "vuex";
 import { approve, gamesBuyTokenTogToken, gamesGTokenToBuyToken } from "@/wallet/trade";
-import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus} from "@/wallet/serve";
+import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus, getFillingIncreasingId} from "@/wallet/serve";
 import { keepDecimalNotRounding } from "@/utils/tools";
 import Address from '@/wallet/address.json'
 export default {
@@ -430,24 +430,30 @@ export default {
                 hash: '',
                 currency: 'usdt'
             };
-            contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
-                if(hash) {
-                    if(this.activeName == 1) {//充值的话 二次检测是否充值成功
-                        // await this.setDepositWithdraw(amount, hash);
-                        saveNotifyStatus(0, true, 'usdt');
-                        await this.getGameFillingBalanceFun(this.activeName, hash);
-                    } else { //提取的话 不二次检测是否充值成功 异步机器人扣除 这里直接写入数据库记录
-                        // await this.setDepositWithdraw(amount, hash);
-                        // this.trading = false;
-                        saveNotifyStatus(0, false, 'usdt'); //提取的话 这里不通知GS获取余额
-                        this.resetForm('depositForm');
-                        this.resetForm('withdrawForm');
+            const orderId = await getFillingIncreasingId();
+            if(orderId) {
+                contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
+                    if(hash) {
+                        if(this.activeName == 1) {//充值的话 二次检测是否充值成功
+                            // await this.setDepositWithdraw(amount, hash);
+                            saveNotifyStatus(0, true, 'usdt');
+                            await this.getGameFillingBalanceFun(this.activeName, hash);
+                        } else { //提取的话 不二次检测是否充值成功 异步机器人扣除 这里直接写入数据库记录
+                            // await this.setDepositWithdraw(amount, hash);
+                            // this.trading = false;
+                            saveNotifyStatus(0, false, 'usdt'); //提取的话 这里不通知GS获取余额
+                            this.resetForm('depositForm');
+                            this.resetForm('withdrawForm');
+                        }
                     }
-                }
-            }).finally(() => {
-                // saveNotifyStatus(0);
-                this.trading = false;
-            });
+                }).finally(() => {
+                    // saveNotifyStatus(0);
+                    this.trading = false;
+                });
+            } else {
+                console.log('获取订单自增ID失败');
+                return false;
+            }
           } else {
             console.log('error submit!!');
             return false;

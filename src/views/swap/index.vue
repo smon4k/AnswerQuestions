@@ -276,7 +276,7 @@ export default {
       immediate: true,
       handler(val) {
         console.log(val);
-        if (val && !this.swapPools.length) {
+        if (!val || !this.swapPools.length) {
           setTimeout(() => {
             this.$store.dispatch("swapPoolsTokenList");
 
@@ -293,10 +293,11 @@ export default {
     swapPools: {
         immediate: true,
         handler(val) {
-          if(this.isFirstEnter) { //第一次刷新页面获取一次
-                this.paramsUrlAddress();
-            }
+            console.log(val);
+            // if(this.isFirstEnter) { //第一次刷新页面获取一次
+            // }
             if(val && val.length > 0) {
+                this.paramsUrlAddress();
                 this.loadingShow = false;
                 this.isFirstEnter = false;
             }
@@ -372,7 +373,7 @@ export default {
       // }
     },
     //获取地址栏对应值
-    paramsUrlAddress() {
+    async paramsUrlAddress() {
         const inputCurrency = this.$route.query.inputCurrency;
         const outputCurrency = this.$route.query.outputCurrency;
         let inputSerchData = [];
@@ -384,26 +385,28 @@ export default {
         if (inputCurrency && inputCurrency !== undefined) {
             //   console.log(inputCurrency, publicAddress.DEFANT_CURRENCY);
             if (inputCurrency === publicAddress.DEFANT_CURRENCY) {
-            inputSerchData = this.swapSearchProps(this.swapPools, inputCurrency, "name");
+                inputSerchData = await this.swapSearchProps(this.swapPools, inputCurrency, "name");
             } else {
-                inputSerchData = this.swapSearchProps(
-                    this.swapPools,
-                    inputCurrency,
-                    "tokenAddress"
-                );
+                inputSerchData = await this.swapSearchProps(this.swapPools, inputCurrency,"tokenAddress");
             }
-        // console.log(inputSerchData);
         } else {
-            // inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
-            inputSerchData = this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
-            // changeURLPar(window.location.href, "inputCurrency", publicAddress.DEFANT_CURRENCY);
-            // this.$router.push({
-            //     query:merge(this.$route.query,{'inputCurrency':Address.BUSDT})
-            // })
-        }
-        if (inputSerchData && inputSerchData[0]) {
-            input = inputSerchData[0].poolId;
-            inputAllowance = inputSerchData[0].allowance > 0 ? true : false;
+            if(this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT < 0) {
+                // console.log(111, Address.BUSDT);
+                // inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
+                inputSerchData = await this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
+                if (inputSerchData && inputSerchData[0]) {
+                    input = inputSerchData[0].poolId;
+                    inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false;
+                    // console.log(inputSerchData[0].allowance);
+                }
+                // changeURLPar(window.location.href, "inputCurrency", Address.BUSDT);
+                // this.$router.push({
+                //     query:merge(this.$route.query,{'inputCurrency':Address.BUSDT})
+                // })
+            } else {
+                input = this.exchangeArray.INPUT;
+                inputAllowance = this.approvedArrStatus.INPUT;
+            }
         }
 
         if (outputCurrency && outputCurrency !== undefined) {
@@ -411,11 +414,15 @@ export default {
             if (outputCurrency === publicAddress.DEFANT_CURRENCY) {
                 outputSerchData = this.swapSearchProps(this.swapPools, outputCurrency, "name");
             } else {
-                outputSerchData = this.swapSearchProps(this.swapPools, outputCurrency,"tokenAddress");
+                outputSerchData = this.swapSearchProps(this.swapPools, outputCurrency, "tokenAddress");
             }
         } else {
-            // outputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
-            // changeURLPar(window.location.href, "outputCurrency", Address.BUSDT);
+           if(this.exchangeArray.OUTPUT !== '' && this.exchangeArray.OUTPUT >= 0) {
+                ouput = this.exchangeArray.OUTPUT;
+                ouputAllowance = this.approvedArrStatus.OUTPUT;
+           }
+            // outputSerchData = this.swapSearchProps(this.swapPools, Address.SCT, "tokenAddress");
+            // changeURLPar(window.location.href, "outputCurrency", publicAddress.DEFANT_CURRENCY);
             // this.$router.push({
             //     query:merge(this.$route.query,{'outputCurrency':publicAddress.DEFANT_CURRENCY})
             // })
@@ -437,7 +444,7 @@ export default {
         this.timeRefusr = new Date().getTime();
     },
      //模糊搜索
-    swapSearchProps(list, keyWord, name) {
+    async swapSearchProps(list, keyWord, name) {
         let arr = [];
         for (let i = 0; i < list.length; i++) {
             let flag=false

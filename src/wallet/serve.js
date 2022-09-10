@@ -12,7 +12,9 @@ import { get, post } from "@/common/axios.js";
 import { $get } from '@/utils/request'
 import axios from 'axios'
 import { getUrlParams, getQueryString } from '@/utils/tools'
-import router from '@/router'
+import configAddress from './swap_pools'
+const publicAddress = configAddress.publicAddress;
+
 
 /**
  * 获取用户信息
@@ -35,7 +37,7 @@ import router from '@/router'
 
   //获取估值
 export const getSwapPoolsAmountsOut = async function (routerContractAddress, tk0Address, tk1Address, bnbAddress) {
-  // console.log(oracleContractAddress, tk0Address, tk1Address);
+  // console.log(routerContractAddress, tk0Address, tk1Address);
   const contract = new web3.eth.Contract(mdexABI, routerContractAddress);
   let amountsOut = 0;
   let path = [];
@@ -45,6 +47,7 @@ export const getSwapPoolsAmountsOut = async function (routerContractAddress, tk0
     path = [tk0Address, tk1Address];
   }
   const Gwei1 = 1000000000;
+  // console.log(path);
   await contract.methods.getAmountsOut(Gwei1, path).call(function (error, result) {
     if (!error) {
       // console.log(result);
@@ -58,6 +61,64 @@ export const getSwapPoolsAmountsOut = async function (routerContractAddress, tk0
     }
   });
   return amountsOut;
+}
+
+//实时获取swap币的数量估值
+export const getTokenAmountsoutPrice = async function (tk0Address, tk1Address, amount=1) {
+  const contract = new web3.eth.Contract(mdexABI, publicAddress.routerDeployedAddress);
+  let path = [tk0Address, tk1Address];
+  // console.log(path);
+  const Gwei1 = Math.pow(10, 18);
+  let price = 1;
+  if(amount > 0) {
+    let num = (Number(amount) * Gwei1).toString();
+    if ((num.indexOf('E') != -1) || (num.indexOf('e') != -1)) {   //如果为科学计数法
+        num = scientificNotationToString(Number(num));
+    }
+    await contract.methods.getAmountsOut(num, path).call(function (error, result) {
+      if (!error) {
+        // console.log(result);
+        if(result && result[1]) {
+          price = result[1] / Gwei1;
+        } 
+      }else {
+        console.log('getAmountsOut' , error);
+      }
+    });
+  }
+  return price;
+}
+
+//实时获取swap币的数量估值
+export const getTokenAmountsIntPrice = async function (tk0Address, tk1Address, amount, isPrice) {
+  const contract = new web3.eth.Contract(mdexABI, publicAddress.routerDeployedAddress);
+  let path = [tk0Address, tk1Address];
+  // console.log(path, amount);
+  let Gwei1 = 0;
+  if(isPrice) {
+    Gwei1 = 1000000000;
+  } else {
+    Gwei1 = Math.pow(10, 18);
+  }
+  let price = 1;
+  if(amount > 0) {
+    let num = (Number(amount) * Gwei1).toString();
+    if ((num.indexOf('E') != -1) || (num.indexOf('e') != -1)) {   //如果为科学计数法
+        num = scientificNotationToString(Number(num));
+    }
+    console.log(path, num);
+    await contract.methods.getAmountsIn(num, path).call(function (error, result) {
+      if (!error) {
+        // console.log(num, result);
+        if(result && result[0]) {
+          price = result[0] / Gwei1;
+        } 
+      }else {
+        console.log('getAmountsIn' , error);
+      }
+    });
+  }
+  return price;
 }
 
 /**
@@ -154,7 +215,8 @@ export async function getSwapPoolsTokensData(pool, publicAddress){
   let totalSupply = 0;
   let tokenBalanceUsd = 0;
   const Gwei1 = 1000000000;
-  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.CONTRACT_ADDRESS);
+  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.routerDeployedAddress);
+  // console.log(allowanceRes);
   if(pool.tokenAddress.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase()) { //如果是BNB的话 不需要批准
     allowance = 1;
     tokenBalance = await getBalance("0x0000000000000000000000000000000000000000", pool.tokenDecimals);
@@ -166,13 +228,13 @@ export async function getSwapPoolsTokensData(pool, publicAddress){
   // console.log(guruBalance);
   // reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
   // totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
-  // const tokenBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk0Address, pool.tk1Address);
-  // if(tokenBalanceUsdRes > 0) {
-  //   tokenBalanceUsd = tokenBalanceUsdRes;
-  // }
+  const tokenBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerDeployedAddress, pool.tk0Address, pool.tk1Address);
+  if(tokenBalanceUsdRes > 0) {
+    tokenBalanceUsd = tokenBalanceUsdRes;
+  }
   // console.log(tokenBalanceUsd);
   let reObj = {
-    allowance: allowance,
+    allowance: 1,
     tokenBalance: tokenBalance,
     reserves: reserves,
     totalSupply: totalSupply,
@@ -254,18 +316,18 @@ export async function getLiquidityPoolsTokensData(pool, publicAddress){
   let tokenTwoBalanceUsd = 0;
   let nonce = 0;
   const Gwei1 = 1000000000;
-  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.CONTRACT_ADDRESS);
+  const allowanceRes = await getSwapPoolsAllowance(address, pool.tokenAddress, publicAddress.routerDeployedAddress);
   allowance = web3.utils.fromWei(allowanceRes, 'ether');
   tokenBalance = await getBalance(pool.tokenAddress, pool.tokenDecimals);
   // const guruBalance = await getBalance('0xF1932eC9784B695520258F968b9575724af6eFa8', 18);
   // console.log(guruBalance);
   // reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
   totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
-  const tokenOneBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk0Address, pool.tk1Address);
+  const tokenOneBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerDeployedAddress, pool.tk0Address, pool.tk1Address);
   if(tokenOneBalanceUsdRes > 0) {
     tokenOneBalanceUsd = tokenOneBalanceUsdRes;
   }
-  const tokenTwoBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.CONTRACT_ADDRESS, pool.tk1Address, pool.tk0Address);
+  const tokenTwoBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerDeployedAddress, pool.tk1Address, pool.tk0Address);
   if(tokenTwoBalanceUsdRes > 0) {
     tokenTwoBalanceUsd = tokenTwoBalanceUsdRes;
   }
@@ -365,6 +427,18 @@ export const setUSDTDepositWithdraw = async (params={}) => {
   }
   return false;
 };
+
+//获取游戏-充提系统-获取充提下一个自增id
+export const getFillingIncreasingId = async function(){
+  const apiUrl = __ownInstance__.$store.state.base.apiUrl;
+  const address = __ownInstance__.$store.state.base.address;
+  let status = 0;
+  let data = await $get(apiUrl + '/Api/Depositwithdrawal/getIncreasingId?address='+address);
+  if(data && data.code == 10000) {
+    status = data.data;
+  }
+  return status;
+}
 
 /**
  * 获取BTC爬虫数据

@@ -250,8 +250,10 @@ async function getBaseData(chainId, accounts, address) {
     __ownInstance__.$store.commit("getAddress", address);
     localStorage.setItem('connectorId', 'injected');
     __ownInstance__.$store.commit("isConnected", true);
+    console.log(444);
     return true;
   } 
   __ownInstance__.$store.commit("isConnected", true);
+  __ownInstance__.$store.dispatch('swapPoolsTokenList') //获取farms池子数据
   return true;
 }

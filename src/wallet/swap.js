@@ -16,7 +16,7 @@ export const clickApprove = function (tokenAddress){
   const contractAddress = tokenAddress;
   const contract = new web3.eth.Contract(erc20ABI, contractAddress);
   const value = "10000000000000000000000000000000000000000000000000000000";
-  let encodedABI = contract.methods.approve(publicAddress.CONTRACT_ADDRESS, value).encodeABI();
+  let encodedABI = contract.methods.approve(publicAddress.routerDeployedAddress, value).encodeABI();
 
   let timestamp = new Date().getTime().toString()
   __ownInstance__.$store.dispatch('createOrderForm' , {val:0 ,id:timestamp })
@@ -76,8 +76,8 @@ export const clickApprove = function (tokenAddress){
  */
 export const swapExactTokensForTokens = function (input, output, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, minimumReceived=0){
   const address = __ownInstance__.$store.state.base.address;
-  // const contractAddress = publicAddress.CONTRACT_ADDRESS;
-  const contractAddress = publicAddress.CONTRACT_ADDRESS;
+  // const contractAddress = publicAddress.routerDeployedAddress;
+  const contractAddress = publicAddress.routerDeployedAddress;
   // const contract = new web3.eth.Contract(swapABI, contractAddress);
   const contract = new web3.eth.Contract(swapRouterABI, contractAddress);
   const now =  Math.round(Date.now()/1000) + 1800;
@@ -148,7 +148,7 @@ export const swapExactTokensForTokens = function (input, output, TK1_CONTRACT_AD
  */
 export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, minimumReceived=0){
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = publicAddress.CONTRACT_ADDRESS;
+  const contractAddress = publicAddress.routerDeployedAddress;
   const contract = new web3.eth.Contract(swapABI, contractAddress);
   const now =  Math.round(Date.now()/1000) + 1800;
   const amountIn = web3.utils.toWei(input, "ether");
@@ -221,7 +221,7 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
  export const addLiquidity = function (input, output, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, start){
   //  console.log(TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, publicAddress.BNB_ADDR);
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = publicAddress.CONTRACT_ADDRESS;
+  const contractAddress = publicAddress.routerDeployedAddress;
   const contract = new web3.eth.Contract(swapABI, contractAddress);
   let isContainETH = false; //是否包含ETH
   if(TK1_CONTRACT_ADDR.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase() || TK2_CONTRACT_ADDR.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase()) {
@@ -363,8 +363,8 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
   const now = Math.round(Date.now() / 1000);
   const message = {
       owner: address,
-      // spender: liquidityCoonfig.CONTRACT_ADDRESS,
-      spender: publicAddress.CONTRACT_ADDRESS,
+      // spender: liquidityCoonfig.routerDeployedAddress,
+      spender: publicAddress.routerDeployedAddress,
       value: liquidity,
       nonce: '0x0' + nonce,
       deadline: now + 1800,
@@ -420,7 +420,7 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
  */
 //  export const removeLiquidityPermit = function (formTokenBlance, INPUT, OUTPUT, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, signatureData, start){
 //   const address = __ownInstance__.$store.state.base.address;
-//   const contractAddress = publicAddress.CONTRACT_ADDRESS;
+//   const contractAddress = publicAddress.routerDeployedAddress;
 //   const contract = new web3.eth.Contract(swapABI, contractAddress);
 //   const now =  Math.round(Date.now()/1000) + 1800;
 //   const liquidity = web3.utils.toWei(formTokenBlance, "ether");
@@ -529,7 +529,7 @@ export const swapExactETHForTokens = function (input, output, TK1_CONTRACT_ADDR,
  */
 export const removeLiquidityPermit = function (formTokenBlance, INPUT, OUTPUT, TK1_CONTRACT_ADDR, TK2_CONTRACT_ADDR, signatureData, start){
   const address = __ownInstance__.$store.state.base.address;
-  const contractAddress = publicAddress.CONTRACT_ADDRESS;
+  const contractAddress = publicAddress.routerDeployedAddress;
   const contract = new web3.eth.Contract(swapABI, contractAddress);
   let isContainETH = false; //是否包含ETH
   if(TK1_CONTRACT_ADDR.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase() || TK2_CONTRACT_ADDR.toUpperCase() === publicAddress.BNB_ADDR.toUpperCase()) {

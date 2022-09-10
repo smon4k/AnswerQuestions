@@ -168,7 +168,7 @@
 import { keepDecimalNotRounding, replaceParamVal, getUrlParams, changeURLPar, scientificNotationToString} from '@/utils/tools'
 import configAddress from '@/wallet/swap_pools';
 const publicAddress = configAddress.publicAddress;
-import { getTokenAmountsoutPrice, getTokenAmountsIntPrice } from "@/wallet/Inquire";
+import { getTokenAmountsoutPrice, getTokenAmountsIntPrice } from "@/wallet/serve";
 import merge from 'webpack-merge';
 export default {
   props: [
@@ -559,9 +559,9 @@ export default {
     //To Value 触发事件
     async inputChangeValue(toValue) {
         // const toValue = event.target.value;
-        // console.log(event);
         // const toValue = "0.00001";
         const inputArray = this.getFilersSwapPoolsArr(this.exchangeArray.INPUT);
+        // console.log(inputArray);
         // const outPrice = inputArray.tokenBalanceUsd;
         let outPrice = await getTokenAmountsoutPrice(inputArray.tk0Address, inputArray.tk1Address, toValue);
         let formValue = 0;
@@ -634,7 +634,8 @@ export default {
         // console.log(outputArray);
         const outputArray = this.getFilersSwapPoolsArr(this.exchangeArray.OUTPUT);
         // const inputPrice = outputArray.tokenBalanceUsd;
-        let inputPrice = await getTokenAmountsIntPrice(outputArray.tk1Address, outputArray.tk0Address, fromValue);
+        let inputPrice = await getTokenAmountsoutPrice(outputArray.tk1Address, outputArray.tk0Address, fromValue);
+        // let inputPrice = await getTokenAmountsIntPrice(outputArray.tk1Address, outputArray.tk0Address, fromValue);
         // let fromValue = event.target.value;
         let toValue = 0;
         if (fromValue >= 0) {
