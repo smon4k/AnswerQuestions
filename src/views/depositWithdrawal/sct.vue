@@ -42,10 +42,10 @@
                                     <van-col :span="24">
                                         <div>
                                             <!-- 平台余额： -->
-                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} SCT</span>
                                             <br />
                                             <!-- 钱包余额： -->
-                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SCTBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SCTBalance), 4) }} SCT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
@@ -117,10 +117,10 @@
                                     <van-col :span="24">
                                         <div>
                                             <!-- 平台余额： -->
-                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:PlatformBalance') }}：{{ toFixed(Number(localBalance) + Number(walletBalance), 4) }} SCT</span>
                                             <br />
                                             <!-- 钱包余额： -->
-                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SCTBalance), 4) }} USDT</span>
+                                            <span>{{ $t('question:WalletBalance')  }}：{{ toFixed(Number(SCTBalance), 4) }} SCT</span>
                                             <!-- <span>GS Balance：{{gsBalance}}</span> -->
                                         </div>
                                     </van-col>
