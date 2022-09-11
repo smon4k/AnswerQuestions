@@ -234,7 +234,7 @@ export async function getSwapPoolsTokensData(pool, publicAddress){
   }
   // console.log(tokenBalanceUsd);
   let reObj = {
-    allowance: 1,
+    allowance: allowance,
     tokenBalance: tokenBalance,
     reserves: reserves,
     totalSupply: totalSupply,

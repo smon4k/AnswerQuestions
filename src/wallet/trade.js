@@ -3,6 +3,7 @@ import {  fromWei , toWei } from '@/utils/tools'
 import { toolNumber } from '@/utils/tools'
 import  tokenABI from './abis/token.json'
 import gameFillingABI from './abis/gameFillingABI.json'
+import gameFillingABIV2 from './abis/gameFillingABIV2.json'
 import {saveNotifyStatus, setUSDTDepositWithdraw} from "@/wallet/serve";
 
 // 领取空投奖励
@@ -91,6 +92,7 @@ export const gamesBuyTokenTogToken = function (gTokenAmt=0, buyToken='', tokenAd
   const contractAddress = tokenAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
   const contract = new web3.eth.Contract(gameFillingABI, contractAddress);
   const depositAmount = toWei(gTokenAmt, decimals);
+  // console.log(depositAmount, buyToken);
   let encodedABI = contract.methods.BuyTokenTogToken(depositAmount, buyToken).encodeABI();
 
   let timestamp = new Date().getTime().toString()
@@ -157,13 +159,22 @@ export const gamesBuyTokenTogToken = function (gTokenAmt=0, buyToken='', tokenAd
  * @param {*} currency 币种名称
  * @returns 
  */
-export const gamesGTokenToBuyToken = function (gTokenAmt=0, buyToken='', tokenAddress='', decimals=18, fillingRecordParams={}, currency='usdt') {
+export const gamesGTokenToBuyToken = function (gTokenAmt=0, buyToken='', tokenAddress='', decimals=18, fillingRecordParams={}, currency='usdt', orderId='') {
   // const tokenAddress = __ownInstance__.$store.state.base.tokenAddress
   const address = __ownInstance__.$store.state.base.address;
   const contractAddress = tokenAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
-  const contract = new web3.eth.Contract(gameFillingABI, contractAddress);
   const withdrawAmount = toWei(gTokenAmt, decimals);
-  let encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken).encodeABI();
+  let encodedABI = null;
+  let contract = null;
+  if(currency === 'usdt') {
+    contract = new web3.eth.Contract(gameFillingABI, contractAddress);
+    encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken).encodeABI();
+  } else {
+    console.log("222");
+    contract = new web3.eth.Contract(gameFillingABIV2, contractAddress);
+    // const orderIdAmount = toWei(orderId, decimals);
+    encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken, orderId).encodeABI();
+  }
   // let value = toWei('0.00201', decimals);
   let value = toWei('0', decimals);
 

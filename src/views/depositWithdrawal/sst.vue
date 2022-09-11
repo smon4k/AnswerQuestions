@@ -425,23 +425,23 @@ export default {
                 address: this.address,
                 userId: this.userId,
                 type: Number(this.activeName),
-                sst_local_balance: this.localBalance,
-                sst_wallet_balance: this.walletBalance,
+                local_balance: this.localBalance,
+                wallet_balance: this.walletBalance,
                 hash: '',
                 currency: 'sst'
             };
-            contractName(amount, Address.SST, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
+            contractName(amount, Address.SST, this.gamesFillingAddress, 18, fillingRecordParams, 'sst').then(async (hash) => {
                 if(hash) {
                     if(this.activeName == 1) {//充值的话 二次检测是否充值成功
                         // await this.setDepositWithdraw(amount, hash);
-                        saveNotifyStatus(0, true, 'h20');
+                        saveNotifyStatus(0, true, 'sst');
                         await this.getGameFillingBalanceFun(this.activeName, hash);
                     } else { //提取的话 不二次检测是否充值成功 异步机器人扣除 这里直接写入数据库记录
                         // await this.setDepositWithdraw(amount, hash);
                         // this.trading = false;
-                        saveNotifyStatus(0, false, 'h20'); //提取的话 这里不通知GS获取余额
-                        this.resetForm('depositForm');
-                        this.resetForm('withdrawForm');
+                        saveNotifyStatus(0, false, 'sst'); //提取的话 这里不通知GS获取余额
+                        this.depositForm.amount = '';
+                        this.withdrawForm.amount = '';
                     }
                 }
             }).finally(() => {

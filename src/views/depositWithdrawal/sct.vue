@@ -211,7 +211,7 @@
 import axios from 'axios'
 import { mapState } from "vuex";
 import { approve, gamesBuyTokenTogToken, gamesGTokenToBuyToken } from "@/wallet/trade";
-import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus} from "@/wallet/serve";
+import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus, getFillingIncreasingId} from "@/wallet/serve";
 import { keepDecimalNotRounding } from "@/utils/tools";
 import Address from '@/wallet/address.json'
 export default {
@@ -383,6 +383,7 @@ export default {
             this.trading = true;
             let amount = 0;
             let contractName = '';
+            let orderId = '';
             //检测是否有正在执行中的交易
             await this.getIsInTradeProgress();
             // console.log(isInProgress);
@@ -401,6 +402,10 @@ export default {
                 }
                 amount = this.withdrawForm.amount;
                 contractName = gamesGTokenToBuyToken;
+                orderId = await getFillingIncreasingId();
+                if(!orderId || orderId <= 0) {
+                    this.$notify({ type: 'danger', message: '获取订单id失败' });
+                }
             }
             // let balance = await getGameFillingBalance();
             // let balance = await this.getGameFillingBalanceFun(this.activeName, amount);
@@ -425,23 +430,27 @@ export default {
                 address: this.address,
                 userId: this.userId,
                 type: Number(this.activeName),
-                sct_local_balance: this.localBalance,
-                sct_wallet_balance: this.walletBalance,
+                local_balance: this.localBalance,
+                wallet_balance: this.walletBalance,
                 hash: '',
-                currency: 'sct'
+                currency: 'sct',
+                orderId: orderId,
             };
-            contractName(amount, Address.SCT, this.gamesFillingAddress, 18, fillingRecordParams, 2).then(async (hash) => {
+            contractName(amount, Address.SCT, this.gamesFillingAddress, 18, fillingRecordParams, 'sct', orderId).then(async (hash) => {
                 if(hash) {
                     if(this.activeName == 1) {//充值的话 二次检测是否充值成功
                         // await this.setDepositWithdraw(amount, hash);
-                        saveNotifyStatus(0, true, 'h20');
+                        saveNotifyStatus(0, true, 'sct');
                         await this.getGameFillingBalanceFun(this.activeName, hash);
                     } else { //提取的话 不二次检测是否充值成功 异步机器人扣除 这里直接写入数据库记录
                         // await this.setDepositWithdraw(amount, hash);
                         // this.trading = false;
-                        saveNotifyStatus(0, false, 'h20'); //提取的话 这里不通知GS获取余额
-                        this.resetForm('depositForm');
-                        this.resetForm('withdrawForm');
+                        saveNotifyStatus(0, false, 'sct'); //提取的话 这里不通知GS获取余额
+                        this.getUserInfo();
+                        this.depositForm.amount = '';
+                        this.withdrawForm.amount = '';
+                        // this.resetForm('depositForm');
+                        // this.resetForm('withdrawForm');
                     }
                 }
             }).finally(() => {
@@ -453,7 +462,7 @@ export default {
             return false;
           }
         }).catch(err => {
-            console.log('error submit!!');
+            console.log(err);
             return false;
         });
     },
@@ -584,7 +593,7 @@ export default {
                 this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
                 // let USDTWalletBalance = await getGameFillingBalance(18, this.gamesUSDTFillingAddress); //获取USDT合约余额
                 // let SSTWalletBalance = await getGameFillingBalance(18, this.gamesSSTFillingAddress); //获取SST合约余额
-                // console.log('链上余额：', this.walletBalance);
+                console.log('链上余额：', this.walletBalance);
                 // this.SCTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
                 // this.USDTPlatformBalance = Number(USDTLocalBalance) + Number(USDTWalletBalance);
                 // this.SSTPlatformBalance = Number(SSTLocalBalance) + Number(SSTWalletBalance);

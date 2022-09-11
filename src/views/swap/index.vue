@@ -293,11 +293,11 @@ export default {
     swapPools: {
         immediate: true,
         handler(val) {
-            console.log(val);
+            // console.log(val);
             // if(this.isFirstEnter) { //第一次刷新页面获取一次
             // }
+            this.paramsUrlAddress();
             if(val && val.length > 0) {
-                this.paramsUrlAddress();
                 this.loadingShow = false;
                 this.isFirstEnter = false;
             }
@@ -390,14 +390,13 @@ export default {
                 inputSerchData = await this.swapSearchProps(this.swapPools, inputCurrency,"tokenAddress");
             }
         } else {
-            if(this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT < 0) {
-                // console.log(111, Address.BUSDT);
+            if((!this.exchangeArray.INPUT || this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT == undefined) && (this.exchangeArray.OUTPUT !== 1)) {
                 // inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
                 inputSerchData = await this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
                 if (inputSerchData && inputSerchData[0]) {
                     input = inputSerchData[0].poolId;
                     inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false;
-                    // console.log(inputSerchData[0].allowance);
+                    // console.log(inputSerchData[0]);
                 }
                 // changeURLPar(window.location.href, "inputCurrency", Address.BUSDT);
                 // this.$router.push({
@@ -416,6 +415,10 @@ export default {
             } else {
                 outputSerchData = this.swapSearchProps(this.swapPools, outputCurrency, "tokenAddress");
             }
+            if (outputSerchData && outputSerchData[0]) {
+                ouput = outputSerchData[0].poolId;
+                ouputAllowance = Number(outputSerchData[0].allowance > 0) ? true : false;
+            }
         } else {
            if(this.exchangeArray.OUTPUT !== '' && this.exchangeArray.OUTPUT >= 0) {
                 ouput = this.exchangeArray.OUTPUT;
@@ -427,16 +430,12 @@ export default {
             //     query:merge(this.$route.query,{'outputCurrency':publicAddress.DEFANT_CURRENCY})
             // })
         }
-        if (outputSerchData && outputSerchData[0]) {
-            ouput = outputSerchData[0].poolId;
-            ouputAllowance = Number(outputSerchData[0].allowance > 0) ? true : false;
-        }
         //   console.log(input, ouput);
         this.exchangeArray = {
             INPUT: input, 
             OUTPUT: ouput
         };
-        // console.log(inputAllowance, ouputAllowance);
+        console.log(inputAllowance, ouputAllowance);
         this.approvedArrStatus = {
             INPUT: inputAllowance, 
             OUTPUT: ouputAllowance

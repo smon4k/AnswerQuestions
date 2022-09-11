@@ -152,7 +152,7 @@
           <el-table-column property="name" width="100"></el-table-column>
           <el-table-column>
             <template slot-scope="scope">
-                <span  style="float: right;">{{scope.row.tokenBalance}}</span>
+                <span  style="float: right;">{{keepDecimalNotRounding(scope.row.tokenBalance, 16)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -200,8 +200,8 @@ export default {
         OUTPUT: '',
       },
       approvedArrStatus: {
-        INPUT: false,
-        OUTPUT: false,
+        INPUT: '',
+        OUTPUT: '',
       },
       selectTokenopen: false, //选择代币弹框
       selectedIndex: 0,
@@ -227,7 +227,7 @@ export default {
     },
      approvedArrStatus: {
         handler(newVal, oldVal) {
-          // console.log(newVal);
+          console.log(newVal);
           this.$emit('updateChildApprovedArrStatus', newVal);
         },
         deep: true
@@ -294,14 +294,17 @@ export default {
       this.exchangeArray = this.childExchangeArray;
       // this.exchangeMoney = this.childExchangeMoney;
     }
-    if(this.childExchangeMoney && this.childExchangeMoney.INPUT && this.childExchangeMoney.OUTPUT) {
+    if(this.childExchangeMoney) {
       this.exchangeMoney = this.childExchangeMoney;
+    }
+    // console.log(this.childApprovedArrStatus);
+    if(this.childApprovedArrStatus) {
+      this.approvedArrStatus = this.childApprovedArrStatus;
     }
     if(this.formTokenBlance && this.formTokenBlance > 0) {
       this.formToTokenBlance = this.formTokenBlance;
     }
     // console.log(this.pageState);
-    // console.log(this.exchangeMoney);
   },
   methods: {
     handleClickOpen(key) { //打开选择币种弹框
@@ -409,13 +412,24 @@ export default {
           addressStr = this.defaultCurrency;
         }
         this.selectedIndex = row.poolId;
+        console.log(this.exchangeArrayKey);
         if(this.exchangeArrayKey === 'INPUT') {
           if(this.exchangeArray.OUTPUT !== row.poolId) {
             this.exchangeArray.INPUT = row.poolId;
             if (row.allowance > 0) {
-              this.$emit('childApprovedArrStatus', true, 'INPUT');
+              this.approvedArrStatus = {
+                INPUT: true,
+                OUTPUT: this.approvedArrStatus.OUTPUT
+              };
+              // this.approvedArrStatus.INPUT = true;
+              // this.$emit('childApprovedArrStatus', true, 'INPUT');
             } else {
-              this.$emit('childApprovedArrStatus', false, 'INPUT');
+              this.approvedArrStatus = {
+                INPUT: false,
+                OUTPUT: this.approvedArrStatus.OUTPUT
+              };
+              // this.approvedArrStatus.INPUT = false;
+              // this.$emit('childApprovedArrStatus', false, 'INPUT');
             }
             // const inputCurrency = getUrlParams('inputCurrency');
             // const inputCurrency = this.$route.query.inputCurrency;
@@ -433,10 +447,19 @@ export default {
         } else {
           if(this.exchangeArray.INPUT !== row.poolId) {
             this.exchangeArray.OUTPUT = row.poolId;
+            // console.log(row);
             if (row.allowance > 0) {
-              this.$emit('childApprovedArrStatus', true, 'OUTPUT');
+              // this.$emit('childApprovedArrStatus', true, 'OUTPUT');
+              this.approvedArrStatus = {
+                INPUT: this.approvedArrStatus.INPUT,
+                OUTPUT: true,
+              };
             } else {
-              this.$emit('childApprovedArrStatus', false, 'OUTPUT');
+              // this.$emit('childApprovedArrStatus', false, 'OUTPUT');
+              this.approvedArrStatus = {
+                INPUT: this.approvedArrStatus.INPUT,
+                OUTPUT: false,
+              };
             }
             // const inputCurrency = getUrlParams('outputCurrency');
             // const inputCurrency = this.$route.query.outputCurrency;
@@ -525,7 +548,7 @@ export default {
         } else {
           this.valuationState = 'INPUT';
         }        
-        this.saveUrlParamsVal();
+        // this.saveUrlParamsVal();
         // console.log(inputArray);
     },
     // 更新地址参数值
