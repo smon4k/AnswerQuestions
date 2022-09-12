@@ -1,4 +1,5 @@
 {
+    "languag": "zh",
     "oneStopName": "一站到底",
     "answerQuestions": "答题闯关",
     "startAnswering": "开始作答",
@@ -86,7 +87,7 @@
     "answerResult-04": "本次答题总收益{{ capped_num }} H2O",
     "answerResult-05": "您获得{{ award_rate }}%的收益{{ award_num }}H2O",
     "buyToRevive": "购买进行复活",
-    "DataLoading": "数据加载中",
+    "DataLoading": "数据加载中...",
     "UsernameLogin": "用户名登录",
     "pleaseEnterUsername": "请输入用户名",
     "password": "密码",

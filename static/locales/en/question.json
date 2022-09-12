@@ -1,4 +1,5 @@
 {
+    "languag": "en",
     "oneStopName": "Who’s still standing!",
     "answerQuestions": "Answer Questions",
     "startAnswering": "Start Answering",
@@ -85,7 +86,7 @@
     "answerResult-04": "The total income of this answer is {{ capped_num }} H2O",
     "answerResult-05": "You get {{ award_rate }}% of the income{{ award_num }} H2O",
     "buyToRevive": "buy To Revive",
-    "DataLoading": "Data loading",
+    "DataLoading": "Data loading...",
     "UsernameLogin": "Username login",
     "pleaseEnterUsername": "please enter user name",
     "password": "password",

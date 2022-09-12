@@ -104,7 +104,7 @@
 
         <van-overlay :show="loadingShow" @click="loadingShow = false">
             <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-                <van-loading size="24px" vertical color="#0094ff">{{ $t('question:TheAnswerIsBeingCalculated') }}...</van-loading>
+                <van-loading size="24px" vertical color="#fff">{{ $t('question:TheAnswerIsBeingCalculated') }}...</van-loading>
             </div>
         </van-overlay>
     </div>

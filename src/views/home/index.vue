@@ -69,27 +69,27 @@
                 <div class="left">
                     <div @click="startAnswer()">
                         <!-- 问答 -->
-                        <img src="@/assets/answer/QA.png" class="image">
+                        <img :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/QA-zh.png`) : require(`@/assets/answer/QA-en.png`)" class="image">
                     </div>
                     <div @click="routePushBank()">
                         <!-- 银行 -->
-                        <img src="@/assets/answer/bank.png" class="image">
+                        <img :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/bank-zh.png`) : require(`@/assets/answer/bank-en.png`)" class="image">
                     </div>
                     <div @click="routePushTickets()">
                         <!-- 门票 -->
-                        <img src="@/assets/answer/tickets.png" class="image">
+                        <img :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/tickets-zh.png`) : require(`@/assets/answer/tickets-en.png`)" class="image">
                     </div>
                 </div>
                 <div class="right">
                     <!-- 好友对战 -->
-                    <img style="opacity:0.5;" src="@/assets/answer/friend-battle.png" class="image">
+                    <img style="opacity:0.5;" :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/friend-battle-zh.png`) : require(`@/assets/answer/friend-battle-en.png`)" class="image">
                     <div @click="startRanking()">
                         <!-- 绩效 -->
-                        <img src="@/assets/answer/performance.png" class="image">
+                        <img :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/performance-zh.png`) : require(`@/assets/answer/performance-en.png`)" class="image">
                     </div>
                     <div @click="routePushSetUp()">
                         <!-- 设置 -->
-                        <img src="@/assets/answer/setUp.png" class="image">
+                        <img :src="$t('question:languag') === 'zh' ? require(`@/assets/answer/setUp-zh.png`) : require(`@/assets/answer/setUp-en.png`)" class="image">
                     </div>
                 </div>
             </div>
@@ -97,7 +97,7 @@
     </div>
     <van-overlay :show="loadingShow" @click="loadingShow = false">
         <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-            <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            <van-loading size="24px" vertical color="#fff">{{ $t('question:DataLoading') }}</van-loading>
         </div>
     </van-overlay>
   </div>
@@ -109,7 +109,7 @@ export default {
   name: "home",
   data() {
     return {
-        languag: this.$i18n.i18next.language,
+        // languag: this.$i18n.i18next.language,
         user_id: 0,
         avatar: '',
         nickname: '',
@@ -136,6 +136,9 @@ export default {
         address,userId
       };
     },
+    languag() {
+        return this.$i18n.i18next.language;
+    }
   },
   created() {
   },

@@ -2,10 +2,10 @@
   <div class="container">
     <div class="item">
       <el-card shadow="hover" v-loading="receiveLoading">
-        <div slot="header" class="clearfix">
+        <!-- <div slot="header" class="clearfix">
           <span>{{ $t('swap:Exchange') }}</span>
           <p class="tips">{{ $t('swap:TradeInstant') }}</p>
-        </div>
+        </div> -->
         <div class="info">
           <!-- 中间输入框内容 -->
           <SwapExchange
@@ -218,7 +218,7 @@
 
     <van-overlay :show="loadingShow" @click="loadingShow = false">
         <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
-            <van-loading size="24px" vertical color="#0094ff">{{ $t('question:DataLoading') }}</van-loading>
+            <van-loading size="24px" vertical color="#fff">{{ $t('question:DataLoading') }}</van-loading>
         </div>
     </van-overlay>
 
@@ -754,7 +754,10 @@ export default {
       padding-top: 30px;
       text-align: center;
       button {
-        background: linear-gradient(90deg, #0096ff, #8C1AF5);
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
+        // background: linear-gradient(90deg, #0096ff, #8C1AF5);
         color: #fff;
         line-height: 26px;
         margin-right: 23px;
@@ -772,7 +775,11 @@ export default {
           background-color: rgba(0, 0, 0, 0.8);
       }
       button:disabled {
-        background: #8b8b9b;
+        // background: #8b8b9b;
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
+        opacity: 0.5;
       }
     }
   }
@@ -821,7 +828,7 @@ export default {
     margin: 0 auto;
     font-size: 13px;
     // padding: 15px;
-    background-color: rgb(8, 6, 11);
+    background-color: #76D6FF;
     color: #fff;
     .item-bottom-box {
       padding: 15px;
@@ -849,7 +856,7 @@ export default {
                 max-width: 500px;
                 min-height: 60vh;
                 border-radius: 32px;
-                background-color: #05D2FA;
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                 // @include sideBarSwapInputBgc($claimCardSwapInput-dark);
                 margin: 0 auto;
                 // margin-left: 45%;
@@ -882,7 +889,10 @@ export default {
 </style>
 <style lang="scss">
     .exchangeButton {
-        background: linear-gradient(90deg, #0096ff, #0024ff);
+         background: transparent;
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
         color: #fff;
         line-height: 26px;
         margin-right: 23px;
@@ -896,6 +906,13 @@ export default {
         cursor: pointer;
     }
     .exchangeButton:disabled {
-        background: #8b8b9b;
+        background: transparent;
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
+        opacity: 0.5;
+    }
+    .exchangeButton:hover {
+       background-color: transparent;
     }
 </style>

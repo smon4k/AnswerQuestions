@@ -31,7 +31,6 @@
             v-show="currentPools && formToTokenBlance && (formToTokenBlance < computeTokenBalanceChange(currentPools.tokenBalance, currentPools.tokenDecimals, 10) || formToTokenBlance > computeTokenBalanceChange(currentPools.tokenBalance, currentPools.tokenDecimals, 10))" 
             class="input-max" 
             size="small" 
-            round 
             @click="inputFormChangeValue(computeTokenBalanceChange(currentPools.tokenBalance, currentPools.tokenDecimals, 10)
             ) ">{{ $t('swap:Max') }}</el-button>
         </el-col>
@@ -73,7 +72,6 @@
             v-show="pageState < 3 && getFilersSwapPoolsArr(exchangeArray.INPUT).tokenBalance > 0 && keepDecimalNotRounding(exchangeMoney.INPUT) != keepDecimalNotRounding(getFilersSwapPoolsArr(exchangeArray.INPUT).tokenBalance)" 
             class="input-max" 
             size="small" 
-            round 
             @click="inputChangeValue(keepDecimalNotRounding(getFilersSwapPoolsArr(exchangeArray.INPUT).tokenBalance))">{{ $t('swap:Max') }}</el-button>
         </el-col>
       </el-row>
@@ -81,7 +79,8 @@
 
     <div class="arrow" v-if="pageState == 1">
       <el-button size="small" circle @click="switchCurrencyClick">
-        <i class="el-icon-sort"></i>
+        <!-- <i class="el-icon-sort"></i> -->
+        <img size="small" src="@/assets/answer/switch-sort.png" width="30" />
       </el-button>
     </div>
     <div class="arrow" v-else>
@@ -779,7 +778,7 @@ export default {
 @import '@/styles/color.scss';
 .container {
   .input-box {
-    background-color: #8ED4FB;
+    background-color: #76D6FF;
     min-height: 60px;
     line-height: 30px;
     border-radius: 16px;
@@ -811,10 +810,13 @@ export default {
       }
     }
     .input-max {
-      @include sideBarSwapInputBgc($claimCardSwapInput-light);
-      border: 1px solid #0096ff;
-      @include mainFont($color-mainFont-light);
+      height: 30px;
+      border-radius: 10px;
+      // @include sideBarSwapInputBgc($claimCardSwapInput-light);
+      border: 1px solid #fff;
       float: right;
+      color: #fff;
+      background-color: transparent;
     }
   }
   .input-b {
@@ -840,6 +842,9 @@ export default {
       align-items: center;
       -webkit-box-pack: justify;
       justify-content: space-between;
+      border: 2px solid #fff;
+      padding: 5px;
+      border-radius: 5px;
     }
     span {
       margin-left: 5px;
@@ -849,6 +854,7 @@ export default {
     text-align: center;
     margin: 10px 0 10px 0;
     button {
+      background: transparent;
       @include sideBarSwapInputBgc($claimCardSwapInput-light);
       padding: 9px;
       border: 0;
@@ -860,6 +866,7 @@ export default {
   }
 
   .textRight {
+    margin-top: 5px;
     text-align: right;
     padding: 0 16px;
   }
