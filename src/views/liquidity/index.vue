@@ -90,7 +90,7 @@ import configAddress from '@/wallet/swap_pools';
 const publicAddress = configAddress.publicAddress;
 import { keepDecimalNotRounding, byDecimals, replaceParamVal, getUrlParams, changeURLPar} from '@/utils/tools'
 import { clickApprove, swapExactTokensForTokens, swapExactETHForTokens } from '@/wallet/swap'
-
+import Address from '@/wallet/address.json'
 export default {
   data() {
     return {
@@ -194,9 +194,16 @@ export default {
       this.$router.push({path:'/liquidity/add'});
     },
     removeHrefRouter(pool) { //跳转删除流动性页面
-      let inputCurrency = pool.tk0Address == publicAddress.H2O_ADDRESS ? 'H2O' : pool.tk0Address;
-      let outputCurrency = pool.tk1Address == publicAddress.H2O_ADDRESS ? 'H2O' : pool.tk1Address;
-      this.$router.push({path:'/liquidity/remove', query: {inputCurrency:inputCurrency, outputCurrency: outputCurrency}});
+      // let inputCurrency = pool.tk0Address == Address.SCT ? 'H2O' : pool.tk0Address;
+      // let outputCurrency = pool.tk1Address == publicAddress.H2O_ADDRESS ? 'H2O' : pool.tk1Address;
+      // this.$router.push({path:'/liquidity/remove', query: {inputCurrency:inputCurrency, outputCurrency: outputCurrency}});
+      this.$router.push({
+        name:'LiquidityRemove',
+        params: {
+          inputCurrency: pool.tk0Address,
+          outputCurrency: pool.tk1Address,
+        }
+      });
     },
     backClinke() { //返回流动性列表
         this.$router.push({name:'bank', params:{tabActiveOne: 2}});
@@ -245,7 +252,7 @@ export default {
     // border: 1px solid #0096ff;
       .el-card {
         margin-top: 50px;
-        background-color: #05D2FA;
+        background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
         border-radius: 24px;
         border-color: #05D2FA;
       }
@@ -276,7 +283,7 @@ export default {
                 margin-bottom: 40px;
             }
             .el-collapse-item__header {
-                background-color: #8C1AF5;
+                background-color: #76D6FF;
                 color: #fff;
                 border-bottom: 0;
                 min-height: 60px;
@@ -290,7 +297,7 @@ export default {
                 }
             }
             .el-collapse-item__wrap {
-                background-color: #8C1AF5;
+                background-color: #76D6FF;
                 color: #fff;
                 // @include sideBarSwapInputBgc($claimCardSwapInput-light);
                 // margin-top: -20px;
@@ -307,7 +314,7 @@ export default {
                 border-bottom: 0;
             }
             .add-liquidity {
-                color: #b7b7b7;
+                color: #fff;
             }
         
     }
@@ -320,7 +327,11 @@ export default {
       padding-top: 30px;
       text-align: center;
       button {
-        background: linear-gradient(90deg, #0096ff, #0024ff);
+        // background: linear-gradient(90deg, #0096ff, #0024ff);
+        background: transparent;
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
         color: #fff;
         line-height: 26px;
         margin-right: 23px;
@@ -337,7 +348,11 @@ export default {
           background-color: rgba(0, 0, 0, 0.8);
       }
       button:disabled {
-        background: #8b8b9b;
+        background: transparent;
+        background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
+        background-size: contain;
+        text-align: center;
+        opacity: 0.5;
       }
     }
   }

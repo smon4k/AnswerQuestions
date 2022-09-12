@@ -42,6 +42,7 @@
                         :currentPools="currentPools"
                         :formTokenBlance="formTokenBlance"
                         :key="timeRefusr"
+                        :pageState="3"
                     />
                     <br />
                 </el-row>
@@ -225,7 +226,7 @@ import configAddress from '@/wallet/swap_pools';
 const publicAddress = configAddress.publicAddress;
 import { keepDecimalNotRounding, byDecimals, replaceParamVal, getUrlParams, changeURLPar} from '@/utils/tools'
 import { clickApprove, removeLiquidityPermit, getEthSignTypedData } from '@/wallet/swap'
-
+import Address from '@/wallet/address.json'
 
 export default {
   data() {
@@ -324,8 +325,9 @@ export default {
         },
       //获取地址栏对应值
       paramsUrlAddress() {
-        const inputCurrency = this.$route.query.inputCurrency;
-        const outputCurrency = this.$route.query.outputCurrency;
+        const inputCurrency = this.$route.params.inputCurrency;
+        const outputCurrency = this.$route.params.outputCurrency;
+        // console.log(inputCurrency, outputCurrency);
         let inputSerchData = [];
         let outputSerchData = [];
         let input = undefined;
@@ -373,8 +375,8 @@ export default {
         // console.log(inputAllowance);
         if (inputCurrency && outputCurrency) {
             let currentPoolsArr = [];
-            if (inputCurrency === 'H2O') {
-                currentPoolsArr = this.getRemovePoolData(publicAddress.H2O_ADDRESS, outputCurrency);
+            if (inputCurrency === 'SCT') {
+                currentPoolsArr = this.getRemovePoolData(Address.SCT, outputCurrency);
             } else {
                 currentPoolsArr = this.getRemovePoolData(inputCurrency, outputCurrency);
             }

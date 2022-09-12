@@ -40,6 +40,6 @@ export default {
         SLIPOINT: 0.03,
         DEFANT_CURRENCY: 'SCT',
         // routerContractAddress: '0x96948447D1521260c24fCdE281d09364BdC5A2d0',
-        oracleContractAddress: '0x3656f93AD50bF953CCf8768ab7Fb089E6e824C1E',
+        oracleContractAddress: '0x2a2ca4f8930ac340229a2f46c11cda7e7e8308cf',
     }
 }
