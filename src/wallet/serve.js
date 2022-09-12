@@ -321,7 +321,7 @@ export async function getLiquidityPoolsTokensData(pool, publicAddress){
   tokenBalance = await getBalance(pool.tokenAddress, pool.tokenDecimals);
   // const guruBalance = await getBalance('0xF1932eC9784B695520258F968b9575724af6eFa8', 18);
   // console.log(guruBalance);
-  // reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
+  reserves = await getSwapPoolsReserves(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
   totalSupply = await getSwapPoolsTotalSupply(publicAddress.oracleContractAddress, pool.tk0Address, pool.tk1Address);
   const tokenOneBalanceUsdRes = await getSwapPoolsAmountsOut(publicAddress.routerDeployedAddress, pool.tk0Address, pool.tk1Address);
   if(tokenOneBalanceUsdRes > 0) {

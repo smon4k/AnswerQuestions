@@ -727,8 +727,8 @@ export default {
      */
     inputFormChangeValue(formValue) {
 
-        // console.log(formValue);
-        const formArray = this.currentPools;
+      const formArray = this.currentPools;
+        console.log(formArray);
         let inputValue = 0;
         let outputValue = 0;
         const tokenBalance = this.computeTokenBalanceChange(formArray.tokenBalance, formArray.tokenDecimals, 18);
@@ -736,6 +736,7 @@ export default {
             this.formToTokenBlance = formValue;
             const totalSupply = this.computeTokenBalanceChange(formArray.totalSupply, formArray.tokenDecimals, 18);
             const componentOneNumber = this.computeTokenBalanceChange(formArray.reserves[0], formArray.tokenDecimals, 18);
+            console.log(componentOneNumber);
             const componentTwoNumber = this.computeTokenBalanceChange(formArray.reserves[1], formArray.tokenDecimals, 18);
             const input = formValue / totalSupply * componentOneNumber;
             const output = formValue / totalSupply * componentTwoNumber;
@@ -746,7 +747,7 @@ export default {
               INPUT: inputValue, 
               OUTPUT: outputValue
             };
-            // console.log(this.exchangeMoney);
+            console.log(this.exchangeMoney);
         } else {
           this.$emit('childFormTokenBlance', formValue);//更新父组件value值
           this.exchangeMoney = {

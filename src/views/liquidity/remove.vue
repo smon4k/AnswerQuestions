@@ -165,7 +165,7 @@
                 </el-col>
                 <el-col :span="12" class="textRight">
                     <img :src="currentPools && currentPools.logo" alt="" width="25" />
-                    <span style="color:#0096ff;">&nbsp;&nbsp;{{currentPools && currentPools.name}}</span>
+                    <span style="color:#F8DA37;">&nbsp;&nbsp;{{currentPools && currentPools.name}}</span>
                 </el-col>
             </el-row>
 
@@ -181,7 +181,7 @@
                 </el-col>
                 <el-col :span="12" class="textRight">
                     <img :src="currentPools && currentPools.logo2" alt="" width="25" />
-                    <span style="color:#0096ff;">&nbsp;&nbsp;{{currentPools && currentPools.name2}}</span>
+                    <span style="color:#F8DA37;">&nbsp;&nbsp;{{currentPools && currentPools.name2}}</span>
                 </el-col>
             </el-row>
 
@@ -198,7 +198,7 @@
                 <el-col :span="12" class="textRight">
                     <img :src="currentPools && currentPools.logo" alt="" width="25" />
                     <img :src="currentPools && currentPools.logo2" alt="" width="25" />
-                    <span style="color:#0096ff;">&nbsp;{{formTokenBlance && formTokenBlance}}</span>
+                    <span style="color:#F8DA37;">&nbsp;{{formTokenBlance && formTokenBlance}}</span>
                 </el-col>
             </el-row>
             <el-row>
@@ -327,7 +327,10 @@ export default {
       paramsUrlAddress() {
         const inputCurrency = this.$route.params.inputCurrency;
         const outputCurrency = this.$route.params.outputCurrency;
-        // console.log(inputCurrency, outputCurrency);
+        console.log(inputCurrency, outputCurrency);
+        if(inputCurrency == undefined || outputCurrency == undefined) {
+            this.$router.push({path:'/liquidity'});
+        }
         let inputSerchData = [];
         let outputSerchData = [];
         let input = undefined;
@@ -688,7 +691,7 @@ export default {
             margin: 0 auto;
             border: 1px solid #0096ff;
             .el-card {
-                background-color: #05D2FA;
+                background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                 border-radius: 24px;
                 border-color: #05D2FA;
             }
@@ -709,73 +712,72 @@ export default {
             }
             .info {
                 color: #fff;
-                /deep/ {
-                    .el-collapse {
-                        border-top: 0;
+                .el-collapse {
+                    border-top: 0;
+                }
+                img {
+                    vertical-align: middle;
+                }
+                .add-liquidity {
+                    color: #b7b7b7;
+                }
+                .amount {
+                    color: #fff;
+                    margin-bottom: 20px;
+                    .el-button--text {
+                        color: #F8DA37;
                     }
-                    img {
-                        vertical-align: middle;
+                }
+                .block {
+                    color: #fff;
+                    margin-top: 10px;
+                    padding: 16px;
+                    border: 1px solid #0096ff;
+                    border-radius: 20px;
+                    .demonstration {
+                        font-size: 50px;
+                        font-weight: 800;
                     }
-                    .add-liquidity {
-                        color: #b7b7b7;
-                    }
-                    .amount {
-                        color: #fff;
-                        margin-bottom: 20px;
-                        button {
-                            color: #45f2ff;
-                        }
-                    }
-                    .block {
-                        color: #fff;
-                        margin-top: 10px;
-                        padding: 16px;
-                        border: 1px solid #0096ff;
-                        border-radius: 20px;
-                        .demonstration {
-                            font-size: 50px;
-                            font-weight: 800;
-                        }
-                        .el-slider__runway {
+                    .el-slider__runway {
+                        height: 10px;
+                        background-color: #98bfe9;
+                        border-radius: 10px;
+                        .el-slider__bar {
                             height: 10px;
-                            background-color: #98bfe9;
-                            border-radius: 10px;
-                            .el-slider__bar {
-                                height: 10px;
-                            }
-                            .el-slider__button-wrapper {
-                                top: -12px;
-                            }
+                            background-color: #F8DA37;
                         }
-                        button {
-                            @include swapBlackSliderBgc($swapBlackSlider-dark);
-                            color: #fff;
-                            border: rgb(53, 53, 71);
-                        }
-                        button:hover {
-                            @include swapBlackHoverBgc($swapBlackHover-dark);
+                        .el-slider__button-wrapper {
+                            top: -12px;
                         }
                     }
-                    .icon-bottom {
-                        text-align: center;
-                        margin-top: 20px;
-                        font-size: 20px;
-                        .el-icon-bottom {
-                            font-weight: 800;
-                        }
-                    }
-                    .will-receive {
+                    button {
+                        @include swapBlackSliderBgc($swapBlackSlider-dark);
                         color: #fff;
-                        .row-text {
-                            color: #45f2ff;
-                        }
-                        .row-box {
-                            @include sideBarSwapInputBgc($claimCardSwapInput-dark);
-                            margin-top: 10px;
-                            border-radius: 15px;
-                            padding: 16px;
-                            line-height: 30px;
-                        }
+                        border: rgb(53, 53, 71);
+                    }
+                    button:hover {
+                        @include swapBlackHoverBgc($swapBlackHover-dark);
+                    }
+                }
+                .icon-bottom {
+                    text-align: center;
+                    margin-top: 20px;
+                    font-size: 20px;
+                    .el-icon-bottom {
+                        font-weight: 800;
+                    }
+                }
+                .will-receive {
+                    color: #fff;
+                    .row-text {
+                        color: #45f2ff;
+                    }
+                    .row-box {
+                        @include sideBarSwapInputBgc($claimCardSwapInput-dark);
+                        margin-top: 10px;
+                        border-radius: 15px;
+                        padding: 16px;
+                        line-height: 30px;
                     }
                 }
             }
@@ -820,7 +822,7 @@ export default {
             cursor: default;
             margin: 0 auto;
             // padding: 15px;
-            background-color: #05D2FA;
+            background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
             color: #fff;
             .item-bottom-box {
             padding: 15px;
@@ -856,7 +858,8 @@ export default {
                     max-width: 500px;
                     min-height: 60vh;
                     border-radius: 32px;
-                    background-color: #05D2FA;
+                    border: 2px solid #fff;
+                    background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
                     margin: 0 auto;
                     // margin-left: 45%;
                 }
