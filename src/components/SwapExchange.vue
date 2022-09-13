@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 删除流动性的时候才会有 WBNB -->
     <div class="input" v-show="pageState == 3">
-      <el-row>
+      <el-row type="flex" justify="center"> 
         <el-col :span="5">
           <el-button class="input-b">
             <div class="input-b-box" v-if="exchangeArray.INPUT !== '' && exchangeArray.INPUT >= 0">
@@ -48,7 +48,7 @@
         <el-col :span="12">
           <el-button class="input-b" @click="handleClickOpen('INPUT')" :disabled="pageState == 3 ? true : false">
             <div class="input-b-box" v-if="exchangeArray.INPUT !== '' && exchangeArray.INPUT >= 0">
-              <img size="small" :src="getFilersSwapPoolsArr(exchangeArray.INPUT).logo" width="20" />
+              <img size="small" :src="getFilersSwapPoolsArr(exchangeArray.INPUT).logo" width="20" />&nbsp;
               <span>{{getFilersSwapPoolsArr(exchangeArray.INPUT).name}}</span>
               <i v-show="pageState !== 3" class="el-icon-arrow-down el-icon--down"></i>
             </div>
@@ -95,7 +95,7 @@
         <el-col :span="12">
           <el-button class="input-b" @click="handleClickOpen('OUTPUT')" :disabled="pageState == 3 ? true : false">
             <div class="input-b-box" v-if="exchangeArray.OUTPUT !== '' && exchangeArray.OUTPUT >= 0">
-                <img size="small" :src="getFilersSwapPoolsArr(exchangeArray.OUTPUT).logo" width="20" />
+                <img size="small" :src="getFilersSwapPoolsArr(exchangeArray.OUTPUT).logo" width="20" />&nbsp;
                 <span>{{getFilersSwapPoolsArr(exchangeArray.OUTPUT).name}}</span>
                 <i v-show="pageState !== 3" class="el-icon-arrow-down el-icon--down"></i>
             </div>
@@ -128,7 +128,7 @@
     
     <!-- Select a Token -->
     <el-dialog
-      title="Select a Token"
+      :title="$t('swap:SelectCurrency')"
       :visible.sync="selectTokenopen"
       :before-close="handleSelectTokenClose"
       class="dialogClass"
@@ -140,6 +140,7 @@
           @row-click="tableRowClick"
           height="500" 
           :show-header="false"
+          :row-style="rowStyle"
         >
           <el-table-column width="30">
             <template slot-scope="scope">
@@ -151,7 +152,7 @@
           <el-table-column property="name" width="100"></el-table-column>
           <el-table-column>
             <template slot-scope="scope">
-                <span  style="float: right;">{{keepDecimalNotRounding(scope.row.tokenBalance, 16)}}</span>
+                <span  style="float: right;">{{keepDecimalNotRounding(scope.row.tokenBalance, 8, true)}}</span>
             </template>
           </el-table-column>
         </el-table>
@@ -519,7 +520,7 @@ export default {
     },
     balanceTransformation(blance) { //处理选择币种余额
       if(blance > 0) {
-        return keepDecimalNotRounding(blance, 8, true);
+        return keepDecimalNotRounding(blance, 6, true);
       } else {
         return '--';
       }
@@ -792,21 +793,28 @@ export default {
         // console.log(tokenBalance, tokenDecimals);
         return number;
     },
+    // 更改选中行背景色
+    rowStyle({ row }) {
+      if (this.name === row.name) {
+        return { 'background-color': '#F7EDED', cursor: 'pointer' };
+      }
+      return { cursor: 'pointer' };
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 @import '@/styles/color.scss';
 .container {
-  .input-box {
-    background-color: #76D6FF;
-    min-height: 60px;
-    line-height: 30px;
-    border-radius: 16px;
-    margin-top: 6px;
-    padding: 10px;
-    .input-input {
-      /deep/ {
+  /deep/ {
+    .input-box {
+      background-color: #76D6FF;
+      min-height: 60px;
+      line-height: 30px;
+      border-radius: 16px;
+      margin-top: 6px;
+      padding: 10px;
+      .input-input {
         .el-input__inner {
           // width: 0px;
           color: #fff !important;
@@ -828,127 +836,131 @@ export default {
         .el-input__inner::placeholder {
           color: #fff;
         }
+        
+      }
+      .input-max {
+        height: 30px;
+        border-radius: 10px;
+        // @include sideBarSwapInputBgc($claimCardSwapInput-light);
+        border: 1px solid #fff;
+        float: right;
+        color: #fff;
+        background-color: transparent;
       }
     }
-    .input-max {
-      height: 30px;
-      border-radius: 10px;
-      // @include sideBarSwapInputBgc($claimCardSwapInput-light);
-      border: 1px solid #fff;
-      float: right;
-      color: #fff;
-      background-color: transparent;
-    }
-  }
-  .input-b {
-    -webkit-box-align: center;
-    align-items: center;
-    border: 0px;
-    border-radius: 16px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    -webkit-box-pack: center;
-    justify-content: center;
-    letter-spacing: 0.03em;
-    padding: 0px 16px;
-    background-color: transparent;
-    @include mainFont($color-mainFont-light);
-    box-shadow: none;
-    .input-b-box {
-      font-size: 13px;
-      color: #fff;
-      display: flex;
+    .input-b {
       -webkit-box-align: center;
       align-items: center;
-      -webkit-box-pack: justify;
-      justify-content: space-between;
-      border: 2px solid #fff;
-      padding: 5px;
-      border-radius: 5px;
-    }
-    span {
-      margin-left: 5px;
-    }
-  }
-  .arrow {
-    text-align: center;
-    margin: 10px 0 10px 0;
-    button {
-      background: transparent;
-      @include sideBarSwapInputBgc($claimCardSwapInput-light);
-      padding: 9px;
-      border: 0;
-      i {
-        color: #0096ff;
-        font-weight: 800;
-      }
-    }
-  }
-
-  .textRight {
-    margin-top: 5px;
-    text-align: right;
-    padding: 0 16px;
-  }
-
-  .dialogClass {
-    /deep/ {
-      .el-dialog--center {
-        width: 90%;
-        max-width: 420px;
-        min-height: 70vh;
-        border-radius: 32px;
-        background-color: #8ED4FB;
-        // @include sideBarSwapInputBgc($claimCardSwapInput-light);
-        margin: 0 auto;
-        // margin-left: 45%;
-      }
-      .el-dialog__title{
+      border: 0px;
+      border-radius: 16px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      -webkit-box-pack: center;
+      justify-content: center;
+      letter-spacing: 0.03em;
+      padding: 0px 16px;
+      background-color: transparent;
+      @include mainFont($color-mainFont-light);
+      box-shadow: none;
+      .input-b-box {
+        font-size: 13px;
         color: #fff;
-        // float: left;
-      }
-      .el-table {
-        background-color: #8ED4FB;
-      }
-      .el-table__row {
-        background-color: #dbcafc;
-        // @include sideBarSwapInputBgc($claimCardSwapInput-dark);
-        @include mainFont($color-mainFont-light);
-      }
-      .el-table .select-row {
-        background-color: #7f8285;
-        // background: rgba(255, 255, 255, 0.16);
-        // @include selectSwapTokenBgc($selectSwapToken-dark);
-        cursor:pointer;
-        // background: #909399;
-      }
-      .el-table__body-wrapper {
-        // border-radius: 15px;
-        // background-color: #AE8BF5;
-        background-color: #8ED4FB;
-        // @include sideBarSwapInputBgc($claimCardSwapInput-light);
-      }
-      .el-table--enable-row-hover .el-table__body tr:hover>td {
-        // background-color: rgba(255, 255, 255, 0.16);
-        @include selectSwapTokenBgc($selectSwapToken-dark);
-        // @include sideBarSwapInputBgc($claimCardSwapInput-light);
-        @include mainFont($color-mainFont-light);
-      }
-      // .el-table__body tr.current-row>td.el-table__cell {
-      //   background-color: rgba(255, 255, 255, 0.16);
-      // }
-      .el-table td.el-table__cell {
-        border-bottom: 0;
-      }
-      .el-table::before {
-        z-index: 0;
+        display: flex;
+        -webkit-box-align: center;
+        align-items: center;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        // border: 2px solid #fff;
+        padding: 5px;
+        border-radius: 5px;
       }
     }
-    .balance {
-      td {
-        float: right;
-      } 
+    .arrow {
+      text-align: center;
+      margin: 10px 0 10px 0;
+      button {
+        background: transparent;
+        @include sideBarSwapInputBgc($claimCardSwapInput-light);
+        padding: 9px;
+        border: 0;
+        i {
+          color: #0096ff;
+          font-weight: 800;
+        }
+      }
+    }
+
+    .textRight {
+      margin-top: 5px;
+      text-align: right;
+      // padding: 0 16px;
+    }
+
+    .dialogClass {
+        .el-dialog--center {
+          width: 90%;
+          max-width: 420px;
+          min-height: 70vh;
+          border-radius: 32px;
+          background: linear-gradient(#00C3E9, #2D50D2); /* 标准语法*/
+          // @include sideBarSwapInputBgc($claimCardSwapInput-light);
+          margin: 0 auto;
+          // margin-left: 45%;
+        }
+        .el-dialog__headerbtn .el-dialog__close {
+          color: #fff;
+          font-weight: 800;
+        }
+        .el-dialog__title{
+          color: #fff;
+          // float: left;
+        }
+        .el-table {
+          background-color: transparent;
+          // background-color: #8ED4FB;
+        }
+        .el-table::before {
+          height: 0px;
+        }
+        .el-table__row {
+          background-color: transparent;
+          color: #fff;
+          // @include sideBarSwapInputBgc($claimCardSwapInput-dark);
+        }
+        .el-table__row:hover > td {
+          background-color: #00C3E9;
+          color: #fff;
+        }
+        .select-row:hover > td {
+          background-color: transparent;
+          color: #fff;
+        }
+        .el-table .select-row {
+          opacity: 0.5;
+          background-color: transparent;
+          // background: rgba(255, 255, 255, 0.16);
+          // @include selectSwapTokenBgc($selectSwapToken-dark);
+          cursor:pointer;
+          // background: #909399;
+        }
+        .el-table--enable-row-hover .el-table__body tr:hover>td {
+          color: #fff;
+        }
+        // .el-table__body tr.current-row>td.el-table__cell {
+        //   background-color: rgba(255, 255, 255, 0.16);
+        // }
+        .el-table td.el-table__cell {
+          border-bottom: 0;
+        }
+        .el-table::before {
+          z-index: 0;
+        }
+      .balance {
+        td {
+          float: right;
+        } 
+      }
     }
   }
 }

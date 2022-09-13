@@ -11,16 +11,6 @@ export default {
             tk0Address: '0x55d398326f99059fF775485246999027B3197955', // USDT
             tk1Address: '0xb3E1c2780B010b9188183Add05f5b81aB6ee9f0C', // SCT
         },
-        // {
-        //     id: 'SST',
-        //     poolId: 1,
-        //     logo: 'sst.png',
-        //     name: 'SST',
-        //     tokenDecimals: 18,
-        //     tokenAddress: '0xC446c2B48328e5D2178092707F8287289ED7e8D6',
-        //     tk0Address: '0xC446c2B48328e5D2178092707F8287289ED7e8D6', // H2O
-        //     tk1Address: '0x55d398326f99059fF775485246999027B3197955', // USDT
-        // },
         {
             id: 'USDT',
             poolId: 2,
