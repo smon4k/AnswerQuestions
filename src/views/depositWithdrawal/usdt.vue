@@ -428,7 +428,8 @@ export default {
                 local_balance: this.localBalance,
                 wallet_balance: this.walletBalance,
                 hash: '',
-                currency: 'usdt'
+                currency: 'usdt',
+                source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
             };
             contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 'usdt').then(async (hash) => {
                 if(hash) {

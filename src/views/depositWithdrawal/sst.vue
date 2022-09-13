@@ -436,6 +436,7 @@ export default {
                 hash: '',
                 currency: 'sst',
                 orderId: orderId,
+                source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
             };
             contractName(amount, Address.SST, this.gamesFillingAddress, 18, fillingRecordParams, 'sst', orderId).then(async (hash) => {
                 if(hash) {
