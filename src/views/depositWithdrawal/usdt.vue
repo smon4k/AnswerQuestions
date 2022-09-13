@@ -594,7 +594,7 @@ export default {
                 this.walletBalance = await getGameFillingBalance(18, this.gamesFillingAddress); //获取合约余额
                 // let SCTWalletBalance = await getGameFillingBalance(18, this.gamesSCTFillingAddress); //获取SCT合约余额
                 // let SSTWalletBalance = await getGameFillingBalance(18, this.gamesSSTFillingAddress); //获取SST合约余额
-                // console.log('链上余额：', this.walletBalance);
+                console.log('usdt链上余额：', this.walletBalance);
                 // this.USDTPlatformBalance = Number(this.localBalance) + Number(this.walletBalance);
                 // this.SCTPlatformBalance = Number(SCTLocalBalance) + Number(SCTWalletBalance);
                 // this.SSTPlatformBalance = Number(SSTLocalBalance) + Number(SSTWalletBalance);
