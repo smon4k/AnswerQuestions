@@ -164,17 +164,9 @@ export const gamesGTokenToBuyToken = function (gTokenAmt=0, buyToken='', tokenAd
   const address = __ownInstance__.$store.state.base.address;
   const contractAddress = tokenAddress || __ownInstance__.$store.state.base.gamesFillingAddress;
   const withdrawAmount = toWei(gTokenAmt, decimals);
-  let encodedABI = null;
-  let contract = null;
-  if(currency === 'usdt') {
-    contract = new web3.eth.Contract(gameFillingABI, contractAddress);
-    encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken).encodeABI();
-  } else {
-    console.log("222");
-    contract = new web3.eth.Contract(gameFillingABIV2, contractAddress);
-    // const orderIdAmount = toWei(orderId, decimals);
-    encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken, orderId).encodeABI();
-  }
+  let contract = new web3.eth.Contract(gameFillingABIV2, contractAddress);
+  let encodedABI = contract.methods.gTokenToBuyToken(withdrawAmount, buyToken, orderId).encodeABI();
+
   // let value = toWei('0.00201', decimals);
   let value = toWei('0', decimals);
 

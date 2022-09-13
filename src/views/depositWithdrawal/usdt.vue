@@ -383,6 +383,7 @@ export default {
             this.trading = true;
             let amount = 0;
             let contractName = '';
+            let orderId = '';
             //检测是否有正在执行中的交易
             await this.getIsInTradeProgress();
             // console.log(isInProgress);
@@ -401,6 +402,10 @@ export default {
                 }
                 amount = this.withdrawForm.amount;
                 contractName = gamesGTokenToBuyToken;
+                orderId = await getFillingIncreasingId();
+                if(!orderId || orderId <= 0) {
+                    this.$notify({ type: 'danger', message: '获取订单id失败' });
+                }
             }
             // let balance = await getGameFillingBalance();
             // let balance = await this.getGameFillingBalanceFun(this.activeName, amount);
@@ -429,9 +434,10 @@ export default {
                 wallet_balance: this.walletBalance,
                 hash: '',
                 currency: 'usdt',
+                orderId: orderId,
                 source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
             };
-            contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 'usdt').then(async (hash) => {
+            contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 'usdt', orderId).then(async (hash) => {
                 if(hash) {
                     if(this.activeName == 1) {//充值的话 二次检测是否充值成功
                         // await this.setDepositWithdraw(amount, hash);

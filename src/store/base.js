@@ -51,7 +51,7 @@ export default {
         // Env: window.location.host === 'localhost:8001' || window.location.host === '192.168.1.6:8001' ? 'dev' : 'prod',
         Env: 'dev',
         // gamesFillingAddress: '0xdA9A81cf2000fc4df10362bA58EF4607d82E57BE', //游戏系统-充提清算系统-合约地址
-        usdtFillingAddress: '0x079bDC8845D0C6878716A3f5219f1D0DcdF15308', //游戏系统-USDT-充提清算系统-合约地址
+        usdtFillingAddress: '0xB433036377478dD94f94e4467C14835438b648Db', //游戏系统-USDT-充提清算系统-合约地址
         sctFillingAddress: '0x8B702c622c8C56F00E41AE9E5E37eA0D45f6d6Fc', //游戏系统-SCT-充提清算系统-合约地址
         sstFillingAddress: '0x8B702c622c8C56F00E41AE9E5E37eA0D45f6d6Fc', //游戏系统-SST-充提清算系统-合约地址
     },
