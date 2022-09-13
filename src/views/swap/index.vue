@@ -8,12 +8,15 @@
         </div> -->
         <div class="info">
           <!-- 中间输入框内容 -->
+          <!-- : 更新子组件数据
+            @ 子组件更新父组件数据事件 -->
           <SwapExchange
             @childSwapPoolsClick="childSwapPoolsClick"
             @updateChildApprovedArrStatus="updateChildApprovedArrStatus"
             @updateChildExchangeMoney="updateChildExchangeMoney"
             @updateChildValuationState="updateChildValuationState"
             :childExchangeArray="exchangeArray"
+            :childExchangeMoney="exchangeMoney"
             :childApprovedArrStatus="approvedArrStatus"
             :swapPools="swapPools"
             :key="timeRefusr"
@@ -275,7 +278,7 @@ export default {
     isConnected: {
       immediate: true,
       handler(val) {
-        console.log(val);
+        // console.log(val);
         if (!val || !this.swapPools.length) {
           setTimeout(() => {
             this.$store.dispatch("swapPoolsTokenList");
@@ -390,7 +393,7 @@ export default {
                 inputSerchData = await this.swapSearchProps(this.swapPools, inputCurrency,"tokenAddress");
             }
         } else {
-            if((!this.exchangeArray.INPUT || this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT == undefined) && (this.exchangeArray.OUTPUT !== 1)) {
+            if((!this.exchangeArray.INPUT || this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT == undefined) && (this.exchangeArray.OUTPUT !== 2)) {
                 // inputSerchData = this.swapSearchProps(this.swapPools, publicAddress.DEFANT_CURRENCY, "name");
                 inputSerchData = await this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
                 if (inputSerchData && inputSerchData[0]) {
@@ -889,7 +892,7 @@ export default {
 </style>
 <style lang="scss">
     .exchangeButton {
-         background: transparent;
+        background: transparent;
         background: url("../../assets/answer/swap-submit-bg.png") no-repeat center;
         background-size: contain;
         text-align: center;

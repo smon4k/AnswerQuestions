@@ -23,7 +23,7 @@ export default {
         // },
         {
             id: 'USDT',
-            poolId: 1,
+            poolId: 2,
             logo: 'usdt.png',
             name: 'USDT',
             tokenDecimals: 18,

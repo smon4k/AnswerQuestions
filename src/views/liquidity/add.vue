@@ -34,12 +34,16 @@
         </div>
         <div class="info">
             <!-- 中间输入框内容 -->
+            <!-- : 更新子组件数据
+            @ 子组件更新父组件数据事件 -->
             <SwapExchange
                 @childSwapPoolsClick="childSwapPoolsClick"
-                @childApprovedArrStatus="childApprovedArrStatus"
+                @updateChildApprovedArrStatus="updateChildApprovedArrStatus"
                 @updateChildExchangeMoney="updateChildExchangeMoney"
                 @updateChildValuationState="updateChildValuationState"
                 :childExchangeArray="exchangeArray"
+                :childApprovedArrStatus="approvedArrStatus"
+                :childExchangeMoney="exchangeMoney"
                 :swapPools="swapPools"
                 :key="timeRefusr"
                 :pageState="1"
@@ -70,6 +74,13 @@
         </div>
       </el-card>
     </div>
+
+    <van-overlay :show="loadingShow" @click="loadingShow = false">
+        <div style="display: flex;align-items: center;justify-content: center;height: 100%;">
+            <van-loading size="24px" vertical color="#fff">{{ $t('question:DataLoading') }}</van-loading>
+        </div>
+    </van-overlay>
+
   </div>
 </template>
 <script>
@@ -92,7 +103,10 @@ export default {
             INPUT: undefined,
             OUTPUT: undefined,
         },
-        exchangeMoney: {},
+        exchangeMoney: {
+            INPUT: '',
+            OUTPUT: '',
+        },
         approvedArrStatus: { //是否批准
             INPUT: false,
             OUTPUT: false,
@@ -100,6 +114,7 @@ export default {
         priceRefreshState: true, //价格刷新状态
         timeRefusr: new Date().getTime(),
         isFirstEnter: true, //是否首次加载
+        loadingShow: true,
     };
   },
   activated() { //页面进来
@@ -122,7 +137,7 @@ export default {
     isConnected: {
       immediate: true,
       handler(val) {
-        if (val && !this.swapPools.length) {
+        if (!val || !this.swapPools.length) {
           setTimeout(() => {
             this.$store.dispatch("swapPoolsTokenList");
 
@@ -136,37 +151,37 @@ export default {
           }, 300);
         }
       },
-      deep: true
     },
     swapPools: {
         immediate: true,
         handler(val) {
-            if(this.isFirstEnter) { //第一次刷新页面获取一次
-                this.paramsUrlAddress();
-            }
+            // if(this.isFirstEnter) { //第一次刷新页面获取一次
+            // }
+            this.paramsUrlAddress();
             if(val && val.length > 0) {
                 this.isFirstEnter = false;
+                this.loadingShow = false;
             }
-            let inputAllowance;
-            let outputAllowance;
-            if(this.exchangeArray.INPUT >= 0) {
-                const inputAllowanceNum = this.getFilersSwapPoolsArr(this.exchangeArray.INPUT).allowance;
-                // console.log(inputAllowanceNum);
-                if(inputAllowanceNum && inputAllowanceNum > 0) {
-                    inputAllowance = true;
-                }
-            }
-            if(this.exchangeArray.OUTPUT >= 0) {
-                const inputAllowanceNum = this.getFilersSwapPoolsArr(this.exchangeArray.OUTPUT).allowance;
-                if(inputAllowanceNum && inputAllowanceNum > 0) {
-                    outputAllowance = true;
-                }
-            }
+            // let inputAllowance;
+            // let outputAllowance;
+            // if(this.exchangeArray.INPUT >= 0) {
+            //     const inputAllowanceNum = this.getFilersSwapPoolsArr(this.exchangeArray.INPUT).allowance;
+            //     // console.log(inputAllowanceNum);
+            //     if(inputAllowanceNum && inputAllowanceNum > 0) {
+            //         inputAllowance = true;
+            //     }
+            // }
+            // if(this.exchangeArray.OUTPUT >= 0) {
+            //     const inputAllowanceNum = this.getFilersSwapPoolsArr(this.exchangeArray.OUTPUT).allowance;
+            //     if(inputAllowanceNum && inputAllowanceNum > 0) {
+            //         outputAllowance = true;
+            //     }
+            // }
 
-            this.approvedArrStatus = {
-                INPUT: inputAllowance,
-                OUTPUT: outputAllowance,
-            };
+            // this.approvedArrStatus = {
+            //     INPUT: inputAllowance,
+            //     OUTPUT: outputAllowance,
+            // };
             // this.isFirstEnter = false;
             // console.log(this.approvedArrStatus); 
             // this.timeRefusr = new Date().getTime();
@@ -193,17 +208,18 @@ export default {
     updateChildValuationState(val) {
         this.valuationState = val;
     },
-    childApprovedArrStatus(value, str) {
-      //更像子组件批准状态
-    //   console.log(value);
-      if (str === "INPUT") {
-        this.approvedArrStatus.INPUT = value;
-      } else {
-        this.approvedArrStatus.OUTPUT = value;
-      }
+    // childApprovedArrStatus(value, str) { //更像子组件批准状态 暂时未使用
+    //   if (str === "INPUT") {
+    //     this.approvedArrStatus.INPUT = value;
+    //   } else {
+    //     this.approvedArrStatus.OUTPUT = value;
+    //   }
+    // },
+    async updateChildApprovedArrStatus(approvedArrStatus) {//更像子组件批准状态
+      this.approvedArrStatus = approvedArrStatus
     },
     //获取地址栏对应值
-    paramsUrlAddress() {
+    async paramsUrlAddress() {
         const inputCurrency = this.$route.query.inputCurrency;
         const outputCurrency = this.$route.query.outputCurrency;
         // console.log(inputCurrency);
@@ -226,15 +242,30 @@ export default {
                 inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false
                 // console.log(inputAllowance);
             }
-        }
-        else {
-            changeURLPar(window.location.href, "inputCurrency", Address.USDT);
-            inputSerchData = this.swapSearchProps(this.swapPools, Address.USDT, 'tokenAddress');
-            if (inputSerchData && inputSerchData[0]) {
-                input = inputSerchData[0].poolId;
-                inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false
-                // console.log(inputAllowance);
+        } else {
+            if((!this.exchangeArray.INPUT || this.exchangeArray.INPUT == '' || this.exchangeArray.INPUT == undefined) && (this.exchangeArray.OUTPUT !== 2)) {
+                inputSerchData = await this.swapSearchProps(this.swapPools, Address.BUSDT, "tokenAddress");
+                if (inputSerchData && inputSerchData[0]) {
+                    input = inputSerchData[0].poolId;
+                    inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false;
+                    console.log(inputSerchData[0]);
+                }
+            } else {
+                input = this.exchangeArray.INPUT;
+                inputAllowance = this.approvedArrStatus.INPUT;
+                if(input >= 0 && (!inputAllowance || inputAllowance == undefined)) {
+                    inputSerchData = this.getFilersSwapPoolsArr(input);
+                    inputAllowance = Number(inputSerchData.allowance) > 0 ? true : false;
+                }
             }
+
+            // changeURLPar(window.location.href, "inputCurrency", Address.USDT);
+            // inputSerchData = this.swapSearchProps(this.swapPools, Address.USDT, 'tokenAddress');
+            // if (inputSerchData && inputSerchData[0]) {
+            //     input = inputSerchData[0].poolId;
+            //     inputAllowance = Number(inputSerchData[0].allowance) > 0 ? true : false
+            //     // console.log(inputAllowance);
+            // }
         }
         if (outputCurrency && outputCurrency !== undefined) {
             // console.log("111");
@@ -247,8 +278,13 @@ export default {
                 ouput = outputSerchData[0].poolId;
                 ouputAllowance = Number(outputSerchData[0].allowance > 0) ? true : false;
             }
+        } else {
+            if(this.exchangeArray.OUTPUT !== '' && this.exchangeArray.OUTPUT >= 0) {
+                ouput = this.exchangeArray.OUTPUT;
+                ouputAllowance = this.approvedArrStatus.OUTPUT;
+           }
         }
-        // console.log(input);
+        console.log(inputAllowance, ouputAllowance);
         this.exchangeArray = {
             INPUT: input, 
             OUTPUT: ouput
@@ -256,6 +292,10 @@ export default {
         this.approvedArrStatus = {
             INPUT: inputAllowance, 
             OUTPUT: ouputAllowance
+        };
+        this.exchangeMoney = {
+            INPUT: this.exchangeMoney.INPUT, 
+            OUTPUT: this.exchangeMoney.OUTPUT
         };
         this.timeRefusr = new Date().getTime();
         // console.log(inputAllowance);
@@ -269,7 +309,7 @@ export default {
         this.selectTokenOpen = false;
     },
     //模糊搜索
-    swapSearchProps(list, keyWord, name) {
+    async swapSearchProps(list, keyWord, name) {
         let arr = [];
         for (let i = 0; i < list.length; i++) {
             let flag = false

@@ -20,7 +20,7 @@ export const constantRoutes = [
         path: 'home',
         name: 'home',
         component: resolve => require(['@/views/home/index'], resolve),
-        meta: { title: 'home', keepAlive: true, isBottomNav: false, }
+        meta: { title: 'home', keepAlive: false, isBottomNav: false, }
       },
       {
         path: 'bank',

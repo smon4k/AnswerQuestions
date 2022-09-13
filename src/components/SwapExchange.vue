@@ -220,13 +220,14 @@ export default {
     },
     exchangeMoney: {
       handler(newVal, oldVal) {
+        // console.log(newVal);
         this.$emit('updateChildExchangeMoney', newVal);
       },
       deep: true
     },
      approvedArrStatus: {
         handler(newVal, oldVal) {
-          console.log(newVal);
+          // console.log(newVal);
           this.$emit('updateChildApprovedArrStatus', newVal);
         },
         deep: true
@@ -294,6 +295,7 @@ export default {
       // this.exchangeMoney = this.childExchangeMoney;
     }
     if(this.childExchangeMoney) {
+      // console.log(this.childExchangeMoney);
       this.exchangeMoney = this.childExchangeMoney;
     }
     // console.log(this.childApprovedArrStatus);
@@ -303,7 +305,6 @@ export default {
     if(this.formTokenBlance && this.formTokenBlance > 0) {
       this.formToTokenBlance = this.formTokenBlance;
     }
-    // console.log(this.pageState);
   },
   methods: {
     handleClickOpen(key) { //打开选择币种弹框
@@ -580,14 +581,24 @@ export default {
     },
     //To Value 触发事件
     async inputChangeValue(toValue) {
+      console.log("To Value 触发事件");
         // const toValue = event.target.value;
         // const toValue = "0.00001";
         const inputArray = this.getFilersSwapPoolsArr(this.exchangeArray.INPUT);
-        // console.log(inputArray);
+        let tk0Address = '';
+        let tk1Address = '';
+        if(inputArray.tokenAddress.toUpperCase() === inputArray.tk0Address.toUpperCase()) {
+          tk0Address = inputArray.tk0Address;
+          tk1Address = inputArray.tk1Address;
+        } else {
+          tk0Address = inputArray.tk1Address;
+          tk1Address = inputArray.tk0Address;
+        }
         // const outPrice = inputArray.tokenBalanceUsd;
-        let outPrice = await getTokenAmountsoutPrice(inputArray.tk0Address, inputArray.tk1Address, toValue);
+        let outPrice = await getTokenAmountsoutPrice(tk0Address, tk1Address, toValue);
         let formValue = 0;
         // console.log(inputArray);
+        console.log(outPrice);
         if (toValue >= 0) {
             if (this.exchangeArray.OUTPUT >= 0) {
                 // formValue = toValue > 0 ? keepDecimalNotRounding(toValue * outPrice, 16, true) : 0;
@@ -653,10 +664,19 @@ export default {
     },
     //Form Value 触发事件
     async outputChangeValue(fromValue) {
+      const outputArray = this.getFilersSwapPoolsArr(this.exchangeArray.OUTPUT);
         // console.log(outputArray);
-        const outputArray = this.getFilersSwapPoolsArr(this.exchangeArray.OUTPUT);
         // const inputPrice = outputArray.tokenBalanceUsd;
-        let inputPrice = await getTokenAmountsoutPrice(outputArray.tk1Address, outputArray.tk0Address, fromValue);
+        let tk0Address = '';
+        let tk1Address = '';
+        if(outputArray.tokenAddress.toUpperCase() === outputArray.tk1Address.toUpperCase()) {
+          tk0Address = outputArray.tk1Address;
+          tk1Address = outputArray.tk0Address;
+        } else {
+          tk0Address = outputArray.tk0Address;
+          tk1Address = outputArray.tk1Address;
+        }
+        let inputPrice = await getTokenAmountsoutPrice(tk0Address, tk1Address, fromValue);
         // let inputPrice = await getTokenAmountsIntPrice(outputArray.tk1Address, outputArray.tk0Address, fromValue);
         // let fromValue = event.target.value;
         let toValue = 0;
