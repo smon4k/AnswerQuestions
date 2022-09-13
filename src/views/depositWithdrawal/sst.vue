@@ -211,11 +211,11 @@
 import axios from 'axios'
 import { mapState } from "vuex";
 import { approve, gamesBuyTokenTogToken, gamesGTokenToBuyToken } from "@/wallet/trade";
-import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus} from "@/wallet/serve";
+import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus, getFillingIncreasingId} from "@/wallet/serve";
 import { keepDecimalNotRounding } from "@/utils/tools";
 import Address from '@/wallet/address.json'
 export default {
-  name: "Index",
+  name: "sst",
   data() {
     return {
         tabActive: 2,
@@ -380,9 +380,11 @@ export default {
         // console.log(this.$refs[formName]);
         this.$refs[formName].validate().then(async ()=>{
           if (!this.trading) {
+            console.log("444");
             this.trading = true;
             let amount = 0;
             let contractName = '';
+            let orderId = '';
             //检测是否有正在执行中的交易
             await this.getIsInTradeProgress();
             // console.log(isInProgress);
@@ -401,6 +403,10 @@ export default {
                 }
                 amount = this.withdrawForm.amount;
                 contractName = gamesGTokenToBuyToken;
+                orderId = await getFillingIncreasingId();
+                if(!orderId || orderId <= 0) {
+                    this.$notify({ type: 'danger', message: '获取订单id失败' });
+                }
             }
             // let balance = await getGameFillingBalance();
             // let balance = await this.getGameFillingBalanceFun(this.activeName, amount);
@@ -428,9 +434,10 @@ export default {
                 local_balance: this.localBalance,
                 wallet_balance: this.walletBalance,
                 hash: '',
-                currency: 'sst'
+                currency: 'sst',
+                orderId: orderId,
             };
-            contractName(amount, Address.SST, this.gamesFillingAddress, 18, fillingRecordParams, 'sst').then(async (hash) => {
+            contractName(amount, Address.SST, this.gamesFillingAddress, 18, fillingRecordParams, 'sst', orderId).then(async (hash) => {
                 if(hash) {
                     if(this.activeName == 1) {//充值的话 二次检测是否充值成功
                         // await this.setDepositWithdraw(amount, hash);
@@ -453,7 +460,7 @@ export default {
             return false;
           }
         }).catch(err => {
-            console.log('error submit!!');
+            console.log(err);
             return false;
         });
     },
@@ -854,6 +861,11 @@ export default {
                 }
                 .van-field__control {
                     color: #fff;
+                }
+            }
+            .van-field--error {
+                .van-field__control {
+                    color: red !important;
                 }
             }
             .van-input__inner {

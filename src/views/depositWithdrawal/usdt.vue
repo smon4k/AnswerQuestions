@@ -862,6 +862,11 @@ export default {
                     color: #fff;
                 }
             }
+            .van-field--error {
+                .van-field__control {
+                    color: red !important;
+                }
+            }
             .van-input__inner {
                 background-color: #333257;
                 // color: #fff;
