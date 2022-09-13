@@ -247,7 +247,10 @@ export default {
         INPUT: "",
         OUTPUT: "",
       },
-      exchangeMoney: {},
+      exchangeMoney: {
+        INPUT: "",
+        OUTPUT: "",
+      },
       valuationState: 'OUTPUT',
       approvedArrStatus: {
         ////是否批准
