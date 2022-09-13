@@ -474,7 +474,8 @@ export default {
             local_balance: this.localBalance,
             wallet_balance: this.walletBalance,
             currency: 'usdt',
-            hash: hash
+            hash: hash,
+            source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
         }).then((json) => {
             if (json && json.code == 10000) {
                 this.getUserInfo(true);
