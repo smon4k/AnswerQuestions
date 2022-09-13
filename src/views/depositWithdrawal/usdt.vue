@@ -211,7 +211,7 @@
 import axios from 'axios'
 import { mapState } from "vuex";
 import { approve, gamesBuyTokenTogToken, gamesGTokenToBuyToken } from "@/wallet/trade";
-import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus} from "@/wallet/serve";
+import {getBalance,isApproved, getGameFillingBalance, saveNotifyStatus, getGameFillingWithdrawStatus, setDepWithdrawStatus, getFillingIncreasingId} from "@/wallet/serve";
 import { keepDecimalNotRounding } from "@/utils/tools";
 import Address from '@/wallet/address.json'
 export default {
