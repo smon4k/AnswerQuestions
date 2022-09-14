@@ -9,7 +9,7 @@
             </div>
             <div class="score-income">
                 <!-- <span>本次答题总收益{{ capped_num }} SCT，您获得{{ award_rate }}%的收益{{ toFixed(award_num, 2) }}SCT</span> -->
-                <span>{{ $t('question:answerResult-04', {capped_num: capped_num}) }}</span>
+                <span>{{ $t('question:answerResult-04', {capped_num: toFixed(capped_num, 2)}) }}</span>
                 <br>
                 <span>{{ $t('question:answerResult-05', {award_rate: award_rate, award_num: toFixed(award_num, 2)}) }}</span>
             </div>

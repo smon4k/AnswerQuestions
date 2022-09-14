@@ -84,7 +84,7 @@
     "answerResult-01": "您答对了{{num}}题",
     "answerResult-02": "得到了{{num}}分",
     "answerResult-03": "用时{{num}}秒",
-    "answerResult-04": "本次答题总收益{{ capped_num }} SCT",
+    "answerResult-04": "本次答题总收益{{ capped_num }}SCT",
     "answerResult-05": "您获得{{ award_rate }}%的收益{{ award_num }}SCT",
     "buyToRevive": "购买进行复活",
     "DataLoading": "数据加载中...",
