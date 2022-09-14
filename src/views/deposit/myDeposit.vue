@@ -103,7 +103,7 @@ export default {
                     address: this.address,
                 };
             }
-            get(this.apiUrl + "/Answer/Product/getMyProductList", ServerWhere, json => {
+            get(this.apiUrl + "/Api/Product/getMyProductList", ServerWhere, json => {
                 if (json.code == 10000) {
                     this.tableData = json.data.lists;
                     this.total = json.data.count;

@@ -168,7 +168,7 @@ export default {
                     page: this.page,
                 };
             }
-            axios.get(this.apiUrl + "/Answer/Award/getMiningRankingAwardList", {
+            axios.get(this.apiUrl + "/Api/Award/getMiningRankingAwardList", {
                 params: ServerWhere
             }).then((json) => {
                 console.log(json);

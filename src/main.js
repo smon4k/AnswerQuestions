@@ -177,7 +177,7 @@ i18next.use(XHR).use(LngDetector).init({
   ns: ['public', 'nav', 'question', 'swap', 'liquidity'],
   defaultNS: 'public',
   backend: {
-      loadPath: '../static/locales/{{lng}}/{{ns}}.json'
+      loadPath: '/static/locales/{{lng}}/{{ns}}.json'
   },
   detection: {
       // order and from where user language should be detected

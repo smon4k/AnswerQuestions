@@ -7,12 +7,12 @@ const path = require('path')
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    // index: path.resolve(__dirname, '../../../application/index/view/index/index.html'),
+    // index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../../../application/index/view/index/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    // assetsPublicPath: '/SwanlakeWeb/dist/',
-    assetsPublicPath: './',
+    assetsPublicPath: '/AnswerQuestions/dist/',
+    // assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -28,11 +28,12 @@ module.exports = {
   },
   test: {
     env: require('./dev.env'),
-    index: path.resolve(__dirname, '../test/index.html'),
-    // index: path.resolve(__dirname, '../../../application/index/view/index/test.html'),
+    // index: path.resolve(__dirname, '../test/index.html'),
+    index: path.resolve(__dirname, '../../../application/index/view/index/test.html'),
     assetsRoot: path.resolve(__dirname, '../test'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: './',
+    assetsPublicPath: '/AnswerQuestions/test/',
+    // assetsPublicPath: './',
     productionSourceMap: true,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.
@@ -53,16 +54,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      "/Answer": {
-        target: "http://www.swan.com",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/Answer": "/Answer"
-        },
-        timeout: 600000,
-      },
       "/Api": {
-        target: "http://www.swan.com",
+        target: "http://www.onestop.com",
         changeOrigin: true,
         pathRewrite: {
           "^/Api": "/Api"

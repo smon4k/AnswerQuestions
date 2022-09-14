@@ -127,7 +127,7 @@ export default {
                 };
             }
             if(this.userId) {
-                axios.get(this.apiUrl + "/Answer/Ticket/getUserTicketTodayAward", {
+                axios.get(this.apiUrl + "/Api/Ticket/getUserTicketTodayAward", {
                     params: ServerWhere
                 }).then((json) => {
                     this.loading = false;

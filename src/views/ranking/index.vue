@@ -183,7 +183,7 @@ export default {
         },
         getCountRankingData() {
             this.loadingShow = true;
-            axios.get(this.apiUrl + "/Answer/question/getCountRankingData", {
+            axios.get(this.apiUrl + "/Api/question/getCountRankingData", {
                 params: {
                     userId: this.userId,
                 }
@@ -219,7 +219,7 @@ export default {
                 };
             }
             if(this.userId) {
-                axios.get(this.apiUrl + "/Answer/question/getUserTodayLeaderboardList", {
+                axios.get(this.apiUrl + "/Api/question/getUserTodayLeaderboardList", {
                     params: ServerWhere
                 }).then((json) => {
                     console.log(json);

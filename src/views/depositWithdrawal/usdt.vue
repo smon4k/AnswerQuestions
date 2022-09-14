@@ -435,7 +435,7 @@ export default {
                 hash: '',
                 currency: 'usdt',
                 orderId: orderId,
-                source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
+                source: 1, //渠道： 1：一站到底
             };
             contractName(amount, Address.BUSDT, this.gamesFillingAddress, 18, fillingRecordParams, 'usdt', orderId).then(async (hash) => {
                 if(hash) {
@@ -482,7 +482,7 @@ export default {
             wallet_balance: this.walletBalance,
             currency: 'usdt',
             hash: hash,
-            source: 3, //渠道： 1：天鹅湖 2：短视频 3：一站到底
+            source: 1, //渠道： 1：一站到底
         }).then((json) => {
             if (json && json.code == 10000) {
                 this.getUserInfo(true);
@@ -578,7 +578,7 @@ export default {
         }).then(async (json) => {
             console.log(json);
             if (json.code == 10000) {
-                this.localBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
+                this.localBalance = keepDecimalNotRounding(json.data.usdt_local_balance, 4, true);
                 // let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
                 // let SSTLocalBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
                 // this.csBalance = json.data.csBalance;
@@ -631,7 +631,7 @@ export default {
             }, 100)
         }).catch((error) => {
             console.log(error);
-            this.$notify({ type: 'danger', message: error });(error);
+            this.$notify({ type: 'danger', message: error });
         });
     },
     async getIsInTheGame() { //获取是否打赏中 调用GS第三方接口获取
@@ -662,7 +662,7 @@ export default {
             }
             return false;
         }).catch((error) => {
-            this.$notify({ type: 'danger', message: error });(error);
+            this.$notify({ type: 'danger', message: error });
         });
     },
     async getIsInTradeProgress() { //实时 获取是否有交易正在进行中

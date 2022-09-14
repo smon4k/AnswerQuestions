@@ -168,7 +168,7 @@ export default {
                 this.username = json.data.username;
                 this.nickname = json.data.nickname;
                 this.avatar = json.data.avatar;
-                this.usdt_balance = Number(json.data.local_balance) + Number(json.data.wallet_balance);
+                this.usdt_balance = Number(json.data.usdt_local_balance) + Number(json.data.usdt_wallet_balance);
                 this.sct_balance = Number(json.data.sct_local_balance) + Number(json.data.sct_wallet_balance);
                 this.sst_balance = Number(json.data.sst_local_balance) + Number(json.data.sst_wallet_balance);
                 setTimeout(() => {
@@ -186,7 +186,7 @@ export default {
     startAnswer() { //跳转我的订单也
         if(this.userId) {
             get(
-              this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
+              this.apiUrl + "/Api/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
                 if (json.code == 10000) {
                   if (json.data) {
                       if (json.data == 1 || json.data == 2) {

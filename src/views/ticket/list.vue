@@ -203,7 +203,7 @@ export default {
                 page: this.currPage,
             };
             this.loadingShow = true;
-            axios.get(this.apiUrl + "/Answer/Ticket/getTicketList", {
+            axios.get(this.apiUrl + "/Api/Ticket/getTicketList", {
                 params: ServerWhere
             }).then((json) => {
                 this.loading = false;

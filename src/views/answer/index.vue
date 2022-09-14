@@ -199,7 +199,7 @@ export default {
   components: {},
   methods: {
     getQuestionList() {
-      get(this.apiUrl + "/Answer/question/getUserQuestionList", {
+      get(this.apiUrl + "/Api/question/getUserQuestionList", {
           userId: this.userId,
           language: this.$i18n.i18next.language,
         }, (json) => {
@@ -299,7 +299,7 @@ export default {
     },
     async getUserTodayIsAnswer() {
         if(this.userId) {
-            get(this.apiUrl + "/Answer/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
+            get(this.apiUrl + "/Api/question/getUserTodayIsAnswer", {userId: this.userId}, (json) => {
                 if (json.code == 10000) {
                   if (json.data) {
                       if (json.data == 3) {
@@ -326,7 +326,7 @@ export default {
       this.loadingShow = true;
         // return false;
       setTimeout(() => {
-        post(this.apiUrl + "/Answer/question/calcQuestionAnswer", {
+        post(this.apiUrl + "/Api/question/calcQuestionAnswer", {
             userId: this.userId,
             answers: this.userAnswerList,
             times: this.userTime,

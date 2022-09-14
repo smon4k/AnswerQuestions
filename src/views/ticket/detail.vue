@@ -212,11 +212,11 @@ export default {
             // this.SCTPrice = 1;
         },
         getTicketDetail() {
-            let url = this.apiUrl + "/Answer/Ticket/getTicketDetail";
+            let url = this.apiUrl + "/Api/Ticket/getTicketDetail";
             if(this.type == 1) {
-                url = this.apiUrl + "/Answer/Ticket/getTicketDetail";
+                url = this.apiUrl + "/Api/Ticket/getTicketDetail";
             } else {
-                url = this.apiUrl + "/Answer/Ticket/getUserTicketDetail";
+                url = this.apiUrl + "/Api/Ticket/getUserTicketDetail";
             }
             axios.get(url, {
                 params: {
@@ -293,7 +293,7 @@ export default {
             // }
             this.loading = true;
             setTimeout(() => {
-                post(this.apiUrl + '/Answer/Ticket/startBuyTicket', { 
+                post(this.apiUrl + '/Api/Ticket/startBuyTicket', { 
                         userId: this.userId,
                         ticket_id: this.ticketId, 
                         insurance_amount: this.insurance_amount,
@@ -324,7 +324,7 @@ export default {
             }
             this.loading = true;
             setTimeout(() => {
-                post(this.apiUrl + '/Answer/Ticket/startRedemptionTicket', { 
+                post(this.apiUrl + '/Api/Ticket/startRedemptionTicket', { 
                         userId: this.userId,
                         ticket_id: this.ticketId, 
                         user_ticket_id: this.userTicketId,

@@ -278,7 +278,7 @@ export default {
                 };
             }
             if(this.userId) {
-                axios.get(this.apiUrl + "/Answer/Ticket/getMyTicketList", {
+                axios.get(this.apiUrl + "/Api/Ticket/getMyTicketList", {
                     params: ServerWhere
                 }).then((json) => {
                     this.loading = false;
@@ -320,7 +320,7 @@ export default {
                 message: '门票只能开启一张，确认切换吗？',
             })
             .then(() => {
-                axios.get(this.apiUrl + "/Answer/Ticket/startTicket", {
+                axios.get(this.apiUrl + "/Api/Ticket/startTicket", {
                     params: {
                         userId: this.userId,
                         ticket_id: row.ticket_id,

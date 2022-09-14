@@ -238,7 +238,7 @@ export default {
                 };
             }
             if(this.userId) {
-                axios.get(this.apiUrl + "/api/Award/getUserAwardList", {
+                axios.get(this.apiUrl + "/Api/Award/getUserAwardList", {
                     params: ServerWhere
                 }).then((json) => {
                     this.loading = false;
@@ -286,7 +286,7 @@ export default {
                     userId: this.userId,
                 };
             }
-            axios.get(this.apiUrl + "/api/Award/getUserNotesAwardList", {
+            axios.get(this.apiUrl + "/Api/Award/getUserNotesAwardList", {
                 params: ServerWhere
             }).then((json) => {
                 console.log(json);

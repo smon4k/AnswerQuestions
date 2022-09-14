@@ -109,7 +109,7 @@ export default {
                     product_id: this.product_id,
                 };
             }
-            get(this.apiUrl + "/Answer/Product/getMyProductUserDetailsList", ServerWhere, json => {
+            get(this.apiUrl + "/Api/Product/getMyProductUserDetailsList", ServerWhere, json => {
                 if (json.code == 10000) {
                     this.tableData = json.data.lists;
                     this.total = json.data.count;

@@ -165,7 +165,7 @@ export default {
         }).then(async (json) => {
             console.log(json);
             if (json.code == 10000) {
-                this.localBalance = keepDecimalNotRounding(json.data.local_balance, 4, true);
+                this.localBalance = keepDecimalNotRounding(json.data.usdt_local_balance, 4, true);
                 let SCTLocalBalance = keepDecimalNotRounding(json.data.sct_local_balance, 4, true);
                 let SSTLocalBalance = keepDecimalNotRounding(json.data.sst_local_balance, 4, true);
                 // this.csBalance = json.data.csBalance;
@@ -202,7 +202,7 @@ export default {
             }, 100)
         }).catch((error) => {
             console.log(error);
-            this.$notify({ type: 'danger', message: error });(error);
+            this.$notify({ type: 'danger', message: error });
         });
     },
     onReturnLeft() { //返回上一页

@@ -110,7 +110,7 @@ export default {
                     spinner: 'van-icon-loading',
                     background: 'rgba(0, 0, 0, 0.7)'
                 });
-                get(this.apiUrl + "/Answer/question/buyResurrection", {
+                get(this.apiUrl + "/Api/question/buyResurrection", {
                     userId: this.userId,
                 }, (json) => {
                     if (json.code == 10000) {
